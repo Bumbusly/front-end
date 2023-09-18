@@ -3,13 +3,12 @@ import "./RegisterViewStyle.scss";
 import LineDivision from "../../components/VerticalDividing.vue"
 import YellowButton from "../../components/YellowButton.vue"
 import TransparentButton from "../../components/TransparentButton.vue"
-
 </script>
 
 <template>
   <div id="main-container" class="w-screen h-screen flex justify-center align-center items-center">
-    <div class="background w-screen lg:h-screen absolute h-4/6 lg:top-0 -top-52"></div>
-    <div id="register-container" class="w-[374px] m-1 bg-white rounded-2xl lg:border border-yellow-800 px-7 py-5">
+    <div class="background w-screen sm:h-screen absolute h-4/6 sm:top-0 -top-52"></div>
+    <div id="register-container" class="w-[374px] m-1 bg-white rounded-2xl sm:border border-yellow-800 px-7 py-5">
       <div id="register-container__top" class="flex flex-col gap-6">
         <div id="register-header" class="flex flex-col gap-4">
           <div id="register-header__title" class="flex flex-row justify-between align-center items-center">
@@ -70,7 +69,7 @@ import TransparentButton from "../../components/TransparentButton.vue"
               </svg>
             </div>
           </div>
-          <YellowButton text="Confirm"></YellowButton>
+          <YellowButton text="Signup"></YellowButton>
           <div class="flex items-center mb-4">
             <input id="terms-acknowledge" type="checkbox" value=""
               class="w-6 h-6 text-yellow-600 bg-yellow-100 border-yellow-300 rounded-xl focus:ring-yellow-500 focus:ring-2 accent-yellow-500">
@@ -89,7 +88,7 @@ import TransparentButton from "../../components/TransparentButton.vue"
       </div>
       <div id="register-container__bottom" class="flex flex-col gap-2">
         <LineDivision text="Already have an account?"></LineDivision>
-        <TransparentButton text="Signup"></TransparentButton>
+        <TransparentButton text="Login" link="login"></TransparentButton>
       </div>
     </div>
   </div>
