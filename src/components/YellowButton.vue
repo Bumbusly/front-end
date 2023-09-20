@@ -1,10 +1,20 @@
 
 <script setup lang="ts">
-defineProps(['text'])
+defineProps({
+    text: String,
+    link: String
+})
 </script>
 
 <template>
-    <button
+    <RouterLink v-if="link != null" :to="link">
+        <button
+            class="w-full py-[10px] text-sm rounded-lg text-white border border-1  bg-yellow-500 border-yellow-300 hover:text-yellow-100 hover:bg-yellow-400 hover:border-yellow-500">
+            {{ text }}
+        </button>
+    </RouterLink>
+
+    <button v-if="link == null"
         class="w-full py-[10px] text-sm rounded-lg text-white border border-1  bg-yellow-500 border-yellow-300 hover:text-yellow-100 hover:bg-yellow-400 hover:border-yellow-500">
         {{ text }}
     </button>

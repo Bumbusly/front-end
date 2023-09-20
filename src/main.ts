@@ -1,3 +1,4 @@
+// import general styles
 import './assets/styles/main.css'
 
 // import custom components
