@@ -1,12 +1,12 @@
 <p align="center">
   <a href="https://mosfazli-x.github.io/bumbusly/" target="_blank">
-    <img alt="Bumbusly Logo" width="150" src="https://raw.githubusercontent.com/mosfazli-x/bumbusly/master/src/assets/media/images/Logo/Bumbusly.png">
+    <img alt="Bumbusly Logo" width="150" src="https://is3-ssl.mzstatic.com/image/thumb/Purple122/v4/11/2c/33/112c336d-d35b-6a01-29b4-d90b59339ec1/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.jpg">
   </a>
 </p>
 <h2 align="center">Bumbusly - A platform for cryptocurrency trading</h2>
 
 ### ▶️ Demo:
-Try it out in the [Demo](https://mosfazli-x.github.io/bumbusly/)
+Try it out in the [Demo](https://mosfazli-x.github.io/bumbusly/) **(Demo is unavailable when front-end project is private !)**
 
 <br>
 
@@ -33,3 +33,6 @@ row | tools | version
 <br>
 
 ### ➕ Add a Todo section:
+Login Screen
+Register Screen
+
