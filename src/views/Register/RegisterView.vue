@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import "./RegisterViewStyle.scss";
-import LineDivision from "../../components/VerticalDividing.vue"
-import YellowButton from "../../components/YellowButton.vue"
-import TransparentButton from "../../components/TransparentButton.vue"
 </script>
 
 <template>
@@ -156,7 +153,7 @@ import TransparentButton from "../../components/TransparentButton.vue"
               </div>
             </div>
           </div>
-          <YellowButton text="Signup"></YellowButton>
+          <yellow-button text="Signup"></yellow-button>
           <div class="flex items-center mb-4">
             <input id="terms-acknowledge" type="checkbox" value=""
               class="w-6 h-6 text-yellow-600 bg-yellow-100 border-yellow-300 rounded-xl focus:ring-yellow-500 focus:ring-2 accent-yellow-500">
@@ -174,8 +171,8 @@ import TransparentButton from "../../components/TransparentButton.vue"
         </div>
       </div>
     <div id="register-container__bottom" class="flex flex-col gap-2">
-      <LineDivision text="Already have an account?"></LineDivision>
-      <TransparentButton text="Login" link="login"></TransparentButton>
+      <hr-div text="Already have an account?"></hr-div>
+      <transparent-button text="Login" link="login"></transparent-button>
     </div>
   </div>
 </div></template>

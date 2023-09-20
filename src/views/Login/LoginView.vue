@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import "./LoginViewStyle.scss";
-import LineDivision from "../../components/VerticalDividing.vue"
-import YellowButton from "../../components/YellowButton.vue"
-import TransparentButton from "../../components/TransparentButton.vue"
 </script>
 
 <template>
@@ -49,7 +46,7 @@ import TransparentButton from "../../components/TransparentButton.vue"
               </svg>
             </div>
           </div>
-          <YellowButton text="Login"></YellowButton>
+          <yellow-button text="Login"></yellow-button>
           <div class="flex items-center mb-4">
             <a class="text-yellow-900 flex align-center items-center justify-center text-center w-full">
               <h2>Forgot password ?</h2>
@@ -58,8 +55,8 @@ import TransparentButton from "../../components/TransparentButton.vue"
         </div>
       </div>
       <div id="login-container__bottom" class="flex flex-col gap-2">
-        <LineDivision text="OR"></LineDivision>
-        <TransparentButton text="Signup" link="register"></TransparentButton>
+        <hr-div text="OR"></hr-div>
+        <transparent-button text="Signup" link="register"></transparent-button>
       </div>
     </div>
   </div>
