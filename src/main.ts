@@ -2,8 +2,8 @@
 import './assets/styles/main.css'
 
 // import custom components
-import YellowButton from './components/YellowButton.vue'
-import TransparentButton from './components/TransparentButton.vue'
+import FilledButton from './components/FilledButton.vue'
+import OutlinedButton from './components/OutlinedButton.vue'
 import HorizontalDividing from './components/HorizontalDividing.vue'
 
 import { createApp } from 'vue'
@@ -12,8 +12,8 @@ import router from './router'
 
 const app = createApp(App)
 
-app.component('yellow-button', YellowButton)
-app.component('transparent-button', TransparentButton)
+app.component('filled-button', FilledButton)
+app.component('outlined-button', OutlinedButton)
 app.component('hr-div', HorizontalDividing)
 
 app.use(router)

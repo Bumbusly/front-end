@@ -46,7 +46,7 @@ import "./LoginViewStyle.scss";
               </svg>
             </div>
           </div>
-          <yellow-button text="Login"></yellow-button>
+          <filled-button text="Login"></filled-button>
           <div class="flex items-center mb-4">
             <a class="text-yellow-900 flex align-center items-center justify-center text-center w-full">
               <h2>Forgot password ?</h2>
@@ -56,7 +56,7 @@ import "./LoginViewStyle.scss";
       </div>
       <div id="login-container__bottom" class="flex flex-col gap-2">
         <hr-div text="OR"></hr-div>
-        <transparent-button text="Signup" link="register"></transparent-button>
+        <outlined-button text="Signup" link="register"></outlined-button>
       </div>
     </div>
   </div>
