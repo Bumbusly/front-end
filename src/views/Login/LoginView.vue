@@ -26,8 +26,7 @@ import "./LoginViewStyle.scss";
           </div>
           <div id="password-input">
             <label for="password" class="block text-sm font-medium leading-6 text-yellow-900">Password</label>
-            <div
-              class="relative mt-2 flex flex-row justify-between align-center items-center w-full ">
+            <div class="relative mt-2 flex flex-row justify-between align-center items-center w-full ">
               <input id="password" name="password" type="password" autocomplete="password" required
                 placeholder="••••••••••"
                 class="block w-full h-full rounded-md border-0 py-2 px-2 text-yellow-900 shadow-sm ring-1 ring-inset ring-yellow-900 placeholder:text-yellow-700 focus:ring-2 focus:ring-inset focus:ring-yellow-600 sm:text-sm sm:leading-6">
@@ -46,7 +45,7 @@ import "./LoginViewStyle.scss";
               </svg>
             </div>
           </div>
-          <filled-button text="Login"></filled-button>
+          <filled-button text="Login" bgColor="green" textColor="white"></filled-button>
           <div class="flex items-center mb-4">
             <a class="text-yellow-900 flex align-center items-center justify-center text-center w-full">
               <h2>Forgot password ?</h2>

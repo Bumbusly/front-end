@@ -3,7 +3,9 @@
 import { RouterLink } from 'vue-router'
 defineProps({
     text: String,
-    link: String
+    link: String,
+    bgColor: String,
+    textColor: String,
 })
 </script>
 

@@ -2,20 +2,24 @@
 <script setup lang="ts">
 defineProps({
     text: String,
-    link: String
+    link: String,
+    bgColor: String,
+    textColor: String,
 })
 </script>
 
 <template>
     <RouterLink v-if="link != null" :to="link">
         <button
-            class="w-full py-[10px] text-sm rounded-lg text-white border border-1  bg-yellow-500 border-yellow-300 hover:text-yellow-100 hover:bg-yellow-400 hover:border-yellow-500">
+            :class="' text-' + textColor + ' bg-' + bgColor + '-500' + ' border-' + bgColor + '-300' + ' hover:text-' + bgColor + '-100' + ' hover:bg-' + bgColor + '-400' + ' hover:border-' + bgColor + '-500'"
+            class="w-full py-[10px] text-sm rounded-lg border border-1">
             {{ text }}
         </button>
     </RouterLink>
 
     <button v-if="link == null"
-        class="w-full py-[10px] text-sm rounded-lg text-white border border-1  bg-yellow-500 border-yellow-300 hover:text-yellow-100 hover:bg-yellow-400 hover:border-yellow-500">
+        :class="' text-' + textColor + ' bg-' + bgColor + '-500' + ' border-' + bgColor + '-300' + ' hover:text-' + bgColor + '-100' + ' hover:bg-' + bgColor + '-400' + ' hover:border-' + bgColor + '-500'"
+        class="w-full py-[10px] text-sm rounded-lg border border-1">
         {{ text }}
     </button>
 </template>

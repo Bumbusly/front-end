@@ -19,18 +19,18 @@ import UsaFlag from '../../components/svg/Flags/UsaFlag.vue'
         </div>
         <div id="register-body" class="flex flex-col gap-4">
           <div id="email-input">
-            <label for="email" class="block text-sm font-medium leading-6 text-yellow-900">Email address</label>
+            <label for="email" class="block text-sm leading-6 text-gray-900">Email address</label>
             <div class="mt-2">
               <input id="email" name="email" type="email" autocomplete="email" required placeholder="name@example.com"
-                class="block w-full rounded-md border-0 py-2 px-2 text-yellow-900 shadow-sm ring-1 ring-inset ring-yellow-900 placeholder:text-yellow-700 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                class="block w-full rounded-md border-0 py-2 px-2 text-gray-800 shadow-sm ring-[1.5px] ring-gray-500 placeholder:text-gray-500 focus:ring-2 sm:text-sm sm:leading-6">
             </div>
           </div>
           <div id="password-input">
-            <label for="password" class="block text-sm font-medium leading-6 text-yellow-900">Password</label>
+            <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
             <div class="relative mt-2 flex flex-row justify-between align-center items-center w-full ">
               <input id="password" name="password" type="password" autocomplete="password" required
                 placeholder="••••••••••"
-                class="block w-full h-full rounded-md border-0 py-2 px-2 text-yellow-900 shadow-sm ring-1 ring-inset ring-yellow-900 placeholder:text-yellow-700 focus:ring-2 focus:ring-inset focus:ring-yellow-600 sm:text-sm sm:leading-6">
+                class="block w-full h-full rounded-md border-0 py-2 px-2 text-gray-800 shadow-sm ring-[1.5px] ring-gray-500 placeholder:text-gray-500 focus:ring-2 sm:text-sm sm:leading-6">
               <svg class="absolute right-2" width="16" height="14" viewBox="0 0 16 14" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_173_17)">
@@ -47,14 +47,14 @@ import UsaFlag from '../../components/svg/Flags/UsaFlag.vue'
             </div>
           </div>
           <div id="location-input">
-            <label for="language" class="text-sm font-medium leading-6 text-yellow-900">Select language</label>
+            <label for="language" class="text-sm font-medium leading-6 text-gray-900">Select language</label>
             <div class="flex">
               <div id="country-input">
                 <div class="flex items-center">
                   <label for="country"
                     class="flex flex-row justify-center align-center items-center cursor-pointer rounded-l-md border-0 py-2 px-2 text-yellow-900 shadow-sm ring-1 ring-inset ring-yellow-900 placeholder:text-yellow-700 focus:ring-2 focus:ring-inset focus:ring-yellow-600 sm:text-sm sm:leading-6 gap-2">
                     <UsaFlag></UsaFlag>
-                    <label for="country" class="block text-sm font-medium leading-6 text-yellow-900">
+                    <label for="country" class="block text-sm font-medium leading-6 text-gray-900">
                       USA
                     </label>
                     <svg class="w-4 h-4 mx-1 fill-current rotate-180" xmlns="http://www.w3.org/2000/svg"
@@ -66,30 +66,30 @@ import UsaFlag from '../../components/svg/Flags/UsaFlag.vue'
                 </div>
                 <input type="checkbox" name="country" id="country" class="hidden peer" />
                 <div
-                  class="absolute rounded shadow bg-white overflow-hidden hidden peer-checked:flex flex-col mt-1 border border border-yellow-200">
+                  class="absolute rounded shadow bg-white overflow-hidden hidden peer-checked:flex flex-col mt-1 border border border-gray-200">
                   <div class="cursor-pointer group">
                     <a
-                      class="block p-2 border-transparent border-l-4 group-hover:border-yellow-600 group-hover:bg-gray-100">Germony</a>
+                      class="block p-2 border-transparent border-l-4 group-hover:border-gray-600 group-hover:bg-gray-100">Germony</a>
                   </div>
                   <div class="cursor-pointer group border-t">
                     <a
-                      class="block p-2 border-transparent border-l-4 group-hover:border-yellow-600 border-yellow-600 group-hover:bg-gray-100">Greece</a>
+                      class="block p-2 border-transparent border-l-4 group-hover:border-gray-600 border-gray-600 group-hover:bg-gray-100">Greece</a>
                   </div>
                   <div class="cursor-pointer group border-t">
                     <a
-                      class="block p-2 border-transparent border-l-4 group-hover:border-yellow-600 group-hover:bg-gray-100">Iran</a>
+                      class="block p-2 border-transparent border-l-4 group-hover:border-gray-600 group-hover:bg-gray-100">Iran</a>
                   </div>
                   <div class="cursor-pointer group border-t">
                     <a
-                      class="block p-2 border-transparent border-l-4 group-hover:border-yellow-600 group-hover:bg-gray-100">France</a>
+                      class="block p-2 border-transparent border-l-4 group-hover:border-gray-600 group-hover:bg-gray-100">France</a>
                   </div>
                 </div>
               </div>
               <div id="state-input">
                 <div class="flex items-center">
                   <label for="state"
-                    class="flex flex-row justify-center align-center items-center cursor-pointer rounded-r-md border-0 py-2 px-2 text-yellow-900 shadow-sm ring-1 ring-inset ring-yellow-900 placeholder:text-yellow-700 focus:ring-2 focus:ring-inset focus:ring-yellow-600 sm:text-sm sm:leading-6">
-                    <label for="state" class="block text-sm font-medium leading-6 text-yellow-900">State</label>
+                    class="flex flex-row justify-center align-center items-center cursor-pointer rounded-r-md border-0 py-2 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-yellow-900 placeholder:text-yellow-700 focus:ring-2 focus:ring-inset focus:ring-yellow-600 sm:text-sm sm:leading-6">
+                    <label for="state" class="block text-sm font-medium leading-6 text-gray-900">State</label>
                     <svg class="w-4 h-4 mx-1 fill-current rotate-180" xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                       stroke-linejoin="round">
@@ -120,11 +120,11 @@ import UsaFlag from '../../components/svg/Flags/UsaFlag.vue'
               </div>
             </div>
           </div>
-          <filled-button text="Signup"></filled-button>
+          <filled-button text="Register" bgColor="green" textColor="white"></filled-button>
           <div class="flex items-center mb-4">
             <input id="terms-acknowledge" type="checkbox" value=""
-              class="w-6 h-6 text-yellow-600 bg-yellow-100 border-yellow-300 rounded-xl focus:ring-yellow-500 focus:ring-2 accent-yellow-500">
-            <label for="terms-acknowledge" class="ml-2 text-sm font-normal text-yellow-900">
+              class="w-6 h-6 text-green-600 = rounded-xl focus:ring-green-500 focus:ring-2 accent-green-500">
+            <label for="terms-acknowledge" class="ml-2 text-sm font-normal text-gray-800">
               I acknowledge I have read the
               <a class="condition-link font-medium">
                 Terms & Conditions
@@ -137,9 +137,10 @@ import UsaFlag from '../../components/svg/Flags/UsaFlag.vue'
           </div>
         </div>
       </div>
-    <div id="register-container__bottom" class="flex flex-col gap-2">
-      <hr-div text="Already have an account?"></hr-div>
-      <outlined-button text="Login" link="login"></outlined-button>
+      <div id="register-container__bottom" class="flex flex-col gap-2">
+        <hr-div text="Already have an account?"></hr-div>
+        <outlined-button text="Login" link="login"></outlined-button>
+      </div>
     </div>
   </div>
-</div></template>
+</template>
