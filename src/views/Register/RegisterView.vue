@@ -3,7 +3,7 @@
 import "./RegisterViewStyle.scss";
 
 // Import Components
-import UsaFlag from '../../components/svg/Flags/UsaFlag.vue'
+import UsFlag from '../../components/svg/Flags/US.vue'
 import BaseTextInput from '../../components/BaseTextInput.vue'
 import YellowBackground from "../../components/YellowBackground.vue";
 </script>
@@ -39,7 +39,7 @@ import YellowBackground from "../../components/YellowBackground.vue";
                 <div class="flex items-center">
                   <label for="country"
                     class="flex flex-row justify-center align-center items-center cursor-pointer rounded-l-md border-0 py-2 px-2 text-yellow-900 shadow-sm ring-1 ring-inset ring-yellow-900 placeholder:text-yellow-700 focus:ring-2 focus:ring-inset focus:ring-yellow-600 sm:text-sm sm:leading-6 gap-2">
-                    <UsaFlag></UsaFlag>
+                    <UsFlag></UsFlag>
                     <label for="country" class="block text-sm font-medium leading-6 text-gray-900">
                       USA
                     </label>
@@ -84,21 +84,21 @@ import YellowBackground from "../../components/YellowBackground.vue";
                   </label>
                 </div>
                 <input type="checkbox" name="state" id="state" class="hidden peer" />
-                <div
+<div
                   class="absolute rounded shadow bg-white overflow-hidden hidden peer-checked:flex flex-col mt-1 border border-gray-200">
                   <div class="cursor-pointer group">
                     <a
                       class="block p-2 border-transparent border-l-4 group-hover:border-yellow-600 group-hover:bg-gray-100">Germony</a>
                   </div>
-                  <div class="cursor-pointer group border-t">
+<div class="cursor-pointer group border-t">
                     <a
                       class="block p-2 border-transparent border-l-4 group-hover:border-yellow-600 border-yellow-600 group-hover:bg-gray-100">Javascript</a>
                   </div>
-                  <div class="cursor-pointer group border-t">
+<div class="cursor-pointer group border-t">
                     <a
                       class="block p-2 border-transparent border-l-4 group-hover:border-yellow-600 group-hover:bg-gray-100">Node</a>
                   </div>
-                  <div class="cursor-pointer group border-t">
+<div class="cursor-pointer group border-t">
                     <a
                       class="block p-2 border-transparent border-l-4 group-hover:border-yellow-600 group-hover:bg-gray-100">PHP</a>
                   </div>
@@ -106,8 +106,8 @@ import YellowBackground from "../../components/YellowBackground.vue";
               </div>
             </div>
           </div>
-          <filled-button text="Register" bgColor="green" textColor="white"></filled-button>
-          <div class="flex items-center mb-4">
+<filled-button text="Register" bgColor="green" textColor="white"></filled-button>
+<div class="flex items-center mb-4">
             <input id="terms-acknowledge" type="checkbox" value=""
               class="w-6 h-6 text-green-600 = rounded-xl focus:ring-green-500 focus:ring-2 accent-green-500">
             <label for="terms-acknowledge" class="ml-2 text-sm font-normal text-gray-800">
@@ -123,7 +123,7 @@ import YellowBackground from "../../components/YellowBackground.vue";
           </div>
         </div>
       </div>
-      <div id="register-container__bottom" class="flex flex-col gap-2">
+<div id="register-container__bottom" class="flex flex-col gap-2">
         <hr-div text="Already have an account?"></hr-div>
         <outlined-button text="Login" link="login"></outlined-button>
       </div>

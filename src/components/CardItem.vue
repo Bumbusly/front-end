@@ -90,24 +90,25 @@
                                         stroke-linejoin="round">
                                         <polyline points="18 15 12 9 6 15"></polyline>
                                     </svg>
+</template>
                                 </label>
                             </div>
                             <input type="checkbox" name="state" id="state" class="hidden peer" />
-                            <div
+<div
                                 class="absolute rounded shadow bg-white overflow-hidden hidden peer-checked:flex flex-col mt-1 border border-gray-200">
                                 <div class="cursor-pointer group">
                                     <a
                                         class="block p-2 border-transparent border-l-4 group-hover:border-yellow-600 group-hover:bg-gray-100">Germony</a>
                                 </div>
-                                <div class="cursor-pointer group border-t">
+<div class="cursor-pointer group border-t">
                                     <a
                                         class="block p-2 border-transparent border-l-4 group-hover:border-yellow-600 border-yellow-600 group-hover:bg-gray-100">Javascript</a>
                                 </div>
-                                <div class="cursor-pointer group border-t">
+<div class="cursor-pointer group border-t">
                                     <a
                                         class="block p-2 border-transparent border-l-4 group-hover:border-yellow-600 group-hover:bg-gray-100">Node</a>
                                 </div>
-                                <div class="cursor-pointer group border-t">
+<div class="cursor-pointer group border-t">
                                     <a
                                         class="block p-2 border-transparent border-l-4 group-hover:border-yellow-600 group-hover:bg-gray-100">PHP</a>
                                 </div>
@@ -115,8 +116,8 @@
                         </div>
                     </div>
                 </div>
-                <filled-button text="Register" bgColor="green" textColor="white"></filled-button>
-                <div class="flex items-center mb-4">
+<filled-button text="Register" bgColor="green" textColor="white"></filled-button>
+<div class="flex items-center mb-4">
                     <input id="terms-acknowledge" type="checkbox" value=""
                         class="w-6 h-6 text-green-600 = rounded-xl focus:ring-green-500 focus:ring-2 accent-green-500">
                     <label for="terms-acknowledge" class="ml-2 text-sm font-normal text-gray-800">
@@ -132,7 +133,7 @@
                 </div>
             </div>
         </div>
-        <div id="register-container__bottom" class="flex flex-col gap-2">
+<div id="register-container__bottom" class="flex flex-col gap-2">
             <hr-div text="Already have an account?"></hr-div>
             <outlined-button text="Login" link="login"></outlined-button>
         </div>
