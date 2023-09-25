@@ -5,7 +5,8 @@ import CloseEye from '../svg/Eye/Invisible.vue'
 export default {
     data() {
         return {
-            isShow: false
+            isShow: false,
+            inputValue: ""
         }
     },
     props: {
@@ -52,6 +53,9 @@ export default {
     methods: {
         changeType() {
             this.isShow = !this.isShow;
+        },
+        updateInputValue() {
+            this.$emit('input-value-updated', this.inputValue);
         }
     },
     components: {
@@ -68,8 +72,9 @@ export default {
     <div :id="id + '-container'">
         <label :for="id" class="block text-sm leading-6">{{ label }}</label>
         <div class="relative mt-2 flex flex-row justify-between align-center items-center w-full">
-            <input :ref="id" :id="id + '-input'" :name="id" :type="isShow == true ? 'text' : type" :autocomplete=false
-                :placeholder="placeholder" :required="required" :obscureText="isShow"
+            <input v-model="inputValue" @input="updateInputValue" :ref="id" :id="id + '-input'" :name="id"
+                :type="isShow == true ? 'text' : type" :autocomplete=false :placeholder="placeholder" :required="required"
+                :obscureText="isShow"
                 class="block w-full rounded-md border-0 py-2 px-2 text-gray-800 shadow-sm ring-[1.5px] ring-gray-500 placeholder:text-gray-500 focus:ring-2 sm:text-sm sm:leading-6">
             <div v-if="hidden == 'true'" class="flex align-center items-center justify-center">
                 <CloseEye class="h-4 w-4" v-if="isShow === true" @click="changeType()"></CloseEye>

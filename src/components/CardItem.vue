@@ -116,7 +116,7 @@
                         </div>
                     </div>
                 </div>
-<filled-button text="Register" bgColor="green" textColor="white"></filled-button>
+<base-button text="Register" bgColor="green" textColor="white"></base-button>
 <div class="flex items-center mb-4">
                     <input id="terms-acknowledge" type="checkbox" value=""
                         class="w-6 h-6 text-green-600 = rounded-xl focus:ring-green-500 focus:ring-2 accent-green-500">
