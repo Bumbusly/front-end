@@ -15,19 +15,10 @@ export default {
     YellowBackground
   },
   methods: {
-    validateEmail() {
-      const expression: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-      const email: string = 'john@gmail.com';
-      const result: boolean = expression.test(email); // true
-      console.log('e-mail is ' + (result ? 'correct' : 'incorrect'));
-    },
-    submittedButton(){
-      console.log("Hrllo")
-      this.validateEmail()
-    }
+   
   },
   mounted() {
-    this.submittedButton()
+   
   }
 }
 
@@ -75,9 +66,11 @@ export default {
                 <div
                   class="absolute rounded shadow bg-white overflow-hidden hidden peer-checked:flex flex-col mt-1 border border border-gray-200">
                   <div class="cursor-pointer group">
-                    <GrFlag></GrFlag>
                     <a
-                      class="block p-2 border-transparent border-l-4 group-hover:border-gray-600 group-hover:bg-gray-100">Germony</a>
+                      class="flex flex-row p-2 border-transparent border-l-4 group-hover:border-gray-600 group-hover:bg-gray-100 gap-1 justify-center align-center items-center ">
+                    <GrFlag></GrFlag>
+                      Germany
+                    </a>
                   </div>
                 </div>
               </div>
@@ -112,7 +105,7 @@ export default {
               </div>
             </div>
           </div>
-          <filled-button text="Register" bgColor="green" textColor="white"></filled-button>
+          <base-button text="Register" bgColor="green" textColor="green" isOutline="false"></base-button>
           <div class="flex items-center mb-4">
             <input id="terms-acknowledge" type="checkbox" value=""
               class="w-7 h-7 text-green-600 = rounded-xl focus:ring-green-500 focus:ring-2 accent-green-500">
@@ -131,7 +124,7 @@ export default {
       </div>
       <div id="register-container__bottom" class="flex flex-col gap-2">
         <hr-div text="Already have an account?"></hr-div>
-        <outlined-button text="Login" link="login"></outlined-button>
+        <base-button text="Login" link="login" bgColor="green" textColor="green" isOutline="true"></base-button>
       </div>
     </div>
   </div>
