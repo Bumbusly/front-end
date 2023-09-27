@@ -32,7 +32,48 @@ row | tools | version
 10 | **vite** | 4.4.9
 <br>
 
+### Best Pratices Rules:
+
+1. Using Pascal Case for components in template:<br>
+The beginning of each meaningful part (word) of each component must be written with a capital letter.<br>
+Example: BaseButton, BaseTextInput, ...
+
+<br><br>
+
+2. alt of Images:<br>
+All img tags should alt attribute.<br>
+Example: <img src='' alt='' />
+
+<br><br>
+
+3. Validate Vue Forms:<br>
+All forms of page should have validate before send data to the backend.<br>
+
+<br><br>
+
+4. Scope Component Styles:<br>
+All Components should have scoped styles, because it shouldn't change style of other components.<br>
+Example: <style scoped></style>
+<br><br>
+
+5. Multi-Word Component Name:<br>
+All Components should have at least two words.<br>
+Example: BaseButton, CountryItem
+
+<br><br>
+
+6. Use the Key Attribute with V-for
+
+<br><br>
+
+7. All Compoenets Seperate With 'begin::' and 'end::' Comments
+
+<br><br>
+
+8. All of Template Code Shouldn't have line Sapce
+
+<br>
+
 ### ➕ Add a Todo section:
 Login Screen
 Register Screen
-

@@ -6,9 +6,12 @@ import "./LoginViewStyle.scss";
 // Import Custom Components
 import YellowBackground from "../../components/YellowBackground.vue";
 
+// Content Of View
 export default {
   data() {
     return {
+      viewTitle: "Login",
+      viewDescription: "Enter enter your email and password",
       emailAddress: "",
       password: ""
     }
@@ -42,6 +45,14 @@ export default {
       this.validatePassword();
     }
   },
+  watch: {
+    $route: {
+      immediate: true,
+      handler(to, from) {
+        document.title = to.meta.title || 'Bumbusly | Login Page';
+      }
+    },
+  }
 }
 </script>
 
@@ -52,24 +63,26 @@ export default {
       <div id="login-container__top" class="flex flex-col gap-6">
         <div id="login-header" class="flex flex-col gap-4">
           <div id="login-header__title" class="flex flex-row justify-between align-center items-center">
-            <h1 class="text-[40px] font-bold text-yellow-800">Login</h1>
+            <h1 class="text-[40px] font-bold text-yellow-800">{{ viewTitle }}</h1>
             <img src="../../assets/media/images/Logo/Bumbusly.svg">
           </div>
           <div id="login-header__description">
-            <p class="text-yellow-800 font-medium">Enter enter your email and password</p>
+            <p class="text-yellow-800 font-medium">{{ viewDescription }}</p>
           </div>
         </div>
         <div id="login-body" class="flex flex-col gap-4">
-
+          <!-- begin::Email Text Input -->
           <text-input id="email" label="Email Address" type="email" placeholder="example@gmail.com" required=true
             autocomplete="email" @input-value-updated="handleEmailInputValueUpdated">
           </text-input>
-
+          <!-- end::Email Text Input -->
+          <!-- begin::Password Text Input -->
           <text-input id="password" label="Password" type="password" placeholder="••••••••••" required=true
-            autocomplete="password" hidden=true @input-value-updated="handlePasswordInputValueUpdated">
+            autocomplete="password" hidden=true>
           </text-input>
-
-          <base-button text="Login" bgColor="green" textColor="green" isOutline="false" v-on:buttonClicked="loginClicked"></base-button>
+          <!-- end::Password Text Input -->
+          <BaseButton text="Login" bgColor="green" textColor="green" isOutline="false" v-on:buttonClicked="loginClicked">
+          </BaseButton>
           <div class="flex items-center mb-4">
             <a class="text-red-700 underline font-bold flex align-center items-center justify-center text-center w-full">
               <h2>Forgot password ?</h2>
@@ -79,7 +92,7 @@ export default {
       </div>
       <div id="login-container__bottom" class="flex flex-col gap-2">
         <hr-div text="OR"></hr-div>
-        <base-button text="Register" link="register" bgColor="green" textColor="green" isOutline="true"></base-button>
+        <BaseButton text="Register" link="register" bgColor="green" textColor="green" isOutline="true"></BaseButton>
       </div>
     </div>
   </div>
