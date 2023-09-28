@@ -18,7 +18,7 @@ In this program, you can manage your wallets, buy or sell digital currencies and
 In the development of this program, two parts, frontend and backend, are separate, and the backend has been developed with its own technologies using nodeJs, and this repository is specific to its frontend.
 The following tools have been used to develop the front section in general:
 
-row | tools | version
+Row | Tools | Version
 --- | --- | ---
 1 | **vue** | 3.3.4
 2 | **vue-router** | v4.2.4
@@ -34,45 +34,16 @@ row | tools | version
 
 ### Best Pratices Rules:
 
-1. Using Pascal Case for components in template:<br>
-The beginning of each meaningful part (word) of each component must be written with a capital letter.<br>
-Example: BaseButton, BaseTextInput, ...
-
-<br><br>
-
-2. alt of Images:<br>
-All img tags should alt attribute.<br>
-Example: <img src='' alt='' />
-
-<br><br>
-
-3. Validate Vue Forms:<br>
-All forms of page should have validate before send data to the backend.<br>
-
-<br><br>
-
-4. Scope Component Styles:<br>
-All Components should have scoped styles, because it shouldn't change style of other components.<br>
-Example: <style scoped></style>
-<br><br>
-
-5. Multi-Word Component Name:<br>
-All Components should have at least two words.<br>
-Example: BaseButton, CountryItem
-
-<br><br>
-
-6. Use the Key Attribute with V-for
-
-<br><br>
-
-7. All Compoenets Seperate With 'begin::' and 'end::' Comments
-
-<br><br>
-
-8. All of Template Code Shouldn't have line Sapce
-
-<br>
+Row | Title | Description | Example
+--- | --- | --- | ---
+1 | **Pascal Case for Components** | The beginning of each meaningful part (word) of each component must be written with a capital letter. | BaseButton, BaseTextInput
+2 | **alt for Images** | All img tags should alt attribute | <img ... alt='' ...>
+3 | **Validate Vue Forms** | All forms of page should have validate before send data to the backend | Validate Email Address,
+4 | **Scope Component Styles** | All Components should have scoped styles, because it shouldn't change style of other components. | <style scoped>
+5 | **Multi-Word Component Name** | All Components should have at least two words. | BaseButton, CountryItem
+6 | **Use the Key Attribute with V-for**
+7 | **Seperate Components** || All Compoenets Seperate With 'begin::' and 'end::' Comments
+8 | **Line Space** || All of Template Code Shouldn't have line Sapce
 
 ### ➕ Add a Todo section:
 Login Screen
