@@ -5,6 +5,7 @@ import "./LoginViewStyle.scss";
 
 // Import Custom Components
 import YellowBackground from "../../components/YellowBackground.vue";
+import CardItem from '../../components/UI/CardItem.vue'
 
 // Content Of View
 export default {
@@ -13,38 +14,60 @@ export default {
       viewTitle: "Login",
       viewDescription: "Enter enter your email and password",
       emailAddress: "",
-      password: ""
+      password: "",
+      emailValid: "default",
+      passwordValid: "default"
     }
   },
   components: {
-    YellowBackground
+    YellowBackground,
+    CardItem
   },
   methods: {
+    // Validate Email Address
     validateEmaill() {
-      // Valid Email Regex
+      // Valida Email Regex
       const expression: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
       const email: string = this.emailAddress;
       const result: boolean = expression.test(email);
       console.log('e-mail is ' + this.emailAddress + ' ' + (result ? 'correct' : 'incorrect'));
+      return result
     },
+    // Validate Password
     validatePassword() {
       // Valid Password Regex
       const expression: RegExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i;
       const password: string = this.password;
       const result: boolean = expression.test(password);
       console.log('password is ' + this.password + ' ' + (result ? 'correct' : 'incorrect'));
+      return result
     },
-    handleEmailInputValueUpdated(value) {
+    // Putting value of Email text input to variable
+    handleEmailInputValueUpdated(value : string) {
       this.emailAddress = value
     },
-    handlePasswordInputValueUpdated(value) {
+    // Putting value of Password text input to variable
+    handlePasswordInputValueUpdated(value: string) {
       this.password = value
     },
+    // Login Button Function
     loginClicked() {
-      this.validateEmaill();
-      this.validatePassword();
+      if (this.validateEmaill()) {
+        this.emailValid = 'green'
+      } else {
+        this.emailValid = 'red';
+      }
+      if (this.validatePassword()) {
+        this.passwordValid = 'green'
+      } else {
+        this.passwordValid = 'red'
+      }
+    },
+    sendReuqest(){
+      fetch('https://pokeapi.co/api/v2/pokemon/ditto')
     }
   },
+  // Set Title of Page
   watch: {
     $route: {
       immediate: true,
@@ -52,48 +75,76 @@ export default {
         document.title = to.meta.title || 'Bumbusly | Login Page';
       }
     },
-  }
+  },
+
 }
 </script>
 
 <template>
+  <!-- begin::Container -->
   <div id="main-container" class="w-screen h-screen flex justify-center align-center items-center">
+    <!-- begin::Background -->
     <YellowBackground></YellowBackground>
-    <div id="login-container" class="w-[374px] m-1 bg-white rounded-2xl sm:border border-yellow-800 px-7 py-5">
-      <div id="login-container__top" class="flex flex-col gap-6">
-        <div id="login-header" class="flex flex-col gap-4">
-          <div id="login-header__title" class="flex flex-row justify-between align-center items-center">
-            <h1 class="text-[40px] font-bold text-yellow-800">{{ viewTitle }}</h1>
-            <img src="../../assets/media/images/Logo/Bumbusly.svg">
-          </div>
-          <div id="login-header__description">
-            <p class="text-yellow-800 font-medium">{{ viewDescription }}</p>
-          </div>
+    <!-- end::Background -->
+    <!-- begin::Register Card -->
+    <!-- begin::Description of Card -->
+    <CardItem :cardName="viewTitle">
+      <template v-slot:cardDescription>
+        <p class="text-yellow-800 font-medium">
+          {{ viewDescription }}
+        </p>
+      </template>
+      <!-- end::Description of Card -->
+      <!-- begin::Icon of Card (Bumbusly) -->
+      <template v-slot:cardImage>
+        <img src="./../../assets/media/images/Logo/Bumbusly.svg">
+      </template>
+      <!-- end::Icon of Card (Bumbusly) -->
+      <!-- begin::Body of Card -->
+      <template v-slot:cardBody>
+        <!-- begin::Email Text Input -->
+        <text-input id="email" label="Email Address" type="email" placeholder="example@gmail.com" required=true
+          autocomplete=true :color="emailValid" @input-value-updated="handleEmailInputValueUpdated">
+          <template v-slot:helpText>
+            <small :class="emailValid == 'red' ? '' : 'hidden'" class="form-text text-muted text-red-500">Email
+              Address not valid !</small>
+          </template>
+        </text-input>
+        <!-- end::Email Text Input -->
+        <!-- begin::Password Text Input -->
+        <text-input id="password" label="Password" type="password" placeholder="••••••••••" required=true
+          autocomplete=true :color="passwordValid" hidden=true
+          @input-value-updated="handlePasswordInputValueUpdated">
+          <template v-slot:helpText>
+            <small :class="passwordValid == 'red' ? '' : 'hidden'" class="form-text text-muted text-red-500">Password
+              not valid
+              !</small>
+          </template>
+        </text-input>
+        <!-- end::Password Text Input -->
+        <!-- begin::Login Button -->
+        <BaseButton ref="loginButton" text="Login" bgColor="green" textColor="green" @buttonClicked="loginClicked()">
+        </BaseButton>
+        <!-- end::Login Button -->
+        <!-- begin::Forgot Password -->
+        <div class="flex items-center mb-1">
+          <a class="text-red-700 underline font-bold flex align-center items-center justify-center text-center w-full">
+            <h2>Forgot password ?</h2>
+          </a>
         </div>
-        <div id="login-body" class="flex flex-col gap-4">
-          <!-- begin::Email Text Input -->
-          <text-input id="email" label="Email Address" type="email" placeholder="example@gmail.com" required=true
-            autocomplete="email" @input-value-updated="handleEmailInputValueUpdated">
-          </text-input>
-          <!-- end::Email Text Input -->
-          <!-- begin::Password Text Input -->
-          <text-input id="password" label="Password" type="password" placeholder="••••••••••" required=true
-            autocomplete="password" hidden=true>
-          </text-input>
-          <!-- end::Password Text Input -->
-          <BaseButton text="Login" bgColor="green" textColor="green" isOutline="false" v-on:buttonClicked="loginClicked">
-          </BaseButton>
-          <div class="flex items-center mb-4">
-            <a class="text-red-700 underline font-bold flex align-center items-center justify-center text-center w-full">
-              <h2>Forgot password ?</h2>
-            </a>
-          </div>
+        <!-- end::Forgot Password -->
+      </template>
+      <!-- end::Body of Card -->
+      <!-- begin::Additional Section -->
+      <template v-slot:cardAdditional>
+        <div class="flex flex-col gap-2">
+          <hr-div text="or"></hr-div>
+          <BaseButton text="Register" link="register" bgColor="green" textColor="green" isOutline="true"></BaseButton>
         </div>
-      </div>
-      <div id="login-container__bottom" class="flex flex-col gap-2">
-        <hr-div text="OR"></hr-div>
-        <BaseButton text="Register" link="register" bgColor="green" textColor="green" isOutline="true"></BaseButton>
-      </div>
-    </div>
+      </template>
+      <!-- end::Additional Section -->
+    </CardItem>
+    <!-- end::Register Card -->
   </div>
+  <!-- end::Container -->
 </template>

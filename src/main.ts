@@ -3,7 +3,7 @@ import './assets/styles/main.css'
 
 // Import Custom UI Components
 import BaseButton from './components/UI/BaseButton.vue'
-import DropDown from './components/UI/DropDown.vue'
+import DropDown from './components/svg/DropDown.vue'
 import HorizontalDividing from './components/UI/HorizontalDividing.vue'
 import BaseTextInput from './components/UI/BaseTextInput.vue'
 import SelectMenu from './components/UI/SelectMenu.vue'
@@ -11,6 +11,7 @@ import SelectMenu from './components/UI/SelectMenu.vue'
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
+
 
 const app = createApp(App)
 

@@ -47,7 +47,7 @@ export default {
     </RouterLink>
 
     <button v-if="link == null" :class="buttonClass()" class="w-full py-[10px] text-sm rounded-lg border border-1"
-        v-on:click="onClick()">
+        v-on:click.prevent="onClick()">
         {{ text }}
     </button>
 </template>

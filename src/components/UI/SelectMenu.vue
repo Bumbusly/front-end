@@ -1,9 +1,10 @@
 <script lang="ts">
 
+// Import Svg files of Flags
 import UsFlag from './../svg/CountryFlags/US.vue'
 import GrFlag from './../svg/CountryFlags/GE.vue'
 
-
+// Content Of Component
 export default {
     props: {
     },
