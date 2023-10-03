@@ -39,7 +39,7 @@ export default {
       const expression: RegExp = /^(?=[a-zA-Z0-9._]{4,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/i;
       const username: string = this.username;
       const result: boolean = expression.test(username);
-      console.log('e-mail is ' + this.emailAddress + ' ' + (result ? 'correct' : 'incorrect'));
+      console.log('username is ' + this.username + ' ' + (result ? 'correct' : 'incorrect'));
       return result
     },
     // Validate Email Address
@@ -102,7 +102,7 @@ export default {
           "password": this.password,
           "email": this.emailAddress,
         }
-        const headers : object = {
+        const headers: object = {
           'Content-Type': 'application/json',
         }
         const { data } = await axios.post(url, body, headers);
@@ -112,9 +112,7 @@ export default {
       }
     },
   },
-  mounted() {
-
-  },
+  mounted() { },
   watch: {
     $route: {
       immediate: true,

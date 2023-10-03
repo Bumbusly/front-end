@@ -7,14 +7,22 @@ import "./LoginViewStyle.scss";
 import YellowBackground from "../../components/YellowBackground.vue";
 import CardItem from '../../components/UI/CardItem.vue'
 
+// Import Axious API
+import axios from 'axios'
+
 // Content Of View
 export default {
   data() {
     return {
       viewTitle: "Login",
-      viewDescription: "Enter enter your email and password",
+      viewDescription: "Enter enter your username and password",
+      invalidUsername: "Username not valid !",
+      invalidEmail: "Email not valid !",
+      invalidPassword: "Password not valid !",
+      username: "",
       emailAddress: "",
       password: "",
+      usernameValid: "default",
       emailValid: "default",
       passwordValid: "default"
     }
@@ -24,6 +32,15 @@ export default {
     CardItem
   },
   methods: {
+    // Validate Username
+    validateUsername() {
+      // Validate Username
+      const expression: RegExp = /^(?=[a-zA-Z0-9._]{4,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/i;
+      const username: string = this.username;
+      const result: boolean = expression.test(username);
+      console.log('username is ' + this.username + ' ' + (result ? 'correct' : 'incorrect'));
+      return result
+    },
     // Validate Email Address
     validateEmaill() {
       // Valida Email Regex
@@ -36,14 +53,18 @@ export default {
     // Validate Password
     validatePassword() {
       // Valid Password Regex
-      const expression: RegExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i;
+      const expression: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i;
       const password: string = this.password;
       const result: boolean = expression.test(password);
       console.log('password is ' + this.password + ' ' + (result ? 'correct' : 'incorrect'));
       return result
     },
+    // Putting value of Username text input to variable
+    handleUsernameInputValueUpdated(value: string) {
+      this.username = value
+    },
     // Putting value of Email text input to variable
-    handleEmailInputValueUpdated(value : string) {
+    handleEmailInputValueUpdated(value: string) {
       this.emailAddress = value
     },
     // Putting value of Password text input to variable
@@ -52,6 +73,11 @@ export default {
     },
     // Login Button Function
     loginClicked() {
+      if (this.validateUsername()) {
+        this.usernameValid = 'green'
+      } else {
+        this.usernameValid = 'red'
+      }
       if (this.validateEmaill()) {
         this.emailValid = 'green'
       } else {
@@ -62,10 +88,27 @@ export default {
       } else {
         this.passwordValid = 'red'
       }
+      if (this.validateUsername() && this.validatePassword()) {
+        this.testApi()
+      }
     },
-    sendReuqest(){
-      fetch('https://pokeapi.co/api/v2/pokemon/ditto')
-    }
+    async testApi() {
+      try {
+        const url = "https://bb.abansoft.ir/api/v1/account/";
+        const body = {
+          "username": this.username,
+          "password": this.password,
+          "rememberMe": true
+        }
+        const headers: object = {
+          'Content-Type': 'application/json',
+        }
+        const { data } = await axios.post(url, body, headers);
+        this.post = data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
   // Set Title of Page
   watch: {
@@ -102,19 +145,19 @@ export default {
       <!-- end::Icon of Card (Bumbusly) -->
       <!-- begin::Body of Card -->
       <template v-slot:cardBody>
-        <!-- begin::Email Text Input -->
-        <text-input id="email" label="Email Address" type="email" placeholder="example@gmail.com" required=true
-          autocomplete=true :color="emailValid" @input-value-updated="handleEmailInputValueUpdated">
+        <!-- begin::Username Text Input -->
+        <text-input id="uesrname" label="Username" type="username" placeholder="mosfazli" required=true autocomplete=true
+          :color="usernameValid" @input-value-updated="handleUsernameInputValueUpdated">
           <template v-slot:helpText>
-            <small :class="emailValid == 'red' ? '' : 'hidden'" class="form-text text-muted text-red-500">Email
-              Address not valid !</small>
+            <small :class="usernameValid == 'red' ? '' : 'hidden'" class="form-text text-muted text-red-500">
+              {{ invalidUsername }}
+            </small>
           </template>
         </text-input>
         <!-- end::Email Text Input -->
         <!-- begin::Password Text Input -->
         <text-input id="password" label="Password" type="password" placeholder="••••••••••" required=true
-          autocomplete=true :color="passwordValid" hidden=true
-          @input-value-updated="handlePasswordInputValueUpdated">
+          autocomplete=true :color="passwordValid" hidden=true @input-value-updated="handlePasswordInputValueUpdated">
           <template v-slot:helpText>
             <small :class="passwordValid == 'red' ? '' : 'hidden'" class="form-text text-muted text-red-500">Password
               not valid
