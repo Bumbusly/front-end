@@ -1,5 +1,4 @@
 <script lang="ts">
-
 // Import Styling of This View
 import "./LoginViewStyle.scss";
 
@@ -9,6 +8,12 @@ import CardItem from '../../components/UI/CardItem.vue'
 
 // Import Axious API
 import axios from 'axios'
+
+// Import Toast Library
+import { useToast } from "vue-toastification";
+
+// Get toast interface
+const toast = useToast();
 
 // Content Of View
 export default {
@@ -76,6 +81,7 @@ export default {
       if (this.validateUsername()) {
         this.usernameValid = 'green'
       } else {
+        toast.error("Username should be at least 4 characters")
         this.usernameValid = 'red'
       }
       if (this.validateEmaill()) {
@@ -86,6 +92,7 @@ export default {
       if (this.validatePassword()) {
         this.passwordValid = 'green'
       } else {
+        toast.error("Password should be minimum eight characters, at least one letter, one number and one special character")
         this.passwordValid = 'red'
       }
       if (this.validateUsername() && this.validatePassword()) {
@@ -105,7 +112,11 @@ export default {
         }
         const { data } = await axios.post(url, body, headers);
         this.post = data;
+        toast.success("You Logged Succesfully")
       } catch (error) {
+        toast.error("Username or Password is Wrong")
+        this.usernameValid = 'red'
+        this.passwordValid = 'red'
         console.log(error);
       }
     },
@@ -159,9 +170,9 @@ export default {
         <text-input id="password" label="Password" type="password" placeholder="••••••••••" required=true
           autocomplete=true :color="passwordValid" hidden=true @input-value-updated="handlePasswordInputValueUpdated">
           <template v-slot:helpText>
-            <small :class="passwordValid == 'red' ? '' : 'hidden'" class="form-text text-muted text-red-500">Password
-              not valid
-              !</small>
+            <small :class="passwordValid == 'red' ? '' : 'hidden'" class="form-text text-muted text-red-500">
+              Password not valid!
+            </small>
           </template>
         </text-input>
         <!-- end::Password Text Input -->
