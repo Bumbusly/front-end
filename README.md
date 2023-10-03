@@ -67,3 +67,9 @@ Row | Name | Source | Description
 ### ➕ Add a Todo section:
 Login Screen
 Register Screen
+
+
+### Test User
+Username: mosfazli
+Email Address: mosfazli@gmail.com
+Password: Mostafa*123
