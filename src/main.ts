@@ -8,6 +8,9 @@ import HorizontalDividing from './components/UI/HorizontalDividing.vue'
 import BaseTextInput from './components/UI/BaseTextInput.vue'
 import SelectMenu from './components/UI/SelectMenu.vue'
 
+// Import Vuex Store
+import store from "./store"
+
 // Add Toast Library
 import Toast from 'vue-toastification'
 // Import the CSS or use your own!
@@ -26,7 +29,7 @@ app.component('hr-div', HorizontalDividing)
 app.component('SelectMenu', SelectMenu)
 
 app.use(router)
-
+app.use(store)
 app.use(Toast)
 
 app.mount('#app')

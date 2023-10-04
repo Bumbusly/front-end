@@ -33,7 +33,7 @@ export default {
                 <!-- begin::Card Name and Card Image -->
                 <div class="flex flex-row justify-between align-center items-center">
                     <!-- begin::Card Name -->
-                    <h1 class="text-[40px] font-bold text-yellow-800">{{ cardName }}</h1>
+                    <h1 class="text-[24px] font-[900] text-yellow-800">{{ cardName }}</h1>
                     <!-- end::Card Name -->
                     <!-- begin::Card Image -->
                     <slot name="cardImage"></slot>

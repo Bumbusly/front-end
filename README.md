@@ -70,6 +70,9 @@ Register Screen
 
 
 ### Test User
-Username: mosfazli
-Email Address: mosfazli@gmail.com
-Password: Mostafa*123
+Username: mosfazli<br>
+Email Address: mosfazli@gmail.com<br>
+Password: Mostafa*123<br>
+
+After creating an account, can he enter his account directly or not?
+

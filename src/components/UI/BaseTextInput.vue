@@ -89,7 +89,6 @@ export default {
 
 <template>
     <div :id="id + '-container'">
-        <label :for="id" class="block text-sm leading-6">{{ label }}</label>
         <div class="relative mt-2 flex flex-row justify-between align-center items-center w-full">
             <input v-model="inputValue" @input="updateInputValue" :ref="id" :type="isShow == true ? 'text' : type"
                 autocomplete=false :placeholder="placeholder" required=false :obscureText="isShow"
