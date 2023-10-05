@@ -2,9 +2,13 @@
 // Import Styling of This View
 import './LoginViewStyle.scss'
 
+// Import Animation Library
+import { animate } from 'motion'
+
 // Import Custom Components
 import YellowBackground from '../../components/YellowBackground.vue'
 import CardItem from '../../components/UI/CardItem.vue'
+import BeeLoader from '@/components/UI/BeeLoader.vue'
 
 // Import Axious API
 import axios from 'axios'
@@ -14,33 +18,53 @@ import { useToast } from 'vue-toastification'
 // Get toast interface
 const toast = useToast()
 
+// Import Vuex Store
+import { useStore } from 'vuex'
+
+// Import Router
+import router from './../../router'
+
 // Content Of View
 export default {
+  mounted() {
+    const animation = animate(
+      '.card',
+      { opacity: 1, transform: 'none' },
+      { delay: 0.05, duration: 0.3, easing: [0.17, 0.55, 0.55, 1] }
+    )
+  },
+  setup() {
+    const store = useStore()
+    return { store }
+  },
   data() {
     return {
       // Card Attributes
       cardTitle: 'Login',
       cardDescription: 'Enter enter your username and password',
-
+      //Labels
+      usernameLabel: 'Username',
+      emailLabel: 'Email Address',
+      passwordLabel: 'Password',
       // Check Validation
       usernameValid: 'default',
       emailValid: 'default',
       passwordValid: 'default',
-
       // Errors of validations
       invalidUsername: 'Username not valid !',
       invalidEmail: 'Email not valid !',
       invalidPassword: 'Password not valid !',
-
       // Variables
       username: '',
       emailAddress: '',
-      password: ''
+      password: '',
+      isLoading: false
     }
   },
   components: {
     YellowBackground,
-    CardItem
+    CardItem,
+    BeeLoader
   },
   methods: {
     // Validate Username
@@ -95,6 +119,7 @@ export default {
         this.emailValid = 'green'
       } else {
         this.emailValid = 'red'
+        // toast.error('Email not valid')
       }
       if (this.validatePassword()) {
         this.passwordValid = 'green'
@@ -105,10 +130,11 @@ export default {
         this.passwordValid = 'red'
       }
       if (this.validateUsername() && this.validatePassword()) {
-        this.testApi()
+        this.login()
       }
     },
-    async testApi() {
+    async login() {
+      this.isLoading = true
       try {
         const url = 'https://bb.abansoft.ir/api/v1/account/'
         const body = {
@@ -121,13 +147,36 @@ export default {
         }
         const { data } = await axios.post(url, body, headers)
         this.post = data
-        toast.success('You Logged Succesfully')
+        console.log(data)
+        if (data.hasError === false) {
+          this.storeData(
+            this.username,
+            this.post.content.token,
+            this.post.content.refereshToken,
+            true
+          )
+          toast.success('You Logged Succesfully')
+          router.push('/profile')
+          this.isLoading = false
+        }
       } catch (error) {
         toast.error('Username or Password is Wrong')
         this.usernameValid = 'red'
         this.passwordValid = 'red'
         console.log(error)
+        this.isLoading = false
       }
+    },
+    keymonitor(event) {
+      if (event.key == 'Enter') {
+        this.loginClicked()
+      }
+    },
+    storeData(username: string, token: string, refereshToken: string, isAuth: boolean) {
+      this.store.commit('setUsername', username)
+      this.store.commit('setToken', token)
+      this.store.commit('setRefereshToken', refereshToken)
+      this.store.commit('setIsAuthenticated', isAuth)
     }
   },
   // Set Title of Page
@@ -143,6 +192,9 @@ export default {
 </script>
 
 <template>
+  <!-- begin::Loading Compoennt -->
+  <BeeLoader v-if="isLoading"></BeeLoader>
+  <!-- end::Loading Compoennt -->
   <!-- begin::Container -->
   <div id="main-container" class="w-screen h-screen flex justify-center align-center items-center">
     <!-- begin::Background -->
@@ -150,7 +202,7 @@ export default {
     <!-- end::Background -->
     <!-- begin::Register Card -->
     <!-- begin::Description of Card -->
-    <CardItem :cardName="cardTitle">
+    <CardItem :cardName="cardTitle" class="card">
       <template v-slot:cardDescription>
         <p class="text-yellow-800 font-medium">
           {{ cardDescription }}
@@ -159,57 +211,74 @@ export default {
       <!-- end::Description of Card -->
       <!-- begin::Icon of Card (Bumbusly) -->
       <template v-slot:cardImage>
-        <img src="./../../assets/media/images/Logo/Bumbusly.svg" />
+        <img
+          width="45"
+          height="50"
+          alt="bumbusly logo"
+          src="./../../assets/media/images/Logo/Bumbusly.svg"
+        />
       </template>
       <!-- end::Icon of Card (Bumbusly) -->
       <!-- begin::Body of Card -->
       <template v-slot:cardBody>
-        <!-- begin::Username Label -->
-        <label for="username" class="block text-sm leading-6"></label>
-        <!-- end::Username Label -->
-        <!-- begin::Username Text Input -->
-        <text-input
-          id="uesrname"
-          label="Username"
-          type="username"
-          placeholder="mosfazli"
-          required="true"
-          autocomplete="true"
-          :color="usernameValid"
-          @input-value-updated="handleUsernameInputValueUpdated"
-        >
-          <template v-slot:helpText>
-            <small
-              :class="usernameValid == 'red' ? '' : 'hidden'"
-              class="form-text text-muted text-red-500"
-            >
-              {{ invalidUsername }}
-            </small>
-          </template>
-        </text-input>
-        <!-- end::Email Text Input -->
-        <!-- begin::Password Text Input -->
-        <text-input
-          id="password"
-          label="Password"
-          type="password"
-          placeholder="••••••••••"
-          required="true"
-          autocomplete="true"
-          :color="passwordValid"
-          hidden="true"
-          @input-value-updated="handlePasswordInputValueUpdated"
-        >
-          <template v-slot:helpText>
-            <small
-              :class="passwordValid == 'red' ? '' : 'hidden'"
-              class="form-text text-muted text-red-500"
-            >
-              Password not valid!
-            </small>
-          </template>
-        </text-input>
-        <!-- end::Password Text Input -->
+        <!-- begin::Username Component -->
+        <div>
+          <!-- begin::Username Label -->
+          <label for="username" class="block text-sm leading-6">{{ usernameLabel }}</label>
+          <!-- end::Username Label -->
+          <!-- begin::Username Text Input -->
+          <TextInput
+            id="uesrname"
+            label="Username"
+            type="username"
+            placeholder="mosfazli"
+            required="true"
+            autocomplete="true"
+            :color="usernameValid"
+            @input-value-updated="handleUsernameInputValueUpdated"
+          >
+            <template v-slot:helpText>
+              <small
+                :class="usernameValid == 'red' ? '' : 'hidden'"
+                class="form-text text-muted text-red-500"
+              >
+                {{ invalidUsername }}
+              </small>
+            </template>
+          </TextInput>
+          <!-- end::Email Text Input -->
+        </div>
+        <!-- end::Username Component -->
+        <!-- begin::Password Component -->
+        <div>
+          <!-- begin::Password Label -->
+          <label for="password" class="block text-sm leading-6">{{ passwordLabel }}</label>
+          <!-- end::Password Label -->
+          <!-- begin::Password Text Input -->
+          <TextInput
+            id="password"
+            label="Password"
+            type="password"
+            placeholder="••••••••••"
+            required="true"
+            autocomplete="true"
+            :color="passwordValid"
+            hidden="true"
+            @input-value-updated="handlePasswordInputValueUpdated"
+            v-on:keyup="keymonitor"
+          >
+            <template v-slot:helpText>
+              <small
+                :class="passwordValid == 'red' ? '' : 'hidden'"
+                class="form-text text-muted text-red-500"
+              >
+                Password not valid!
+              </small>
+            </template>
+          </TextInput>
+          <!-- end::Password Text Input -->
+        </div>
+        <!-- end::Password Component -->
         <!-- begin::Login Button -->
         <BaseButton
           ref="loginButton"
@@ -234,7 +303,7 @@ export default {
       <!-- begin::Additional Section -->
       <template v-slot:cardAdditional>
         <div class="flex flex-col gap-2">
-          <hr-div text="or"></hr-div>
+          <HrDivision text="or"></HrDivision>
           <BaseButton
             text="Register"
             link="register"

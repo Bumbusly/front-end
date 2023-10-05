@@ -4,14 +4,30 @@ import createPersistedState from 'vuex-persistedstate'
 const store = createStore({
   state: {
     username: '',
-    email: '',
-    token: ''
+    token: '',
+    refereshToken: '',
+    isAuthenticated: false
   },
   mutations: {
-    saveUser(state, username, email, token) {
+    setUsername(state, username) {
       state.username = username
-      state.email = email
+    },
+    setToken(state, token) {
       state.token = token
+    },
+    setRefereshToken(state, refereshToken) {
+      state.refereshToken = refereshToken
+    },
+    setIsAuthenticated(state, isAuthenticated) {
+      state.isAuthenticated = isAuthenticated
+    }
+  },
+  getters: {
+    isAuthenticated(state) {
+      return state.isAuthenticated
+    },
+    username(state) {
+      return state.username
     }
   },
   plugins: [createPersistedState({})]
