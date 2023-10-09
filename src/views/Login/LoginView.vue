@@ -10,7 +10,7 @@ import YellowBackground from '../../components/YellowBackground.vue'
 import CardItem from '../../components/UI/CardItem.vue'
 import BeeLoader from '@/components/UI/BeeLoader.vue'
 
-// Import Axious API
+// Import axios API
 import axios from 'axios'
 
 // Import Toast Library
@@ -51,14 +51,14 @@ export default {
       emailValid: 'default',
       passwordValid: 'default',
       // Errors of validations
-      invalidUsername: 'Username not valid !',
+      invalidUsername: 'Username should be at least 4 characters !',
       invalidEmail: 'Email not valid !',
       invalidPassword: 'Password not valid !',
       // Variables
       username: '',
       emailAddress: '',
       password: '',
-      isLoading: false
+      isLoading: false,
     }
   },
   components: {
@@ -112,7 +112,6 @@ export default {
       if (this.validateUsername()) {
         this.usernameValid = 'green'
       } else {
-        toast.error('Username should be at least 4 characters')
         this.usernameValid = 'red'
       }
       if (this.validateEmaill()) {
@@ -124,9 +123,6 @@ export default {
       if (this.validatePassword()) {
         this.passwordValid = 'green'
       } else {
-        toast.error(
-          'Password should be minimum eight characters, at least one letter, one number and one special character'
-        )
         this.passwordValid = 'red'
       }
       if (this.validateUsername() && this.validatePassword()) {
@@ -136,8 +132,8 @@ export default {
     async login() {
       this.isLoading = true
       try {
-        const url = 'https://bb.abansoft.ir/api/v1/account/'
-        const body = {
+        const url: string = 'https://bb.abansoft.ir/api/v1/account/'
+        const body: object = {
           username: this.username,
           password: this.password,
           rememberMe: true
@@ -146,13 +142,12 @@ export default {
           'Content-Type': 'application/json'
         }
         const { data } = await axios.post(url, body, headers)
-        this.post = data
         console.log(data)
         if (data.hasError === false) {
           this.storeData(
             this.username,
-            this.post.content.token,
-            this.post.content.refereshToken,
+              data.content.token,
+              data.content.refereshToken,
             true
           )
           toast.success('You Logged Succesfully')
@@ -161,13 +156,13 @@ export default {
         }
       } catch (error) {
         toast.error('Username or Password is Wrong')
-        this.usernameValid = 'red'
-        this.passwordValid = 'red'
+        this.usernameValid = 'default'
+        this.passwordValid = 'default'
         console.log(error)
         this.isLoading = false
       }
     },
-    keymonitor(event) {
+    keymonitor(event: any) {
       if (event.key == 'Enter') {
         this.loginClicked()
       }
@@ -192,9 +187,6 @@ export default {
 </script>
 
 <template>
-  <!-- begin::Loading Compoennt -->
-  <BeeLoader v-if="isLoading"></BeeLoader>
-  <!-- end::Loading Compoennt -->
   <!-- begin::Container -->
   <div id="main-container" class="w-screen h-screen flex justify-center align-center items-center">
     <!-- begin::Background -->
@@ -285,6 +277,7 @@ export default {
           text="Login"
           bgColor="green"
           textColor="green"
+          :isDisable="isLoading"
           @buttonClicked="loginClicked()"
         >
         </BaseButton>

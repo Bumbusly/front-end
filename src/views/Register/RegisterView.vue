@@ -25,7 +25,7 @@ export default {
   mounted() {
     const animation = animate(
       '.card',
-      { opacity: 1, transform: 'none' },
+      { opacity: 1, transform: 'scale(0.95)' },
       { delay: 0.05, duration: 0.3, easing: [0.17, 0.55, 0.55, 1] }
     )
   },
@@ -60,8 +60,6 @@ export default {
       password: '',
       cPassword: '',
       isLoading: false,
-      // Posted Request Data
-      post: null
     }
   },
   components: {
@@ -169,12 +167,11 @@ export default {
           password: this.password,
           email: this.emailAddress
         }
-        const headers = {
+        const headers: Object = {
           'Content-Type': 'application/json'
         }
         const { data } = await axios.post(url, body, headers)
-        this.post = data
-        if (this.post.content === true) {
+        if (data.content === true) {
           toast.success('Your account has been successfully created, please login')
           router.push('/login')
           this.isLoading = false
@@ -193,7 +190,7 @@ export default {
         document.title = to.meta.title || 'Bumbusly | Register Page'
       }
     }
-  }
+}
 }
 </script>
 
@@ -342,7 +339,10 @@ export default {
             <label for="language" class="text-sm font-medium leading-6 text-gray-900">
               Select Language
             </label>
-            <SelectMenu></SelectMenu>
+            <div class="flex w-full">
+            <SelectMenu clas1s="w-full rounded-l-lg overflow-hidden"></SelectMenu>
+            <SelectMenu class="w-full rounded-r-lg overflow-hidden"></SelectMenu>
+          </div>
           </div>
           <!-- end::Select Menu of Country -->
           <BaseButton

@@ -1,5 +1,4 @@
 <template>
-  <div class="loading-container">
     <!-- in a wrapping svg define a symbol describing the actual bee -->
     <svg viewBox="0 0 600 600">
       <defs>
@@ -57,10 +56,7 @@
           </g>
         </symbol>
       </defs>
-
-      <!-- center the graphics in the wrapping svg
-    wrap each bee in a group which is translated to have the bee rotate around the center
-    -->
+      <!-- center the graphics in the wrapping svg wrap each bee in a group which is translated to have the bee rotate around the center -->
       <g transform="translate(300 300)">
         <g transform="rotate(0)" class="rotate">
           <!-- rotate this group -->
@@ -90,26 +86,13 @@
         </g>
       </g>
     </svg>
-  </div>
 </template>
 
-<style scoped>
-.loading-container {
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(62, 62, 62, 0.742);
-    z-index: 1000;
-}
+<style >
 .loading-container > svg {
-  position: fixed;
   display: flex;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 60vmin;
-  height: auto;
-  z-index: 1000;
+  z-index: 10;
+  overflow: hidden;
 }
 /* animation to rotate the bees around the center */
 .rotate {

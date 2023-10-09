@@ -9,24 +9,24 @@ const store = createStore({
     isAuthenticated: false
   },
   mutations: {
-    setUsername(state, username) {
+    setUsername(state: any, username: string) {
       state.username = username
     },
-    setToken(state, token) {
+    setToken(state: any, token: string) {
       state.token = token
     },
-    setRefereshToken(state, refereshToken) {
+    setRefereshToken(state: any, refereshToken: string) {
       state.refereshToken = refereshToken
     },
-    setIsAuthenticated(state, isAuthenticated) {
+    setIsAuthenticated(state: any, isAuthenticated: string) {
       state.isAuthenticated = isAuthenticated
     }
   },
   getters: {
-    isAuthenticated(state) {
+    isAuthenticated(state: any) {
       return state.isAuthenticated
     },
-    username(state) {
+    username(state: any) {
       return state.username
     }
   },

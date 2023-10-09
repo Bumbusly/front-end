@@ -1,5 +1,8 @@
 <script lang="ts">
+import BeeLoader from "@/components/UI/BeeLoader.vue";
+
 export default {
+  components: {BeeLoader},
   props: {
     isOutline: {
       type: String,
@@ -20,6 +23,10 @@ export default {
     bgColor: {
       type: String,
       default: 'blue'
+    },
+    isDisable: {
+      type: Boolean,
+      default: false
     }
   },
   emits: ['buttonClicked'],
@@ -47,9 +54,24 @@ export default {
   <button
     v-if="link == null"
     :class="buttonClass()"
-    class="w-full py-[10px] text-sm rounded-lg border border-1"
+    class="w-full text-sm rounded-lg border border-1 flex justify-center items-center align-center"
+    :disabled="isDisable"
     v-on:click.prevent="onClick()"
   >
-    {{ text }}
+    <!-- begin::Loading Compoennt -->
+    <BeeLoader v-if="isDisable"></BeeLoader>
+    <!-- end::Loading Compoennt -->
+    <h3 v-if="!isDisable">{{ text }}</h3>
   </button>
 </template>
+
+<style>
+svg{
+  display: flex;
+  height: 40px;
+}
+
+button > h3 {
+  padding: 10px 0 10px 0;
+}
+</style>

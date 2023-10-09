@@ -9,7 +9,7 @@ import BaseTextInput from '@/components/UI/BaseTextInput.vue'
 import SelectMenu from '@/components/UI/SelectMenu.vue'
 
 // Import Vuex Store
-import store from './store'
+import store from '@/store'
 
 // Add Toast Library
 import Toast from 'vue-toastification'
@@ -32,8 +32,8 @@ app.use(router)
 app.use(store)
 app.use(Toast, {
   newestOnTop: true,
-  filterBeforeCreate: (toast, toasts) => {
-    if (toasts.filter((t) => t.type === toast.type).length !== 0) {
+  filterBeforeCreate: (toast: any, toasts: any) => {
+    if (toasts.filter((t: any) => t.type === toast.type).length !== 0) {
       // Returning false discards the toast
       return false
     }
