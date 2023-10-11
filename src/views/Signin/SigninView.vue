@@ -1,25 +1,25 @@
 <script lang="ts">
 // Import Styling of This View
-import './LoginViewStyle.scss'
+import './SigninViewStyle.scss'
 
 // Import Animation Library
-import { animate } from 'motion'
+import {animate} from 'motion'
 
 // Import Custom Components
-import YellowBackground from '../../components/YellowBackground.vue'
-import CardItem from '../../components/UI/CardItem.vue'
+import YellowBackground from "@/components/YellowBackground.vue"
+import CardItem from '@/components/UI/CardItem.vue'
 import BeeLoader from '@/components/UI/BeeLoader.vue'
 
 // Import axios API
 import axios from 'axios'
 
 // Import Toast Library
-import { useToast } from 'vue-toastification'
+import {useToast} from 'vue-toastification'
 // Get toast interface
 const toast = useToast()
 
 // Import Vuex Store
-import { useStore } from 'vuex'
+import {useStore} from 'vuex'
 
 // Import Router
 import router from './../../router'
@@ -28,23 +28,23 @@ import router from './../../router'
 export default {
   mounted() {
     const animation = animate(
-      '.card',
-      { opacity: 1, transform: 'none' },
-      { delay: 0.05, duration: 0.3, easing: [0.17, 0.55, 0.55, 1] }
+        '.card',
+        {opacity: 1, transform: 'none'},
+        {delay: 0.05, duration: 0.3, easing: [0.17, 0.55, 0.55, 1]}
     )
   },
   setup() {
     const store = useStore()
-    return { store }
+    return {store}
   },
   data() {
     return {
       // Card Attributes
-      cardTitle: 'Login',
+      cardTitle: 'Signin',
       cardDescription: 'Enter enter your username and password',
       //Labels
       usernameLabel: 'Username',
-      emailLabel: 'Email Address',
+      emailLabel: 'Email',
       passwordLabel: 'Password',
       // Check Validation
       usernameValid: 'default',
@@ -76,7 +76,7 @@ export default {
       console.log('username is ' + this.username + ' ' + (result ? 'correct' : 'incorrect'))
       return result
     },
-    // Validate Email Address
+    // Validate Email
     validateEmaill() {
       // Valida Email Regex
       const expression: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
@@ -89,7 +89,7 @@ export default {
     validatePassword() {
       // Valid Password Regex
       const expression: RegExp =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i
       const password: string = this.password
       const result: boolean = expression.test(password)
       console.log('password is ' + this.password + ' ' + (result ? 'correct' : 'incorrect'))
@@ -107,8 +107,8 @@ export default {
     handlePasswordInputValueUpdated(value: string) {
       this.password = value
     },
-    // Login Button Function
-    loginClicked() {
+    // Signin Button Function
+    signinClicked() {
       if (this.validateUsername()) {
         this.usernameValid = 'green'
       } else {
@@ -126,10 +126,10 @@ export default {
         this.passwordValid = 'red'
       }
       if (this.validateUsername() && this.validatePassword()) {
-        this.login()
+        this.signin()
       }
     },
-    async login() {
+    async signin() {
       this.isLoading = true
       try {
         const url: string = 'https://bb.abansoft.ir/api/v1/account/'
@@ -141,14 +141,14 @@ export default {
         const headers: object = {
           'Content-Type': 'application/json'
         }
-        const { data } = await axios.post(url, body, headers)
+        const {data} = await axios.post(url, body, headers)
         console.log(data)
         if (data.hasError === false) {
           this.storeData(
-            this.username,
+              this.username,
               data.content.token,
               data.content.refereshToken,
-            true
+              true
           )
           toast.success('You Logged Succesfully')
           router.push('/profile')
@@ -164,7 +164,7 @@ export default {
     },
     keymonitor(event: any) {
       if (event.key == 'Enter') {
-        this.loginClicked()
+        this.signinClicked()
       }
     },
     storeData(username: string, token: string, refereshToken: string, isAuth: boolean) {
@@ -179,7 +179,7 @@ export default {
     $route: {
       immediate: true,
       handler(to, from) {
-        document.title = to.meta.title || 'Bumbusly | Login Page'
+        document.title = to.meta.title || 'Bumbusly | Signin Page'
       }
     }
   }
@@ -188,11 +188,11 @@ export default {
 
 <template>
   <!-- begin::Container -->
-  <div id="main-container" class="w-screen h-screen flex justify-center align-center items-center">
+  <form class="w-screen h-screen flex justify-center sm:align-center sm:items-center">
     <!-- begin::Background -->
     <YellowBackground></YellowBackground>
     <!-- end::Background -->
-    <!-- begin::Register Card -->
+    <!-- begin::Signin Card -->
     <!-- begin::Description of Card -->
     <CardItem :cardName="cardTitle" class="card">
       <template v-slot:cardDescription>
@@ -204,10 +204,10 @@ export default {
       <!-- begin::Icon of Card (Bumbusly) -->
       <template v-slot:cardImage>
         <img
-          width="45"
-          height="50"
-          alt="bumbusly logo"
-          src="./../../assets/media/images/Logo/Bumbusly.svg"
+            width="45"
+            height="50"
+            alt="bumbusly logo"
+            src="./../../assets/media/images/Logo/Bumbusly.svg"
         />
       </template>
       <!-- end::Icon of Card (Bumbusly) -->
@@ -220,19 +220,19 @@ export default {
           <!-- end::Username Label -->
           <!-- begin::Username Text Input -->
           <TextInput
-            id="uesrname"
-            label="Username"
-            type="username"
-            placeholder="mosfazli"
-            required="true"
-            autocomplete="true"
-            :color="usernameValid"
-            @input-value-updated="handleUsernameInputValueUpdated"
+              id="uesrname"
+              label="Username"
+              type="username"
+              placeholder="mosfazli"
+              required="true"
+              autocomplete="true"
+              :color="usernameValid"
+              @input-value-updated="handleUsernameInputValueUpdated"
           >
             <template v-slot:helpText>
               <small
-                :class="usernameValid == 'red' ? '' : 'hidden'"
-                class="form-text text-muted text-red-500"
+                  :class="usernameValid == 'red' ? '' : 'hidden'"
+                  class="form-text text-muted text-red-500"
               >
                 {{ invalidUsername }}
               </small>
@@ -248,21 +248,21 @@ export default {
           <!-- end::Password Label -->
           <!-- begin::Password Text Input -->
           <TextInput
-            id="password"
-            label="Password"
-            type="password"
-            placeholder="••••••••••"
-            required="true"
-            autocomplete="true"
-            :color="passwordValid"
-            hidden="true"
-            @input-value-updated="handlePasswordInputValueUpdated"
-            v-on:keyup="keymonitor"
+              id="password"
+              label="Password"
+              type="password"
+              placeholder="••••••••••"
+              required="true"
+              autocomplete="true"
+              :color="passwordValid"
+              hidden="true"
+              @input-value-updated="handlePasswordInputValueUpdated"
+              v-on:keyup="keymonitor"
           >
             <template v-slot:helpText>
               <small
-                :class="passwordValid == 'red' ? '' : 'hidden'"
-                class="form-text text-muted text-red-500"
+                  :class="passwordValid == 'red' ? '' : 'hidden'"
+                  class="form-text text-muted text-red-500"
               >
                 Password not valid!
               </small>
@@ -271,25 +271,25 @@ export default {
           <!-- end::Password Text Input -->
         </div>
         <!-- end::Password Component -->
-        <!-- begin::Login Button -->
+        <!-- begin::Signin Button -->
         <BaseButton
-          ref="loginButton"
-          text="Login"
-          bgColor="green"
-          textColor="green"
-          :isDisable="isLoading"
-          @buttonClicked="loginClicked()"
+            ref="signinButton"
+            text="Signin"
+            bgColor="green"
+            textColor="green"
+            :isDisable="isLoading"
+            @buttonClicked="signinClicked()"
         >
         </BaseButton>
-        <!-- end::Login Button -->
+        <!-- end::Signin Button -->
         <!-- begin::Forgot Password -->
-        <div class="flex items-center mb-1">
+        <RouterLink class="flex items-center mb-1" to="/forgot">
           <a
-            class="text-red-700 underline font-bold flex align-center items-center justify-center text-center w-full"
+              class="text-red-700 underline font-bold flex align-center items-center justify-center text-center w-full"
           >
             <h2>Forgot password ?</h2>
           </a>
-        </div>
+        </RouterLink>
         <!-- end::Forgot Password -->
       </template>
       <!-- end::Body of Card -->
@@ -298,17 +298,17 @@ export default {
         <div class="flex flex-col gap-2">
           <HrDivision text="or"></HrDivision>
           <BaseButton
-            text="Register"
-            link="register"
-            bgColor="green"
-            textColor="green"
-            isOutline="true"
+              text="Signup"
+              link="signup"
+              bgColor="green"
+              textColor="green"
+              isOutline="true"
           ></BaseButton>
         </div>
       </template>
       <!-- end::Additional Section -->
     </CardItem>
-    <!-- end::Register Card -->
-  </div>
+    <!-- end::Signin Card -->
+  </form>
   <!-- end::Container -->
 </template>

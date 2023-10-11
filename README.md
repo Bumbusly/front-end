@@ -62,20 +62,20 @@ Row | Name | Source | Description
 8 | **Line Space** || All of Template Code Shouldn't have line Sapce
 
 ## Views:
-Row | Name | Source | Description
---- | --- | --- | ---
-1 | **Login Page** | src/views/Login/LoginView.vue | Login page for Sign in
-2 | **Register Page** | src/views/Register/RegisterView.vue | Register Page for Sign up
+Row | Name            | Source                          | Description
+--- |-----------------|---------------------------------| ---
+1 | **Signin Page** | src/views/Signin/SigninView.vue | Signin page for Login
+2 | **Signup Page** | src/views/Singup/SignupView.vue | Singup Page for Registeration
 
 
 ### ➕ Add a Todo section:
-Login Screen
-Register Screen
+Singin Screen
+Signup Screen
 
 
 ### Test User
 Username: mosfazli<br>
-Email Address: mosfazli@gmail.com<br>
+Email: mosfazli@gmail.com<br>
 Password: Mostafa*123<br>
 
 After creating an account, can he enter his account directly or not?
