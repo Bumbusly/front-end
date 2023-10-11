@@ -20,7 +20,7 @@ export default {
 <template>
   <!-- begin::Card Container -->
   <div
-    class="w-[374px] lg:w-1/4 m-1 bg-white rounded-2xl sm:border border-yellow-800 px-7 py-5 flex flex-col gap-5"
+    class="w-[374px] md:w-1/3 lg:w-1/4 m-1 bg-white rounded-2xl sm:border border-yellow-800 px-7 py-5 flex flex-col gap-5 h-min"
   >
     <!-- begin::Main Section -->
     <div class="flex flex-col gap-6">

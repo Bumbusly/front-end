@@ -11,6 +11,17 @@ import SelectMenu from '@/components/UI/SelectMenu.vue'
 // Import Vuex Store
 import store from '@/store'
 
+// Vuetify
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+
+const vuetify = createVuetify({
+  components,
+  directives,
+})
+
 // Add Toast Library
 import Toast from 'vue-toastification'
 // Import the CSS or use your own!
@@ -41,5 +52,6 @@ app.use(Toast, {
     return toast
   }
 })
+app.use(vuetify)
 
 app.mount('#app')

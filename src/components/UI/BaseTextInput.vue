@@ -49,6 +49,7 @@ export default {
             required: false,
             default: 'false'
         },
+
     },
     methods: {
         changeType() {

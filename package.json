@@ -39,6 +39,8 @@
     "tailwindcss": "^3.3.3",
     "typescript": "~5.1.6",
     "vite": "^4.4.9",
-    "vue-tsc": "^1.8.11"
+    "vite-plugin-vuetify": "^1.0.2",
+    "vue-tsc": "^1.8.11",
+    "vuetify": "^3.3.20"
   }
 }

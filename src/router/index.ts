@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LoginView from '@/views/Login/LoginView.vue'
-import RegisterView from '@/views/Register/RegisterView.vue'
+import SigninView from '@/views/Signin/SigninView.vue'
+import SignupView from '@/views/Signup/SignupView.vue'
+import ForgotPasswordView from '/src/views/ForgotPassword/ForgotPasswordView.vue';
 import ProfileView from '@/views/Profile/ProfileView.vue'
 
 // Import Toast Library
@@ -15,24 +16,33 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'login2',
-      component: LoginView,
+      name: 'signin2',
+      component: SigninView,
       meta: {
         disableIfLoggedIn: true
       }
     },
     {
-      path: '/register',
-      name: 'register',
-      component: RegisterView,
+      path: '/signup',
+      name: 'signup',
+      component: SignupView,
       meta: {
         disableIfLoggedIn: true
       }
     },
     {
-      name: 'login',
-      path: '/login',
-      component: LoginView,
+      name: 'signin',
+      path: '/signin',
+      component: SigninView,
+      meta: {
+        public: true,
+        disableIfLoggedIn: true
+      }
+    },
+    {
+      name: 'forgot',
+      path: '/forgot',
+      component: ForgotPasswordView,
       meta: {
         public: true,
         disableIfLoggedIn: true
@@ -53,7 +63,7 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!store.getters.isAuthenticated) {
       next({
-        name: 'login'
+        name: 'signin'
       })
       toast.error(
         'You do not have permission to access the desired page, you must have an account to access this page.'
