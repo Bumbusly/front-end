@@ -22,7 +22,6 @@ export default {
       <h3 class="text-gray-500 text-[14px]">{{ errorText }}</h3>
       <div class="w-[139px]">
         <BaseButton
-            class="text-[14px]"
             text="Authentication"
             bgColor="yellow"
             textColor="yellow"

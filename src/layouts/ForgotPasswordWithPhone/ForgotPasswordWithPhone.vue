@@ -1,31 +1,32 @@
 <script lang="ts">
 // Import Custom Components
 import CardItem from "@/components/UI/CardItem.vue";
-import YellowBackground from "@/components/YellowBackground.vue";
+import YellowBackground from "@/components/UI/YellowBackground.vue";
 import BaseButton from "@/components/UI/BaseButton.vue";
+import MobileBox from "@/components/UI/MobileBox.vue";
 import {animate} from "motion";
 
 export default {
   mounted() {
-    const animation = animate(
+/*    const animation = animate(
         '.card',
         {opacity: 1, transform: 'scale(1)'},
         {delay: 0.05, duration: 0.3, easing: [0.17, 0.55, 0.55, 1]}
-    )
+    )*/
   },
   data() {
     return {
       cardTitle: 'Forgot Password',
       cardDescription: "Enter your mobile and we'll send you a link to reset your password.",
-      phoneLabel: 'Enter your phone',
-      phonePlaceholder: "9380354358",
+      phoneLabel: 'Enter your mobile',
+      phonePlaceholder: "mobile",
       invalidPhone: 'Phone is not valid !',
       phoneValid: 'default',
-
+      phone: ''
     }
   },
-  emits: ['change-to-email'],
-  components: {BaseButton, YellowBackground, CardItem},
+  emits: ['change-to-email', 'submitted-phone'],
+  components: {BaseButton, YellowBackground, CardItem, MobileBox},
   methods: {
     // Putting value of Phone text input to variable
     handlePhoneInputValueUpdated(value: string) {
@@ -37,7 +38,7 @@ export default {
     submittedPhone() {
       this.$emit('submitted-phone')
     },
-  }
+  },
 }
 
 </script>
@@ -45,7 +46,7 @@ export default {
 <template>
   <!-- begin::Signup Card -->
   <!-- begin::Description of Card -->
-  <CardItem :cardName="cardTitle" class="card">
+  <CardItem :cardName="cardTitle" class="card mt-10">
     <template v-slot:cardDescription>
       <p class="text-yellow-800 font-medium">
         {{ cardDescription }}
@@ -55,8 +56,8 @@ export default {
     <!-- begin::Icon of Card (Bumbusly) -->
     <template v-slot:cardImage>
       <img
-          width="45"
-          height="50"
+          width="50"
+          height="55"
           alt="bumbusly logo"
           src="./../../assets/media/images/Logo/Bumbusly.svg"
       />
@@ -66,38 +67,11 @@ export default {
     <template v-slot:cardBody>
 
       <!-- Testing Section-->
-      <div>
-        <label class="block text-sm leading-6">{{ phoneLabel }}</label>
-        <div class="flex rounded-l-xl rounded-r-none">
-          <v-combobox
-              :items="['+98', '+1', '+8']"
-              variant="outlined"
-              density="compact"
-          ></v-combobox>
-          <!-- begin::Phone Text Input -->
-          <TextInput class="rounded-l-xl rounded-r-none"
-                     id="phone"
-                     label="phone"
-                     type="number"
-                     :placeholder="phonePlaceholder"
-                     required="true"
-                     autocomplete="phone"
-                     :color="phoneValid"
-                     @input-value-updated="handlePhoneInputValueUpdated"
-          >
-            <template v-slot:helpText>
-              <small
-                  :class="phoneValid == 'red' ? '' : 'hidden'"
-                  class="form-text text-muted text-red-500"
-              >
-                {{ invalidPhone }}
-              </small>
-            </template>
-          </TextInput>
-          <!-- end::Phone Text Input -->
-        </div>
-      </div>
+
+<MobileBox></MobileBox>
       <!-- Testing Section -->
+
+
       <BaseButton
           text="Send"
           bgColor="green"
@@ -109,9 +83,10 @@ export default {
     <!-- end::Body of Card -->
     <!-- begin::Additional Section -->
     <template v-slot:cardAdditional>
+      <HrDivision text="Reset password by email"></HrDivision>
       <div class="flex flex-col gap-2">
         <BaseButton
-            text="Reset password with email"
+            text="Switch to Email"
             bgColor="green"
             textColor="green"
             isOutline="true"

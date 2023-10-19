@@ -6,15 +6,17 @@ import './SignupViewStyle.scss'
 import {animate} from 'motion'
 
 // Import Custom Components
-import YellowBackground from '@/components/YellowBackground.vue'
+import YellowBackground from '@/components/UI/YellowBackground.vue'
 import CardItem from '@/components/UI/CardItem.vue'
 import BeeLoader from '@/components/UI/BeeLoader.vue'
+import MobileBox from '@/components/UI/MobileBox.vue'
 
 // Import Axious API
 import axios from 'axios'
 
 // Import Toast Library and Setup
 import {useToast} from 'vue-toastification'
+
 const toast = useToast()
 
 // Import Router
@@ -23,31 +25,33 @@ import router from './../../router'
 // Content Of View
 export default {
   mounted() {
-    const animation = animate(
-        '.card',
-        {opacity: 1, transform: 'scale(0.95)'},
-        {delay: 0.05, duration: 0.3, easing: [0.17, 0.55, 0.55, 1]}
-    )
+    /*    const animation = animate(
+            '.card',
+            {opacity: 1, transform: 'scale(1)'},
+            {delay: 0.05, duration: 0.3, easing: [0.17, 0.55, 0.55, 1]}
+        )*/
   },
   data() {
     return {
       // Card Attributes
-      cardTitle: 'Signup',
+      cardTitle: 'Sign up',
       cardDescription: 'Enter your information to signup',
       // Labels
       mobileLabel: 'Mobile',
       passwordLabel: 'Password',
       cPasswordLabel: 'Confirm Password',
       // Placeholders
-      phonePlaceholder: '9380354358',
+      phonePlaceholder: 'mobile',
       passwordPlaceholder: '••••••••••',
       // Check Validation
+      firstTryPhone: true,
+      firstTryPassword: true,
       phoneValid: 'default',
       passwordValid: 'default',
       cPasswordValid: 'default',
       agreementValid: false,
       // Errors of validations
-      invalidPhone: 'Phone is not valid !',
+      invalidPhone: 'Mobile is not valid !',
       /*invalidPassword: 'Password is not Match !',*/
       invalidCPassword: 'Confirm Password is not Match !',
       // Variables
@@ -55,32 +59,26 @@ export default {
       password: '',
       cPassword: '',
       isLoading: false,
+      selected: null,
+      options: ['list', 'of', 'options']
     }
   },
   components: {
     YellowBackground,
     CardItem,
     BeeLoader,
+    MobileBox,
   },
   computed: {},
   methods: {
     // Validate Phone
-/*    validatePhone() {
+    validatePhone() {
       // Validate Phone
-      const phoneExp = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/i
-      const result = phoneExp.test(this.phone)
+      console.log(this.phone)
+      const result = this.phone.length > 4
       console.log('phone is ' + this.phone + ' ' + (result ? 'correct' : 'incorrect'))
       return result
-    },*/
-
-    // Validate Password
-/*    validatePassword() {
-      // Validate Password Regex
-      const passExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i
-      const result = passExp.test(this.password)
-      console.log('password is ' + this.password + ' ' + (result ? 'correct' : 'incorrect'))
-      return result
-    },*/
+    },
     // Validate Confirm Password
     validateCPassword() {
       const cPassword = this.cPassword
@@ -92,32 +90,37 @@ export default {
     },
     // Putting value of Phone text input to variable
     handlePhoneInputValueUpdated(value: string) {
+      this.phoneValid = 'default'
       this.phone = value
+      console.log(this.phone)
     },
     // Putting value of Password text input to variable
     handlePasswordInputValueUpdated(value: string) {
+      this.passwordValid = 'default'
       this.password = value
     },
     // Putting value of Confirm Password text input to variable
     handleCPasswordInputValueUpdated(value: string) {
+      this.cPasswordValid = 'default'
       this.cPassword = value
     },
     // Signin Button Clicked Function
     signupClicked() {
-/*      if (this.validatePhone()) {
+      this.firstTryPhone = false
+      this.firstTryPassword = false
+      if (this.validatePhone()) {
         this.phoneValid = 'green'
       } else {
         this.phoneValid = 'red'
-        toast.error('Phone should be at least 4 characters')
-      }*/
-/*      if (this.validatePassword()) {
-        this.passwordValid = 'green'
-      } else {
-        this.passwordValid = 'red'
-        toast.error(
-            'Password should be minimum eight characters, at least one letter, one number and one special character'
-        )
-      }*/
+      }
+      /*      if (this.validatePassword()) {
+              this.passwordValid = 'green'
+            } else {
+              this.passwordValid = 'red'
+              toast.error(
+                  'Password should be minimum eight characters, at least one letter, one number and one special character'
+              )
+            }*/
       if (this.validateCPassword()) {
         this.cPasswordValid = 'green'
         this.passwordValid = 'green'
@@ -128,7 +131,7 @@ export default {
       if (!this.agreementValid) {
       }
       if (
-          /*this.validatePhone() &&*/
+          this.validatePhone() &&
           /*this.validatePassword() &&*/
           this.validateCPassword() &&
           this.agreementValid
@@ -172,9 +175,6 @@ export default {
 </script>
 
 <template>
-  <!-- begin::Loading Compoennt -->
-  <BeeLoader v-if="isLoading"></BeeLoader>
-  <!-- end::Loading Compoennt -->
   <!-- begin::Container (Signup Form) -->
   <form class="w-screen h-screen flex justify-center sm:align-center sm:items-center">
     <!-- begin::Background -->
@@ -182,7 +182,7 @@ export default {
     <!-- end::Background -->
     <!-- begin::Signup Card -->
     <!-- begin::Description of Card -->
-    <CardItem :card-name="cardTitle" class="card">
+    <CardItem :card-name="cardTitle" class="card mt-10 aspect-[3/4]">
       <template v-slot:cardDescription>
         <p class="text-yellow-800 text-[14px] font-[500]">{{ cardDescription }}</p>
       </template>
@@ -190,8 +190,8 @@ export default {
       <!-- begin::Icon of Card (Bumbusly) -->
       <template v-slot:cardImage>
         <img
-            width="45"
-            height="50"
+            width="50"
+            height="55"
             alt="bumbusly logo"
             src="./../../assets/media/images/Logo/Bumbusly.svg"
         />
@@ -200,48 +200,31 @@ export default {
       <!-- begin::Body of Card -->
       <template v-slot:cardBody>
         <div class="flex flex-col gap-4">
-          <!-- begin::Phone Component -->
-          <div>
-            <label class="block text-sm leading-6">{{ mobileLabel }}</label>
-            <div class="flex">
-              <v-combobox class=""
-                  :items="['+98', '+1', '+8']"
-                  variant="outlined"
-                  density="compact"
-              ></v-combobox>
-              <!-- begin::Phone Text Input -->
-              <TextInput class="rounded-l-xl rounded-r-none"
-                  id="phone"
-                  label="phone"
-                  type="number"
-                  :placeholder="phonePlaceholder"
-                  required="true"
-                  autocomplete="phone"
-                  :color="phoneValid"
-                  @input-value-updated="handlePhoneInputValueUpdated"
+
+          <!--Test Section-->
+          <MobileBox
+              id="phone"
+              :color="phoneValid"
+              @input-value-updated="handlePhoneInputValueUpdated"
+          >
+            <template v-slot:helpText>
+              <small
+                  :class="phoneValid == 'red' ? '' : 'hidden'"
+                  class="form-text text-muted text-red-500"
               >
-                <template v-slot:helpText>
-                  <small
-                      :class="phoneValid == 'red' ? '' : 'hidden'"
-                      class="form-text text-muted text-red-500"
-                  >
-                    {{ invalidPhone }}
-                  </small>
-                </template>
-              </TextInput>
-              <!-- end::Phone Text Input -->
-            </div>
-          </div>
-          <!-- end::Phone Component -->
+                {{ invalidPhone }}
+              </small>
+            </template>
+          </MobileBox>
+          <!--Test Section-->
+
           <!-- begin::Password Component -->
           <div>
-            <!-- begin::Password Label -->
-            <label class="block text-sm leading-6">{{ passwordLabel }}</label>
-            <!-- end::Password Label -->
             <!-- begin::Password Text Input -->
             <TextInput
                 id="password"
                 type="password"
+                :label="passwordLabel"
                 :placeholder="passwordPlaceholder"
                 required="true"
                 autocomplete="password"
@@ -249,27 +232,17 @@ export default {
                 hidden="true"
                 @input-value-updated="handlePasswordInputValueUpdated"
             >
-              <template v-slot:helpText>
-<!--                <small
-                    :class="passwordValid == 'red' ? '' : 'hidden'"
-                    class="form-text text-muted text-red-500"
-                >
-                  {{ invalidPassword }}
-                </small>-->
-              </template>
             </TextInput>
             <!-- end::Password Text Input -->
           </div>
           <!-- end::Password Component -->
           <!-- begin::Confirm Password Component -->
           <div>
-            <!-- begin::Confirm Password Label -->
-            <label class="block text-sm leading-6">{{ cPasswordLabel }}</label>
-            <!-- end::Confirm Password Label -->
             <!-- begin::Confirm Password Text Input -->
             <TextInput
                 id="cPassword"
                 type="password"
+                :label="cPasswordLabel"
                 :placeholder="passwordPlaceholder"
                 required="true"
                 autocomplete="password"
@@ -288,9 +261,9 @@ export default {
             </TextInput>
             <!-- end::Password Text Input -->
           </div>
-          <!-- end::Password Component -->
+          <!-- end::Confirm Password Component -->
           <BaseButton
-              text="Signup"
+              text="Sign up"
               bgColor="green"
               textColor="green"
               @buttonClicked="signupClicked()"
@@ -303,7 +276,7 @@ export default {
                 class="w-6 h-6 text-green-600 = rounded-xl focus:ring-green-500 focus:ring-2 accent-green-500"
                 v-model="agreementValid"
             />
-            <label for="terms-acknowledge" class="ml-2 text-sm font-normal text-gray-800">
+            <label for="terms-acknowledge" class="ml-2 text-sm font-normal text-gray-900">
               I acknowledge I have read the
               <a class="condition-link font-medium"> Terms & Conditions </a>
               and
@@ -318,7 +291,7 @@ export default {
         <div class="flex flex-col gap-2">
           <HrDivision text="Already have an account?"></HrDivision>
           <BaseButton
-              text="Signin"
+              text="Sign in"
               link="signin"
               bgColor="green"
               textColor="green"
@@ -332,3 +305,5 @@ export default {
   </form>
   <!-- end::Container (Signup Form) -->
 </template>
+
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

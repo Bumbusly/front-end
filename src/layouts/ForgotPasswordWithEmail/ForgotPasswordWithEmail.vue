@@ -1,17 +1,17 @@
 <script lang="ts">
 // Import Custom Components
 import CardItem from "@/components/UI/CardItem.vue";
-import YellowBackground from "@/components/YellowBackground.vue";
+import YellowBackground from "@/components/UI/YellowBackground.vue";
 import BaseButton from "@/components/UI/BaseButton.vue";
 import {animate} from "motion";
 
 export default {
   mounted() {
-    const animation = animate(
+/*    const animation = animate(
         '.card',
         {opacity: 1, transform: 'scale(1)'},
         {delay: 0.05, duration: 0.3, easing: [0.17, 0.55, 0.55, 1]}
-    )
+    )*/
   },
   data() {
     return {
@@ -21,10 +21,10 @@ export default {
       emailPlaceholder: "example@example.com",
       invalidEmail: 'Email is not valid !',
       emailValid: 'default',
-
+      email:''
     }
   },
-  emits: ['change-to-email'],
+  emits: ['change-to-phone','submitted-email'],
   components: {BaseButton, YellowBackground, CardItem},
   methods: {
     // Putting value of Email text input to variable
@@ -32,8 +32,11 @@ export default {
       this.email = value
     },
     changeToPhone() {
-      this.$emit('change-to-phone')
+      this.$emit("change-to-phone");
     },
+    submittedEmail() {
+      this.$emit("submitted-email");
+    }
   }
 }
 
@@ -42,7 +45,7 @@ export default {
 <template>
   <!-- begin::Forgot Password With Email Card -->
   <!-- begin::Description of Card -->
-  <CardItem :cardName="cardTitle" class="card">
+  <CardItem :cardName="cardTitle" class="card mt-10">
     <template v-slot:cardDescription>
       <p class="text-yellow-800 font-medium">
         {{ cardDescription }}
@@ -52,8 +55,8 @@ export default {
     <!-- begin::Icon of Card (Bumbusly) -->
     <template v-slot:cardImage>
       <img
-          width="45"
-          height="50"
+          width="50"
+          height="55"
           alt="bumbusly logo"
           src="./../../assets/media/images/Logo/Bumbusly.svg"
       />
@@ -64,7 +67,6 @@ export default {
 
       <!-- Testing Section-->
       <div>
-        <label class="block text-sm leading-6">{{ emailLabel }}</label>
         <div class="flex w-full">
           <!-- begin::Email Text Input -->
           <TextInput class="w-full"
@@ -93,16 +95,17 @@ export default {
           text="Send"
           bgColor="green"
           textColor="green"
-          @buttonClicked=""
+          @buttonClicked="submittedEmail()"
       >
       </BaseButton>
     </template>
     <!-- end::Body of Card -->
     <!-- begin::Additional Section -->
     <template v-slot:cardAdditional>
+      <HrDivision class="mt-8" text="Reset password by Mobile"></HrDivision>
       <div class="flex flex-col gap-2">
         <BaseButton
-            text="Reset password with phone"
+            text="Switch to Mobile"
             bgColor="green"
             textColor="green"
             isOutline="true"

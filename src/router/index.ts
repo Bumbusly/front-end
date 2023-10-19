@@ -16,8 +16,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'signin2',
-      component: SigninView,
+      redirect: { name: 'signin' },
       meta: {
         disableIfLoggedIn: true
       }
@@ -53,7 +52,9 @@ const router = createRouter({
       name: 'profile',
       component: ProfileView,
       meta: {
-        requiresAuth: true
+        // requiresAuth: true
+        public: true,
+        disableIfLoggedIn: true
       }
     }
   ]

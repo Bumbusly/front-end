@@ -6,7 +6,7 @@ import './SigninViewStyle.scss'
 import {animate} from 'motion'
 
 // Import Custom Components
-import YellowBackground from "@/components/YellowBackground.vue"
+import YellowBackground from "@/components/UI/YellowBackground.vue"
 import CardItem from '@/components/UI/CardItem.vue'
 import BeeLoader from '@/components/UI/BeeLoader.vue'
 
@@ -27,11 +27,11 @@ import router from './../../router'
 // Content Of View
 export default {
   mounted() {
-    const animation = animate(
-        '.card',
-        {opacity: 1, transform: 'none'},
-        {delay: 0.05, duration: 0.3, easing: [0.17, 0.55, 0.55, 1]}
-    )
+    /*    const animation = animate(
+            '.card',
+            {opacity: 1, transform: 'none'},
+            {delay: 0.05, duration: 0.3, easing: [0.17, 0.55, 0.55, 1]}
+        )*/
   },
   setup() {
     const store = useStore()
@@ -40,23 +40,21 @@ export default {
   data() {
     return {
       // Card Attributes
-      cardTitle: 'Signin',
-      cardDescription: 'Enter enter your username and password',
+      cardTitle: 'Sign in',
+      cardDescription: 'Sign in to your account.',
       //Labels
-      usernameLabel: 'Username',
-      emailLabel: 'Email',
+      emailOrPhoneLabel: 'Email or Mobile',
       passwordLabel: 'Password',
       // Check Validation
-      usernameValid: 'default',
-      emailValid: 'default',
+      firstTryPhoneOrEmail: true,
+      fistTryPassword: true,
+      emailOrPhoneValid: 'default',
       passwordValid: 'default',
       // Errors of validations
-      invalidUsername: 'Username should be at least 4 characters !',
-      invalidEmail: 'Email not valid !',
       invalidPassword: 'Password not valid !',
       // Variables
-      username: '',
-      emailAddress: '',
+      emailOrPhone: '',
+      isEmail: true,
       password: '',
       isLoading: false,
     }
@@ -67,22 +65,19 @@ export default {
     BeeLoader
   },
   methods: {
-    // Validate Username
-    validateUsername() {
-      // Validate Username
-      const expression: RegExp = /^(?=[a-zA-Z0-9._]{4,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/i
-      const username: string = this.username
-      const result: boolean = expression.test(username)
-      console.log('username is ' + this.username + ' ' + (result ? 'correct' : 'incorrect'))
-      return result
-    },
-    // Validate Email
+    // Validate Email Address
     validateEmaill() {
       // Valida Email Regex
-      const expression: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
-      const email: string = this.emailAddress
-      const result: boolean = expression.test(email)
-      console.log('e-mail is ' + this.emailAddress + ' ' + (result ? 'correct' : 'incorrect'))
+      const expression: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+      const email: string = this.emailOrPhone;
+      const result: boolean = expression.test(email);
+      console.log('e-mail is ' + email + ' ' + (result ? 'correct' : 'incorrect'));
+      return result
+    },
+    // Validate Email Or Phone
+    validateEmailOrPhone() {
+      const result: boolean = this.emailOrPhone.length > 4
+      console.log('Email or Phone is ' + this.emailOrPhone + ' ' + (result ? 'correct' : 'incorrect'))
       return result
     },
     // Validate Password
@@ -95,37 +90,49 @@ export default {
       console.log('password is ' + this.password + ' ' + (result ? 'correct' : 'incorrect'))
       return result
     },
-    // Putting value of Username text input to variable
-    handleUsernameInputValueUpdated(value: string) {
-      this.username = value
-    },
-    // Putting value of Email text input to variable
-    handleEmailInputValueUpdated(value: string) {
-      this.emailAddress = value
+    // Putting value of Email or Phone text input to variable
+    handleEmailOrPhoneInputValueUpdated(value: string) {
+      this.emailOrPhone = value
+      if (this.firstTryPhoneOrEmail == false) {
+        this.showValidateMobileOrPhoneInput()
+      }
     },
     // Putting value of Password text input to variable
     handlePasswordInputValueUpdated(value: string) {
       this.password = value
+      if (this.fistTryPassword == false) {
+        this.showValidatePasswordInput()
+      }
     },
-    // Signin Button Function
-    signinClicked() {
-      if (this.validateUsername()) {
-        this.usernameValid = 'green'
-      } else {
-        this.usernameValid = 'red'
-      }
+    showValidateMobileOrPhoneInput() {
       if (this.validateEmaill()) {
-        this.emailValid = 'green'
+        this.isEmail = true
       } else {
-        this.emailValid = 'red'
-        // toast.error('Email not valid')
+        this.isEmail = false
       }
+      if (this.validateEmailOrPhone()) {
+        this.emailOrPhoneValid = 'default'
+      } else {
+        this.emailOrPhoneValid = 'red'
+      }
+    },
+    showValidatePasswordInput() {
       if (this.validatePassword()) {
         this.passwordValid = 'green'
       } else {
         this.passwordValid = 'red'
       }
-      if (this.validateUsername() && this.validatePassword()) {
+    },
+    validateInputs() {
+      this.showValidateMobileOrPhoneInput()
+      this.showValidatePasswordInput()
+    },
+    // Signin Button Function
+    signinClicked() {
+      this.firstTryPhoneOrEmail = false
+      this.fistTryPassword = false
+      this.validateInputs()
+      if (this.validatePassword()) {
         this.signin()
       }
     },
@@ -134,7 +141,7 @@ export default {
       try {
         const url: string = 'https://bb.abansoft.ir/api/v1/account/'
         const body: object = {
-          username: this.username,
+          username: this.emailOrPhone,
           password: this.password,
           rememberMe: true
         }
@@ -145,7 +152,7 @@ export default {
         console.log(data)
         if (data.hasError === false) {
           this.storeData(
-              this.username,
+              this.emailOrPhone,
               data.content.token,
               data.content.refereshToken,
               true
@@ -155,8 +162,8 @@ export default {
           this.isLoading = false
         }
       } catch (error) {
-        toast.error('Username or Password is Wrong')
-        this.usernameValid = 'default'
+        toast.error('Mobile/Email or Password is Wrong')
+        this.emailOrPhoneValid = 'default'
         this.passwordValid = 'default'
         console.log(error)
         this.isLoading = false
@@ -194,9 +201,9 @@ export default {
     <!-- end::Background -->
     <!-- begin::Signin Card -->
     <!-- begin::Description of Card -->
-    <CardItem :cardName="cardTitle" class="card">
+    <CardItem :cardName="cardTitle" class="card mt-10 accept-[4/3]">
       <template v-slot:cardDescription>
-        <p class="text-yellow-800 font-medium">
+        <p class="text-yellow-800 text-[14px] font-[500]">
           {{ cardDescription }}
         </p>
       </template>
@@ -204,8 +211,8 @@ export default {
       <!-- begin::Icon of Card (Bumbusly) -->
       <template v-slot:cardImage>
         <img
-            width="45"
-            height="50"
+            width="50"
+            height="55"
             alt="bumbusly logo"
             src="./../../assets/media/images/Logo/Bumbusly.svg"
         />
@@ -213,39 +220,38 @@ export default {
       <!-- end::Icon of Card (Bumbusly) -->
       <!-- begin::Body of Card -->
       <template v-slot:cardBody>
-        <!-- begin::Username Component -->
-        <div>
-          <!-- begin::Username Label -->
-          <label for="username" class="block text-sm leading-6">{{ usernameLabel }}</label>
-          <!-- end::Username Label -->
+
+
+        <!-- begin::Email Or Phone Component -->
+        <div class="flex flex-col gap-2">
+          <!-- begin::Email or Phone Label -->
+          <label class="block text-sm leading-6">{{ emailOrPhoneLabel }}</label>
+          <!-- end::Email or Phone Label -->
           <!-- begin::Username Text Input -->
           <TextInput
               id="uesrname"
-              label="Username"
               type="username"
-              placeholder="mosfazli"
+              placeholder="name@example.com"
               required="true"
               autocomplete="true"
-              :color="usernameValid"
-              @input-value-updated="handleUsernameInputValueUpdated"
+              :color="emailOrPhoneValid"
+              @input-value-updated="handleEmailOrPhoneInputValueUpdated"
           >
             <template v-slot:helpText>
               <small
-                  :class="usernameValid == 'red' ? '' : 'hidden'"
+                  :class="emailOrPhoneValid == 'red' ? '' : 'hidden'"
                   class="form-text text-muted text-red-500"
               >
-                {{ invalidUsername }}
+                Email or Password is not valid !
               </small>
             </template>
           </TextInput>
           <!-- end::Email Text Input -->
         </div>
-        <!-- end::Username Component -->
+        <!-- end::Email Or Phone Component -->
+
         <!-- begin::Password Component -->
-        <div>
-          <!-- begin::Password Label -->
-          <label for="password" class="block text-sm leading-6">{{ passwordLabel }}</label>
-          <!-- end::Password Label -->
+        <div class="flex flex-col gap-2">
           <!-- begin::Password Text Input -->
           <TextInput
               id="password"
@@ -274,7 +280,7 @@ export default {
         <!-- begin::Signin Button -->
         <BaseButton
             ref="signinButton"
-            text="Signin"
+            text="Sign in"
             bgColor="green"
             textColor="green"
             :isDisable="isLoading"
@@ -298,7 +304,7 @@ export default {
         <div class="flex flex-col gap-2">
           <HrDivision text="or"></HrDivision>
           <BaseButton
-              text="Signup"
+              text="Sign up"
               link="signup"
               bgColor="green"
               textColor="green"

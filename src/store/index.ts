@@ -6,7 +6,8 @@ const store = createStore({
     username: '',
     token: '',
     refereshToken: '',
-    isAuthenticated: false
+    isAuthenticated: false,
+    resetPasswordTimer: 120
   },
   mutations: {
     setUsername(state: any, username: string) {
@@ -20,6 +21,9 @@ const store = createStore({
     },
     setIsAuthenticated(state: any, isAuthenticated: string) {
       state.isAuthenticated = isAuthenticated
+    },
+    setTimer(state: any, timer: number) {
+      state.resetPasswordTimer = timer
     }
   },
   getters: {
@@ -28,6 +32,9 @@ const store = createStore({
     },
     username(state: any) {
       return state.username
+    },
+    resetPasswordTimer(state: any){
+      return state.resetPasswordTimer;
     }
   },
   plugins: [createPersistedState({})]
