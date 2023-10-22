@@ -37,14 +37,14 @@ export default {
   <div v-if="isActive == false && isLock== false" v-on:click.prevent="onClick()"
        class="w-full flex justify-left align-center items-center gap-2 px-2 py-1 hover:ring-1 rounded-lg hover:bg-yellow-300 hover:bg-opacity-10 ring-yellow-600 hover:ring-opacity-40 fill-yellow-600">
     <slot name="menu-icon"></slot>
-    <h2 class="text-[14px] text-gray-900">{{ menuTitle }}</h2>
+    <h2 class="text-[14px]">{{ menuTitle }}</h2>
   </div>
 
   <div v-if="isActive == false && isLock == true"
        class="w-full flex justify-between align-center items-center gap-2 px-2 py-1 rounded-lg fill-yellow-600">
     <div class="flex align-center items-center gap-2">
       <slot name="menu-icon"></slot>
-      <h2 class="text-[14px] text-gray-900">{{ menuTitle }}</h2>
+      <h2 class="text-[14px]">{{ menuTitle }}</h2>
     </div>
     <LockSvg class="w-[20px] h-[20px] fill-gray-500 mb-1"></LockSvg>
   </div>

@@ -69,7 +69,7 @@ export default {
     },
     setDefaultColor() {
       /*return `text-gray-800 ring-gray-500 placeholder:text-gray-500`;*/
-      return `text-gray-800 ring-gray-500 placeholder:text-gray-500`;
+      return `text-gray-800 dark:text-gray-100 ring-gray-500 placeholder:text-gray-500`;
     },
     setRedColor() {
       return `ring-red-500`;

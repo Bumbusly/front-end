@@ -9,13 +9,14 @@ export default {
   components: {CrossSvg, BaseButton, TickSvg},
   data(){
     return{
-      cityPlaceholder: '',
+      country:'',
+      countryPlaceholder: '',
     }
   },
   methods:{
     // Putting value of Email text input to variable
-    handleCityInputValueUpdated(value: string) {
-      this.city = value
+    handleCountryInputValueUpdated(value: string) {
+      this.country = value
     },
     submitClick() {
       this.$emit('submitClicked')
@@ -29,16 +30,16 @@ export default {
 
 <template>
   <div class="flex justify-center align-center items-center gap-3 w-full">
-    <!-- begin::City Text Input -->
+    <!-- begin::Country Text Input -->
     <TextInput class="w-full"
-               id="city"
-               type="city"
-               :placeholder="cityPlaceholder"
+               id="country"
+               type="country"
+               :placeholder="countryPlaceholder"
                required="true"
-               autocomplete="city"
-               @input-value-updated="handleCityInputValueUpdated">
+               autocomplete="country"
+               @input-value-updated="handleCountryInputValueUpdated">
     </TextInput>
-    <!-- end::City Text Input -->
+    <!-- end::Country Text Input -->
 
     <div class="flex justify-center items-center align-center gap-2">
       <BaseButton text="Cancel"

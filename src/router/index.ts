@@ -52,9 +52,9 @@ const router = createRouter({
       name: 'profile',
       component: ProfileView,
       meta: {
-        // requiresAuth: true
-        public: true,
-        disableIfLoggedIn: true
+        requiresAuth: true
+        // public: true,
+        // disableIfLoggedIn: true
       }
     }
   ]

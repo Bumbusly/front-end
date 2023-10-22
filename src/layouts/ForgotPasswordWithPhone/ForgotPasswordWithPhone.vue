@@ -6,13 +6,21 @@ import BaseButton from "@/components/UI/BaseButton.vue";
 import MobileBox from "@/components/UI/MobileBox.vue";
 import {animate} from "motion";
 
+import {useStore} from "vuex";
+import store from "@/store";
+
+
 export default {
+  setup() {
+    const store = useStore()
+    return {store}
+  },
   mounted() {
-/*    const animation = animate(
-        '.card',
-        {opacity: 1, transform: 'scale(1)'},
-        {delay: 0.05, duration: 0.3, easing: [0.17, 0.55, 0.55, 1]}
-    )*/
+    /*    const animation = animate(
+            '.card',
+            {opacity: 1, transform: 'scale(1)'},
+            {delay: 0.05, duration: 0.3, easing: [0.17, 0.55, 0.55, 1]}
+        )*/
   },
   data() {
     return {
@@ -55,22 +63,25 @@ export default {
     <!-- end::Description of Card -->
     <!-- begin::Icon of Card (Bumbusly) -->
     <template v-slot:cardImage>
-      <img
-          width="50"
-          height="55"
-          alt="bumbusly logo"
-          src="./../../assets/media/images/Logo/Bumbusly.svg"
-      />
+      <img  v-if="store.getters.getTheme == true"
+            width="50"
+            height="55"
+            alt="bumbusly logo"
+            src="./../../assets/media/images/Logo/Bumbusly.svg"/>
+
+      <img  v-if="store.getters.getTheme == false"
+            width="50"
+            height="55"
+            alt="bumbusly logo"
+            src="./../../assets/media/images/Logo/Bumbusly-light.png"/>
     </template>
     <!-- end::Icon of Card (Bumbusly) -->
     <!-- begin::Body of Card -->
     <template v-slot:cardBody>
 
       <!-- Testing Section-->
-
-<MobileBox></MobileBox>
+      <MobileBox></MobileBox>
       <!-- Testing Section -->
-
 
       <BaseButton
           text="Send"

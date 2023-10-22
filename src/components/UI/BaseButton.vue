@@ -39,12 +39,14 @@ export default {
     fontSize: {
       type: Number,
       default: 14
-    }
+    },
   },
   emits: ['buttonClicked'],
   methods: {
     onClick() {
-      this.$emit('buttonClicked')
+      if (!this.isWaiting) {
+        this.$emit('buttonClicked')
+      }
     },
     buttonClass() {
       if (this.isOutline == 'false')
@@ -57,6 +59,11 @@ export default {
     },
     setFontSize() {
       return ' text-[' + this.fontSize + 'px] '
+    },
+    isWaitingClass(){
+      if(this.isWaiting){
+        return `bg-${this.bgColor}-300 hover:bg-${this.bgColor}-300`
+      }
     }
   }
 }
@@ -69,22 +76,19 @@ export default {
     </button>
   </RouterLink>
 
-  <button
-      v-if="link == null"
-      :class="buttonClass() + setWidth() + setFontSize()"
-      class="px-2 rounded-lg border-1 flex justify-center items-center align-center"
-      :disabled="isWaiting || isDisable"
-      v-on:click.prevent="onClick()"
-  >
-    <!-- begin::Loading Compoennt -->
-    <BeeLoader v-if="isWaiting"></BeeLoader>
-    <!-- end::Loading Compoennt -->
-    <h3 v-if="!isWaiting">{{ text }}</h3>
-  </button>
+  <div v-if="link == null" class="flex px-2 rounded-lg border-1 justify-center items-center align-center gap-2"
+       :class="buttonClass() + setWidth() + setFontSize() + isWaitingClass()" v-on:click.prevent="onClick()">
+    <slot name="buttonIcon"></slot>
+    <button>
+      <!-- begin::Loading Compoennt -->
+      <BeeLoader v-if="isWaiting"></BeeLoader>
+      <!-- end::Loading Compoennt -->
+      <h3 v-if="!isWaiting">{{ text }}</h3>
+    </button>
+  </div>
 </template>
 
 <style>
-
 svg {
   display: flex;
   height: 40px;
@@ -116,5 +120,19 @@ button > h3 {
   border-style: solid;
   border-width: 1px;
   --tw-text-opacity: 1;
+}
+
+div:has(> button) {
+  cursor: pointer;
+}
+
+.bg-green-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(134 239 172 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-green-300:hover {
+  --tw-text-opacity: 1;
+  color: rgb(220 252 231 / var(--tw-text-opacity));
 }
 </style>

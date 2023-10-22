@@ -16,10 +16,17 @@ import SendSuccessfullyEmail from "@/layouts/SendSuccessfullyEmail/SendSuccessfu
 import {animate} from 'motion'
 import BaseButton from "@/components/UI/BaseButton.vue";
 
+import {useStore} from "vuex";
+import store from "@/store";
+
 // Import Router
 import router from "@/router";
 
 export default {
+  setup() {
+    const store = useStore()
+    return {store}
+  },
   computed: {
     test() {
 
@@ -74,7 +81,7 @@ export default {
       router.push('/signin')
     },
     selectedOption(){
-      return 'bg-gray-100 rounded-lg'
+      return 'bg-gray-100 dark:bg-gray-600 rounded-lg'
     }
   }
 }
@@ -97,12 +104,17 @@ export default {
       <!-- end::Description of Card -->
       <!-- begin::Icon of Card (Bumbusly) -->
       <template v-slot:cardImage>
-        <img
-            width="50"
-            height="55"
-            alt="bumbusly logo"
-            src="./../../assets/media/images/Logo/Bumbusly.svg"
-        />
+        <img  v-if="store.getters.getTheme == true"
+              width="50"
+              height="55"
+              alt="bumbusly logo"
+              src="./../../assets/media/images/Logo/Bumbusly.svg"/>
+
+        <img  v-if="store.getters.getTheme == false"
+              width="50"
+              height="55"
+              alt="bumbusly logo"
+              src="./../../assets/media/images/Logo/Bumbusly-light.png"/>
       </template>
       <!-- end::Icon of Card (Bumbusly) -->
       <!-- begin::Body of Card -->

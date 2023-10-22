@@ -55,45 +55,59 @@ export default {
   },
   methods: {
     logoutClicked() {
-      console.log(this.store.state)
-      this.storeData("", "", "", false)
+      // console.log(this.store.state)
+      this.storeData("", "", "", false, "", "", "", "", "")
       this.reloadPage()
     },
-    storeData(username: string, token: string, refereshToken: string, isAuth: boolean) {
+    storeData(username: string, token: string, refereshToken: string, isAuth: boolean, name: string, lastName: string, country: string, province: string, city: string) {
       this.store.commit('setUsername', username)
       this.store.commit('setToken', token)
       this.store.commit('setRefereshToken', refereshToken)
       this.store.commit('setIsAuthenticated', isAuth)
+      this.store.commit('setPhone', "")
+      this.store.commit('setName', name)
+      this.store.commit('setLastName', lastName)
+      this.store.commit('setCountry', country)
+      this.store.commit('setState', province)
+      this.store.commit('setCity', city)
     },
     reloadPage() {
       window.location.reload()
     },
     clickMenuItem(this) {
-      console.log(this)
+      // console.log(this)
     }
   }
 }
 </script>
 
 <template>
-  <div class="flex bg-gray-50">
+  <div class="flex">
     <!--begin::Sidebar-->
-    <Sidebar></Sidebar>
+    <Sidebar class=""></Sidebar>
     <!--begin::Right Section-->
     <div class="w-5/6">
       <!--begin::Header (Top Section)-->
-      <div class="flex justify-between shadow-md px-6 py-4 w-100">
-        <div>
-        </div>
-        <div class="flex right-0 align-center items-center justify-center gap-4">
-          <h2>Devon Wills</h2>
-          <img class="w-[46px] h-[46px] rounded-full" src="@/assets/media/images/profile.png">
+      <div class="flex justify-between shadow-md px-6 py-4 w-100 bg-[#FFFFFF] dark:bg-gray-900 sticky">
+        <BaseButton
+            ref="logoutButton"
+            text="Logout"
+            bgColor="red"
+            width="auto"
+            textColor="red"
+            @buttonClicked="logoutClicked()"
+        >
+        </BaseButton>
+        <div class="flex right-0 align-center items-center justify-center gap-4 text-gray-900 dark:text-gray-50">
+          <h2 class="text-[14px]">Devon Wills</h2>
+          <PersonSvg class="w-[46px] h-[46px] fill-gray-500 rounded-full" v-if="store.state.avatar == ''"></PersonSvg>
+          <!--<img class="w-[46px] h-[46px] rounded-full" src="@/assets/media/images/profile.png">-->
         </div>
       </div>
       <!--end::Header (Top Section)-->
       <!--begin::Body Section-->
-      <div class="flex h-screen">
-        <div class="w-[174px] flex flex-col gap-1 m-5">
+      <div class="flex h-screen bg-gray-50 dark:bg-gray-800">
+        <div class="w-[174px] flex flex-col gap-1 m-5 text-gray-900 dark:text-gray-50">
           <MenuItem menu-title="Personal" :isLock="needAuthintication == true"
                     :isActive="activeCard == 'ProfilePersonal'" @buttonClicked="activeCard= 'ProfilePersonal'">
             <template v-slot:menu-icon>
@@ -115,23 +129,32 @@ export default {
             </template>
           </MenuItem>
         </div>
-        <div class="w-full">
+        <div class="w-full pt-5 pl-5 overflow-y-auto">
           <AuthenticationWarning v-if="activeCard == 'AuthenticationWarning'"></AuthenticationWarning>
           <AuthenticationWaiting v-if="activeCard == 'AuthenticationWaiting'"></AuthenticationWaiting>
           <AuthenticationFailed v-if="activeCard == 'AuthenticationFailed'"></AuthenticationFailed>
           <ProfilePersonalCard
               v-if="activeCard == 'ProfilePersonal'"
               title="Personal Info"
-              name="Devon"
-              midName="Reid"
-              lastName="Wills"
-              gender="male"
-              birthday="1999/06/30"
+              :name="store.state.name"
+              midName=""
+              :lastName="store.state.lastName"
+              :gender="store.state.gender"
+              birthday=""
               :isVerified="true">
           </ProfilePersonalCard>
           <ProfileContactCard
               v-if="activeCard == 'ProfileCantact'"
-              title="Contact Info">
+              title="Contact Info"
+              :phone="store.state.phone"
+              :email="store.state.email"
+              address=""
+              :country="store.state.country"
+              :city="store.state.city"
+              :state="store.state.state"
+              district=""
+              zip-code=""
+          >
           </ProfileContactCard>
         </div>
       </div>

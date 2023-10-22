@@ -29,8 +29,7 @@ export default {
 <template>
   <!-- begin::Card Container -->
   <div
-      class="w-[374px] bg-white rounded-2xl px-8 py-8 flex flex-col gap-5 shadow-xl m-3 h-min"
-  >
+      class="w-[374px] rounded-2xl px-8 py-8 flex flex-col gap-5 shadow-xl m-3 h-min text-gray-900 dark:text-gray-50 bg-[#FFFFFF] dark:bg-gray-900">
     <!-- begin::Main Section -->
     <div class="flex flex-col gap-6">
       <!-- begin::Card Header -->

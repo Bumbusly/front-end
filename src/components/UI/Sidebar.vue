@@ -10,17 +10,25 @@ import MenuItem from "@/components/UI/MenuItem.vue";
 import HomeSvg from "@/components/svg/Icons/home.vue";
 import SidebarItem from "@/components/UI/SidebarItem.vue";
 
+import {useStore} from "vuex";
+import store from "@/store";
+
 export default {
+  setup() {
+    const store = useStore()
+    return {store}
+  },
   components: {HomeSvg, MenuItem, PersonSvg, MoveDownSvg, SyncSvg, PaymentsSvg, SavingSvg,SidebarItem}
 }
 </script>
 
 <template>
   <!--begin::Sidebar-->
-  <div class="flex flex-col w-[305px] h-screen shadow-md p-6 gap-6">
+  <div class="flex flex-col w-[305px] h-screen shadow-md p-6 gap-6 border-2 border-opacity-50 border-gray-200 bg-[#ffffff] dark:bg-gray-900 dark:border-none text-gray-900 dark:text-gray-50">
     <!--begin::Logo-->
     <div class="flex align-center items-center">
-      <img src="@/assets/media/images/Logo/Bumbusly.svg">
+      <img v-if="store.getters.getTheme == true" src="@/assets/media/images/Logo/Bumbusly.svg">
+      <img v-if="store.getters.getTheme == false" class="w-[45px] h-[40px]" src="@/assets/media/images/Logo/Bumbusly-light.png">
       <h2 class="text-[16px] font-black">bumbusly</h2>
     </div>
     <!--end::Logo-->

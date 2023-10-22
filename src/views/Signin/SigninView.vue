@@ -71,13 +71,13 @@ export default {
       const expression: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
       const email: string = this.emailOrPhone;
       const result: boolean = expression.test(email);
-      console.log('e-mail is ' + email + ' ' + (result ? 'correct' : 'incorrect'));
+      // console.log('e-mail is ' + email + ' ' + (result ? 'correct' : 'incorrect'));
       return result
     },
     // Validate Email Or Phone
     validateEmailOrPhone() {
       const result: boolean = this.emailOrPhone.length > 4
-      console.log('Email or Phone is ' + this.emailOrPhone + ' ' + (result ? 'correct' : 'incorrect'))
+      // console.log('Email or Phone is ' + this.emailOrPhone + ' ' + (result ? 'correct' : 'incorrect'))
       return result
     },
     // Validate Password
@@ -87,7 +87,7 @@ export default {
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i
       const password: string = this.password
       const result: boolean = expression.test(password)
-      console.log('password is ' + this.password + ' ' + (result ? 'correct' : 'incorrect'))
+      // console.log('password is ' + this.password + ' ' + (result ? 'correct' : 'incorrect'))
       return result
     },
     // Putting value of Email or Phone text input to variable
@@ -129,6 +129,7 @@ export default {
     },
     // Signin Button Function
     signinClicked() {
+      this.store.commit('changeTheme')
       this.firstTryPhoneOrEmail = false
       this.fistTryPassword = false
       this.validateInputs()
@@ -141,9 +142,9 @@ export default {
       try {
         const url: string = 'https://bb.abansoft.ir/api/v1/account/'
         const body: object = {
+          provider: 'uid',
           username: this.emailOrPhone,
           password: this.password,
-          rememberMe: true
         }
         const headers: object = {
           'Content-Type': 'application/json'
@@ -155,7 +156,12 @@ export default {
               this.emailOrPhone,
               data.content.token,
               data.content.refereshToken,
-              true
+              true,
+              data.content.firstName,
+              data.content.lastName,
+              data.content.country,
+              data.content.province,
+              data.content.city
           )
           toast.success('You Logged Succesfully')
           router.push('/profile')
@@ -174,11 +180,17 @@ export default {
         this.signinClicked()
       }
     },
-    storeData(username: string, token: string, refereshToken: string, isAuth: boolean) {
+    storeData(username: string, token: string, refereshToken: string, isAuth: boolean, name: string, lastName: string, country: string, province: string, city: string) {
       this.store.commit('setUsername', username)
       this.store.commit('setToken', token)
       this.store.commit('setRefereshToken', refereshToken)
       this.store.commit('setIsAuthenticated', isAuth)
+      this.store.commit('setPhone', this.emailOrPhone)
+      this.store.commit('setName', name)
+      this.store.commit('setLastName', lastName)
+      this.store.commit('setCountry', country)
+      this.store.commit('setState', province)
+      this.store.commit('setCity', city)
     }
   },
   // Set Title of Page
@@ -210,12 +222,17 @@ export default {
       <!-- end::Description of Card -->
       <!-- begin::Icon of Card (Bumbusly) -->
       <template v-slot:cardImage>
-        <img
-            width="50"
-            height="55"
-            alt="bumbusly logo"
-            src="./../../assets/media/images/Logo/Bumbusly.svg"
-        />
+        <img  v-if="store.getters.getTheme == true"
+              width="50"
+              height="55"
+              alt="bumbusly logo"
+              src="./../../assets/media/images/Logo/Bumbusly.svg"/>
+
+        <img  v-if="store.getters.getTheme == false"
+              width="50"
+              height="55"
+              alt="bumbusly logo"
+              src="./../../assets/media/images/Logo/Bumbusly-light.png"/>
       </template>
       <!-- end::Icon of Card (Bumbusly) -->
       <!-- begin::Body of Card -->
@@ -242,7 +259,7 @@ export default {
                   :class="emailOrPhoneValid == 'red' ? '' : 'hidden'"
                   class="form-text text-muted text-red-500"
               >
-                Email or Password is not valid !
+                Email or Phone is invalid !
               </small>
             </template>
           </TextInput>
@@ -283,7 +300,7 @@ export default {
             text="Sign in"
             bgColor="green"
             textColor="green"
-            :isDisable="isLoading"
+            :isWaiting="isLoading"
             @buttonClicked="signinClicked()"
         >
         </BaseButton>

@@ -2,8 +2,14 @@
 import DataItem from "@/components/UI/DataItem.vue";
 import CameraSvg from "@/components/svg/Icons/camera.vue"
 import VerifiedSvg from "@/components/svg/Icons/verified.vue"
+import PersonSvg from "@/components/svg/Icons/person.vue";
+import {useStore} from "vuex";
 export default {
-  components: {VerifiedSvg, DataItem, CameraSvg},
+  setup(){
+    const store = useStore()
+    return {store}
+  },
+  components: {PersonSvg, VerifiedSvg, DataItem, CameraSvg},
   props: {
     title: {
       type: String,
@@ -38,10 +44,11 @@ export default {
 </script>
 
 <template>
-  <div class="relative bg-white shadow-md stroke-1 w-[564px] m-5 rounded-lg p-6 flex flex-col gap-6">
+  <div class="relative shadow-md stroke-1 w-[564px] m-5 rounded-lg p-6 flex flex-col gap-6 bg-[#FFFFFF] dark:bg-gray-900 text-gray-900 dark:text-gray-50">
     <div class="absolute right-0 top-0 w-[120px] h-[120px] m-4 flex justify-center align-center items-center profile-image-container">
       <img class="w-auto h-auto absolute rounded-full shadow-md profile-image"
            src="@/assets/media/images/profile.png">
+      <PersonSvg class="w-auto h-auto absolute shadow-md profile-image fill-gray-500 rounded-full" v-if="store.state.avatar != ''"></PersonSvg>
       <div v-if="isVerified" class="absolute h-[40px] w-[40px] rounded-full bg-yellow-500 right-0 bottom-0 flex justify-center align-cetner items-center">
         <VerifiedSvg class="fill-gray-50"></VerifiedSvg>
       </div>

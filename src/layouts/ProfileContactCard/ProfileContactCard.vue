@@ -2,16 +2,51 @@
 import ChangeableDataItem from '@/components/UI/ChangeableDataItem.vue'
 import MobileBox from "@/components/UI/MobileBox.vue";
 import BaseButton from "@/components/UI/BaseButton.vue";
+import ChangePhoneContactInfo from "@/layouts/ChangePhoneContactInfo/ChangePhoneContactInfo.vue";
+import ConfirmChangePhoneContactInfo from '@/layouts/ConfirmChangePhoneContactInfo/ConfirmChangePhoneContactInfo.vue'
+import ChangeEmailContactInfo from "@/layouts/ChangeEmailContactInfo/ChangeEmailContactInfo.vue";
+import ConfirmChangeEmailContactInfo from '@/layouts/ConfirmChangePhoneContactInfo/ConfirmChangePhoneContactInfo.vue'
+import ChangeAddressContactInfo from "@/layouts/ChangeAddressContactInfo/ChangeAddressContactInfo.vue";
+import ChangeCountryContactInfo from "@/layouts/ChangeCountryContactInfo/ChangeCountryContactInfo.vue"
+import ChangeCityContactInfo from "@/layouts/ChangeCityContactInfo/ChangeCityContactInfo.vue";
+import ChangeDistrictContactInfo from "@/layouts/ChangeDistrictContactInfo/ChangeDistrictContactInfo.vue";
+import ChangeZipCodeContactInfo from "@/layouts/ChangeZipCodeContactInfo/ChangeZipCodeContactInfo.vue";
+import ChangeStateContactInfo from "@/layouts/ChangeStateContactInfo/ChangeStateContactInfo.vue";
 
 export default {
   components: {
+    ChangeAddressContactInfo,
     BaseButton,
     ChangeableDataItem,
-    MobileBox
+    MobileBox,
+    ChangePhoneContactInfo,
+    ConfirmChangePhoneContactInfo,
+    ChangeEmailContactInfo,
+    ConfirmChangeEmailContactInfo,
+    ChangeCountryContactInfo,
+    ChangeCityContactInfo,
+    ChangeDistrictContactInfo,
+    ChangeStateContactInfo,
+    ChangeZipCodeContactInfo,
   },
-  data(){
-    return{
-      editPhone: false
+  data() {
+    return {
+      editPhone: false,
+      editEmail: false,
+      editAddress: false,
+      editCity: false,
+      editState: false,
+      editCountry: false,
+      editDistrict: false,
+      editZipCode: false,
+      changePhoneStage: 1,
+      changeEmailStage: 1,
+      changeAddressStage: 1,
+      changeCityStage: 1,
+      changeStateStage: 1,
+      changeCountryStage: 1,
+      changeDistrictStage: 1,
+      changeZipCodeStage: 1,
     }
   },
   props: {
@@ -56,39 +91,100 @@ export default {
 </script>
 
 <template>
-  <div class="relative bg-white shadow-md stroke-1 w-[564px] m-5 rounded-lg p-6 flex flex-col gap-6">
+  <div class="relative shadow-md stroke-1 w-[564px] rounded-lg p-6 flex flex-col gap-6 bg-[#FFFFFF] dark:bg-gray-900 text-gray-900 dark:text-gray-50">
     <h2 class="text-[18px] font-bold">{{ title }}</h2>
     <div class="w-full flex flex-col gap-4">
-      <ChangeableDataItem :isChange="editPhone" label="Phone" text="09174281364" @buttonClicked="editPhone = !editPhone">
+      <ChangeableDataItem :isChange="editPhone" label="Phone" :text="phone"
+                          @buttonClicked="editPhone = !editPhone">
         <template v-slot:container>
-          <div class="flex gap-2">
-            <MobileBox></MobileBox>
-            <BaseButton text="Cancel"
-                        width="auto"
-                        bgColor="gray"
-                        textColor="gray"
-                        :font-size=12
-                        isOutline="true"
-                        @buttonClicked="editPhone = !editPhone"
-            ></BaseButton>
-            <BaseButton text="Send Code"
-                        width="auto"
-                        bgColor="green"
-                        textColor="green"
-                        isOutline="false"
-                        :font-size=12
-            ></BaseButton>
-          </div>
+          <ChangePhoneContactInfo v-if="changePhoneStage == 1"
+                                  @submitClicked="changePhoneStage = 2"
+                                  @cancelClicked="editPhone = !editPhone">
+          </ChangePhoneContactInfo>
+          <ConfirmChangePhoneContactInfo v-if="changePhoneStage == 2"
+                                         @submitClicked="changePhoneStage = 1; editPhone = !editPhone"
+                                         @cancelClicked="changePhoneStage = 1; editPhone = !editPhone">
+          </ConfirmChangePhoneContactInfo>
         </template>
       </ChangeableDataItem>
-      <ChangeableDataItem :isChange="false" label="Email" text="name@example.com"></ChangeableDataItem>
-      <ChangeableDataItem :isChange="false" label="Address" text="Tehran"></ChangeableDataItem>
-      <ChangeableDataItem :isChange="false" label="Country" text="Iran"></ChangeableDataItem>
-      <ChangeableDataItem :isChange="false" label="City" text="Tehran"></ChangeableDataItem>
-      <ChangeableDataItem :isChange="false" label="State" text="Tehran"></ChangeableDataItem>
-      <ChangeableDataItem :isChange="false" label="District" text="SaadatAbad"></ChangeableDataItem>
-      <ChangeableDataItem :isChange="false" label="ZipCode" text="5484684579"></ChangeableDataItem>
 
+      <ChangeableDataItem :isChange="editEmail" label="Email" :text="email" @buttonClicked="editEmail = !editEmail">
+        <template v-slot:container>
+          <ChangeEmailContactInfo v-if="changeEmailStage == 1"
+                                  @submitClicked="changeEmailStage = 2"
+                                  @cancelClicked="editEmail = !editEmail">
+
+          </ChangeEmailContactInfo>
+
+          <ConfirmChangeEmailContactInfo
+              v-if="changeEmailStage == 2"
+              @submitClicked="changeEmailStage = 1; editEmail = !editEmail"
+              @cancelClicked="changeEmailStage = 1; editEmail = !editEmail">
+          </ConfirmChangeEmailContactInfo>
+        </template>
+      </ChangeableDataItem>
+
+      <ChangeableDataItem :isChange="editAddress" label="Address" :text="address"
+                          @buttonClicked="editAddress = !editAddress">
+        <template v-slot:container>
+          <ChangeAddressContactInfo
+              v-if="changeAddressStage == 1"
+              @submitClicked="changeAddressStage = 1; editAddress = !editAddress"
+              @cancelClicked="changeAddressStage = 1; editAddress = !editAddress">
+          </ChangeAddressContactInfo>
+        </template>
+      </ChangeableDataItem>
+
+      <ChangeableDataItem :isChange="editCountry" label="Country" :text="country"
+                          @buttonClicked="editCountry = !editCountry">
+        <template v-slot:container>
+          <ChangeCountryContactInfo
+              v-if="changeCountryStage == 1"
+              @submitClicked="changeCountryStage = 1; editCountry = !editCountry"
+              @cancelClicked="changeCountryStage = 1; editCountry = !editCountry">
+          </ChangeCountryContactInfo>
+        </template>
+      </ChangeableDataItem>
+
+      <ChangeableDataItem :isChange="editCity" label="City" :text="city" @buttonClicked="editCity = !editCity">
+        <template v-slot:container>
+          <ChangeCityContactInfo
+              v-if="changeCityStage == 1"
+              @submitClicked="changeCityStage = 1; editCity = !editCity"
+              @cancelClicked="changeCityStage = 1; editCity = !editCity">
+          </ChangeCityContactInfo>
+        </template>
+      </ChangeableDataItem>
+
+      <ChangeableDataItem :isChange="editState" label="State" :text="state" @buttonClicked="editState = !editState">
+        <template v-slot:container>
+          <ChangeStateContactInfo
+              v-if="changeStateStage == 1"
+              @submitClicked="changeStateStage = 1; editState = !editState"
+              @cancelClicked="changeStateStage = 1; editState = !editState">
+          </ChangeStateContactInfo>
+        </template>
+      </ChangeableDataItem>
+
+      <ChangeableDataItem :isChange="editDistrict" label="District" :text="district" @buttonClicked="editDistrict = !editDistrict">
+        <template v-slot:container>
+          <ChangeDistrictContactInfo
+              v-if="changeDistrictStage == 1"
+              @submitClicked="changeDistrictStage = 1; editDistrict = !editDistrict"
+              @cancelClicked="changeDistrictStage = 1; editDistrict = !editDistrict">
+          </ChangeDistrictContactInfo>
+        </template>
+      </ChangeableDataItem>
+
+      <ChangeableDataItem :isChange="editZipCode" label="ZipCode" :text="zipCode">
+        <template v-slot:container>
+          <ChangeZipCodeContactInfo
+              v-if="changeZipCodeStage == 1"
+              @submitClicked="changeZipCodeStage = 1; editZipCode = !editZipCode"
+              @cancelClicked="changeZipCodeStage = 1; editZipCode = !editZipCode">
+          </ChangeZipCodeContactInfo>
+        </template>
+      </ChangeableDataItem>
     </div>
   </div>
 </template>

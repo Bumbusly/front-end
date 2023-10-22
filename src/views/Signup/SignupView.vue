@@ -11,6 +11,9 @@ import CardItem from '@/components/UI/CardItem.vue'
 import BeeLoader from '@/components/UI/BeeLoader.vue'
 import MobileBox from '@/components/UI/MobileBox.vue'
 
+import {useStore} from "vuex";
+import store from "@/store";
+
 // Import Axious API
 import axios from 'axios'
 
@@ -24,6 +27,10 @@ import router from './../../router'
 
 // Content Of View
 export default {
+  setup() {
+    const store = useStore()
+    return {store}
+  },
   mounted() {
     /*    const animation = animate(
             '.card',
@@ -58,6 +65,7 @@ export default {
       phone: '',
       password: '',
       cPassword: '',
+      countryCode: '',
       isLoading: false,
       selected: null,
       options: ['list', 'of', 'options']
@@ -74,25 +82,26 @@ export default {
     // Validate Phone
     validatePhone() {
       // Validate Phone
-      console.log(this.phone)
-      const result = this.phone.length > 4
-      console.log('phone is ' + this.phone + ' ' + (result ? 'correct' : 'incorrect'))
+      const result = (this.phone != '')
+      // console.log('phone is ' + this.phone + ' ' + (result ? 'correct' : 'incorrect'))
       return result
     },
     // Validate Confirm Password
     validateCPassword() {
       const cPassword = this.cPassword
       const result = this.password === cPassword && cPassword != ''
-      console.log(
-          'confirm password is ' + this.cPassword + ' ' + (result ? 'correct' : 'incorrect')
-      )
+      // console.log('confirm password is ' + this.cPassword + ' ' + (result ? 'correct' : 'incorrect'))
       return result
     },
     // Putting value of Phone text input to variable
     handlePhoneInputValueUpdated(value: string) {
       this.phoneValid = 'default'
       this.phone = value
-      console.log(this.phone)
+    },
+    // Putting value of Country text input to variable
+    handleCountryInputValueUpdated(value: string) {
+      console.log(value)
+      this.countryCode = value
     },
     // Putting value of Password text input to variable
     handlePasswordInputValueUpdated(value: string) {
@@ -144,7 +153,7 @@ export default {
       try {
         const url = 'https://bb.abansoft.ir/api/v1/account/s'
         const body = {
-          usenname: this.phone.toString(),
+          username: this.countryCode + this.phone,
           password: this.password,
         }
         const headers: Object = {
@@ -158,7 +167,6 @@ export default {
         }
       } catch (error) {
         toast.error('It is not possible to create a user account with the entered information')
-        console.log(error)
         this.isLoading = false
       }
     }
@@ -189,12 +197,18 @@ export default {
       <!-- end::Description of Card -->
       <!-- begin::Icon of Card (Bumbusly) -->
       <template v-slot:cardImage>
-        <img
-            width="50"
-            height="55"
-            alt="bumbusly logo"
-            src="./../../assets/media/images/Logo/Bumbusly.svg"
-        />
+        <img v-if="store.getters.getTheme == true"
+             width="50"
+             height="55"
+             alt="bumbusly logo"
+             src="./../../assets/media/images/Logo/Bumbusly.svg"/>
+
+        <img v-if="store.getters.getTheme == false"
+             width="50"
+             height="55"
+             alt="bumbusly logo"
+             src="./../../assets/media/images/Logo/Bumbusly-light.png"/>
+
       </template>
       <!-- end::Icon of Card (Bumbusly) -->
       <!-- begin::Body of Card -->
@@ -205,8 +219,8 @@ export default {
           <MobileBox
               id="phone"
               :color="phoneValid"
-              @input-value-updated="handlePhoneInputValueUpdated"
-          >
+              @input-country-updated="handleCountryInputValueUpdated"
+              @input-value-updated="handlePhoneInputValueUpdated">
             <template v-slot:helpText>
               <small
                   :class="phoneValid == 'red' ? '' : 'hidden'"
@@ -266,6 +280,7 @@ export default {
               text="Sign up"
               bgColor="green"
               textColor="green"
+              :isWaiting="isLoading"
               @buttonClicked="signupClicked()"
           >
           </BaseButton>
@@ -276,7 +291,7 @@ export default {
                 class="w-6 h-6 text-green-600 = rounded-xl focus:ring-green-500 focus:ring-2 accent-green-500"
                 v-model="agreementValid"
             />
-            <label for="terms-acknowledge" class="ml-2 text-sm font-normal text-gray-900">
+            <label for="terms-acknowledge" class="ml-2 text-sm font-normal text-gray-900 dark:text-gray-50">
               I acknowledge I have read the
               <a class="condition-link font-medium"> Terms & Conditions </a>
               and

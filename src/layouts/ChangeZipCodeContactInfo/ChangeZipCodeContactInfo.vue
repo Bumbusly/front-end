@@ -9,13 +9,14 @@ export default {
   components: {CrossSvg, BaseButton, TickSvg},
   data(){
     return{
-      statePlaceholder: '',
+      zipCodePlaceholder: '',
+      zipCode: ''
     }
   },
   methods:{
     // Putting value of Email text input to variable
-    handleStateInputValueUpdated(value: string) {
-      this.state = value
+    handleZipCodeInputValueUpdated(value: string) {
+      this.zipCode = value
     },
     submitClick() {
       this.$emit('submitClicked')
@@ -29,16 +30,16 @@ export default {
 
 <template>
   <div class="flex justify-center align-center items-center gap-3 w-full">
-    <!-- begin::State Text Input -->
+    <!-- begin::ZipCode Text Input -->
     <TextInput class="w-full"
-               id="state"
-               type="state"
-               :placeholder="statePlaceholder"
+               id="zipCode"
+               type="zipCode"
+               :placeholder="zipCodePlaceholder"
                required="true"
-               autocomplete="state"
-               @input-value-updated="handleStateInputValueUpdated">
+               autocomplete="zipCode"
+               @input-value-updated="handleZipCodeInputValueUpdated">
     </TextInput>
-    <!-- end::State Text Input -->
+    <!-- end::ZipCode Text Input -->
 
     <div class="flex justify-center items-center align-center gap-2">
       <BaseButton text="Cancel"
