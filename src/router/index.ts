@@ -12,8 +12,8 @@ const toast = useToast()
 import store from './../store'
 
 const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
-    // history: createWebHistory('/front-end/'),
+    // history: createWebHistory(import.meta.env.BASE_URL),
+    history: createWebHistory('/front-end'),
     routes: [
         {
             path: "/:catchAll(.*)",
