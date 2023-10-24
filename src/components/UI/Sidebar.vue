@@ -24,7 +24,7 @@ export default {
 
 <template>
   <!--begin::Sidebar-->
-  <div class="flex flex-col w-[305px] h-screen shadow-md p-6 gap-6 border-2 border-opacity-50 border-gray-200 bg-[#ffffff] dark:bg-gray-900 dark:border-none text-gray-900 dark:text-gray-50">
+  <div class="flex flex-col w-[305px] h-screen shadow-md p-6 gap-6 border-2 border-opacity-50 z-50 border-gray-200 bg-[#ffffff] dark:bg-gray-900 dark:border-gray-900 text-gray-900 dark:text-gray-50">
     <!--begin::Logo-->
     <div class="flex align-center items-center">
       <img v-if="store.getters.getTheme == true" src="@/assets/media/images/Logo/Bumbusly.svg">
@@ -34,7 +34,7 @@ export default {
     <!--end::Logo-->
     <!--begin::Sidebar Options-->
     <div>
-      <div class="flex flex-col items-start gap-1">
+      <div class="flex flex-col items-start gap-2">
         <SidebarItem item-title="Dashboard" :isActive="false">
           <template v-slot:item-icon>
             <HomeSvg class="fill-inherit mb-1"></HomeSvg>

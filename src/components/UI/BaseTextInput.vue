@@ -100,8 +100,8 @@ export default {
              :class="setColor()"
              class="block w-full rounded-lg py-2 px-2 shadow-sm ring-[1.5px] focus:ring-1 sm:text-sm sm:leading-6">
       <div v-if="hidden == 'true'" class="flex align-center items-center justify-center">
-        <CloseEye class="h-4 w-4" v-if="isShow === true" @click="changeType()"></CloseEye>
-        <OpenEye class="h-4 w-4" v-if="isShow === false" @click="changeType()"></OpenEye>
+        <CloseEye class="h-4 w-4 fill-gray-500 dark:fill-gray-200" v-if="isShow === true" @click="changeType()"></CloseEye>
+        <OpenEye class="h-4 w-4 fill-gray-500 dark:fill-gray-200" v-if="isShow === false" @click="changeType()"></OpenEye>
       </div>
     </div>
     <slot name="helpText" class="hidden"></slot>

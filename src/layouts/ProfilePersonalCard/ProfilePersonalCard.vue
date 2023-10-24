@@ -44,7 +44,7 @@ export default {
 </script>
 
 <template>
-  <div class="relative shadow-md stroke-1 w-[564px] m-5 rounded-lg p-6 flex flex-col gap-6 bg-[#FFFFFF] dark:bg-gray-900 text-gray-900 dark:text-gray-50">
+  <div class="relative shadow-md stroke-1 w-[564px] m-5 rounded-2xl p-6 flex flex-col gap-6 bg-[#FFFFFF] dark:bg-gray-900 text-gray-900 dark:text-gray-50">
     <div class="absolute right-0 top-0 w-[120px] h-[120px] m-4 flex justify-center align-center items-center profile-image-container">
       <img class="w-auto h-auto absolute rounded-full shadow-md profile-image"
            src="@/assets/media/images/profile.png">

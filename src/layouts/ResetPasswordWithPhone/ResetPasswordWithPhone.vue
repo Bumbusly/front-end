@@ -20,7 +20,8 @@ export default {
     clearInterval(this.interval)
   },
   created() {
-      this.interval = setInterval(this.startTimer, 1000)
+    this.resetTimer()
+    this.interval = setInterval(this.startTimer, 1000)
   },
   mounted() {
     /*    const animation = animate(
@@ -58,7 +59,7 @@ export default {
   components: {BaseButton, YellowBackground, CardItem, FourDigitValidation},
   methods: {
     startTimer() {
-      if(store.state.resetPasswordTimer > 0){
+      if (store.state.resetPasswordTimer > 0) {
         store.commit('setTimer', store.state.resetPasswordTimer - 1)
       }
     },
@@ -88,17 +89,17 @@ export default {
     <!-- end::Description of Card -->
     <!-- begin::Icon of Card (Bumbusly) -->
     <template v-slot:cardImage>
-      <img  v-if="store.getters.getTheme == true"
-            width="50"
-            height="55"
-            alt="bumbusly logo"
-            src="./../../assets/media/images/Logo/Bumbusly.svg"/>
+      <img v-if="store.getters.getTheme == true"
+           width="50"
+           height="55"
+           alt="bumbusly logo"
+           src="./../../assets/media/images/Logo/Bumbusly.svg"/>
 
-      <img  v-if="store.getters.getTheme == false"
-            width="50"
-            height="55"
-            alt="bumbusly logo"
-            src="./../../assets/media/images/Logo/Bumbusly-light.png"/>
+      <img v-if="store.getters.getTheme == false"
+           width="50"
+           height="55"
+           alt="bumbusly logo"
+           src="./../../assets/media/images/Logo/Bumbusly-light.png"/>
     </template>
     <!-- end::Icon of Card (Bumbusly) -->
     <!-- begin::Body of Card -->

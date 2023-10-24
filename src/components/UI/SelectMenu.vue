@@ -1,10 +1,5 @@
 <script lang="ts">
 
-// Import Svg files of Flags
-import UsFlag from './../svg/CountryFlags/US.vue'
-import GrFlag from './../svg/CountryFlags/GE.vue'
-import IRFlag from './../svg/CountryFlags/IR.vue'
-
 // Content Of Component
 export default {
     props: {
@@ -12,11 +7,6 @@ export default {
             type: String,
         }
     },
-    components: {
-        UsFlag,
-        GrFlag,
-        IRFlag
-    }
 }
 </script>
 
@@ -42,7 +32,6 @@ export default {
             <div class="cursor-pointer group">
                 <a
                     class="p-2 border-transparent border-l-4 group-hover:border-gray-600 group-hover:bg-gray-100 flex flex-row justify-center align-center items-center gap-2">
-                    <IRFlag></IRFlag>
                     Iran
                 </a>
             </div>

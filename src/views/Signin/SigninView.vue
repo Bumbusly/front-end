@@ -83,10 +83,10 @@ export default {
     // Validate Password
     validatePassword() {
       // Valid Password Regex
-      const expression: RegExp =
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i
+/*      const expression: RegExp =
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i*/
       const password: string = this.password
-      const result: boolean = expression.test(password)
+      const result: boolean = (password.length > 0)
       // console.log('password is ' + this.password + ' ' + (result ? 'correct' : 'incorrect'))
       return result
     },

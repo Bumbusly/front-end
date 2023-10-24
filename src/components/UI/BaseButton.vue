@@ -36,6 +36,10 @@ export default {
       type: String,
       default: 'full'
     },
+    height: {
+      type: String,
+      default: 'full'
+    },
     fontSize: {
       type: Number,
       default: 14
@@ -57,11 +61,14 @@ export default {
     setWidth() {
       return ' w-' + this.width + ' '
     },
+    setHeight() {
+      return ' w-' + this.height + ' '
+    },
     setFontSize() {
       return ' text-[' + this.fontSize + 'px] '
     },
-    isWaitingClass(){
-      if(this.isWaiting){
+    isWaitingClass() {
+      if (this.isWaiting) {
         return `bg-${this.bgColor}-300 hover:bg-${this.bgColor}-300`
       }
     }
@@ -71,13 +78,14 @@ export default {
 
 <template>
   <RouterLink v-if="link != null" :to="link">
-    <button :class="buttonClass() + setWidth() + setFontSize()" class="py-[10px] rounded-lg border-1">
+    <button :class="buttonClass() + setWidth() + setHeight() + setFontSize()" class="py-[10px] rounded-lg border-1">
       {{ text }}
     </button>
   </RouterLink>
 
   <div v-if="link == null" class="flex px-2 rounded-lg border-1 justify-center items-center align-center gap-2"
-       :class="buttonClass() + setWidth() + setFontSize() + isWaitingClass()" v-on:click.prevent="onClick()">
+       :class="buttonClass() + setWidth() + setHeight() + setFontSize() + isWaitingClass()"
+       v-on:click.prevent="onClick()">
     <slot name="buttonIcon"></slot>
     <button>
       <!-- begin::Loading Compoennt -->

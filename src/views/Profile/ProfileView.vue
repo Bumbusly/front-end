@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       isloading: false,
-      activeCard: 'ProfileCantact',
+      activeCard: 'ProfilePersonal',
       needAuthintication: false
     }
   },
@@ -107,7 +107,7 @@ export default {
       <!--end::Header (Top Section)-->
       <!--begin::Body Section-->
       <div class="flex h-screen bg-gray-50 dark:bg-gray-800">
-        <div class="w-[174px] flex flex-col gap-1 m-5 text-gray-900 dark:text-gray-50">
+        <div class="w-[174px] flex flex-col m-5 text-gray-900 dark:text-gray-50 gap-2">
           <MenuItem menu-title="Personal" :isLock="needAuthintication == true"
                     :isActive="activeCard == 'ProfilePersonal'" @buttonClicked="activeCard= 'ProfilePersonal'">
             <template v-slot:menu-icon>
