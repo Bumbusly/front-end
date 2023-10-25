@@ -11,6 +11,8 @@ import ForgotPasswordWithEmail from "@/layouts/ForgotPasswordWithEmail/ForgotPas
 import ResetPasswordWithPhone from "@/layouts/ResetPasswordWithPhone/ResetPasswordWithPhone.vue";
 import NewPassword from "@/layouts/NewPassword/NewPassword.vue";
 import SendSuccessfullyEmail from "@/layouts/SendSuccessfullyEmail/SendSuccessfullyEmail.vue";
+import ChangeThemeButton from "@/components/UI/ChangeThemeButton.vue";
+
 
 // Import Animation Library
 import {animate} from 'motion'
@@ -21,6 +23,7 @@ import store from "@/store";
 
 // Import Router
 import router from "@/router";
+import BumbuslyLogo from "@/components/UI/BumbuslyLogo.vue";
 
 export default {
   setup() {
@@ -49,6 +52,7 @@ export default {
     }
   },
   components: {
+    BumbuslyLogo,
     BaseButton,
     YellowBackground,
     CardItem,
@@ -56,7 +60,8 @@ export default {
     ForgotPasswordWithEmail,
     ResetPasswordWithPhone,
     NewPassword,
-    SendSuccessfullyEmail
+    SendSuccessfullyEmail,
+    ChangeThemeButton
   },
   methods: {
     recoveryMethod() {
@@ -93,6 +98,11 @@ export default {
     <!-- begin::Background -->
     <YellowBackground></YellowBackground>
     <!-- end::Background -->
+
+    <!--begin::Change Theme Button-->
+    <ChangeThemeButton></ChangeThemeButton>
+    <!--end::Change Theme Button-->
+
     <!-- begin::Forgot Password Card -->
     <!-- begin::Description of Card -->
     <CardItem :cardName="cardTitle" class="card mt-10" v-if="selected === 0">
@@ -104,17 +114,7 @@ export default {
       <!-- end::Description of Card -->
       <!-- begin::Icon of Card (Bumbusly) -->
       <template v-slot:cardImage>
-        <img  v-if="store.getters.getTheme == true"
-              width="50"
-              height="55"
-              alt="bumbusly logo"
-              src="./../../assets/media/images/Logo/Bumbusly.svg"/>
-
-        <img  v-if="store.getters.getTheme == false"
-              width="50"
-              height="55"
-              alt="bumbusly logo"
-              src="./../../assets/media/images/Logo/Bumbusly-light.png"/>
+        <BumbuslyLogo></BumbuslyLogo>
       </template>
       <!-- end::Icon of Card (Bumbusly) -->
       <!-- begin::Body of Card -->

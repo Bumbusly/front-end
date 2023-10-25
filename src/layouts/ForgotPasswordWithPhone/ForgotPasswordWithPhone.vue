@@ -8,6 +8,7 @@ import {animate} from "motion";
 
 import {useStore} from "vuex";
 import store from "@/store";
+import BumbuslyLogo from "@/components/UI/BumbuslyLogo.vue";
 
 
 export default {
@@ -34,7 +35,7 @@ export default {
     }
   },
   emits: ['change-to-email', 'submitted-phone'],
-  components: {BaseButton, YellowBackground, CardItem, MobileBox},
+  components: {BumbuslyLogo, BaseButton, YellowBackground, CardItem, MobileBox},
   methods: {
     // Putting value of Phone text input to variable
     handlePhoneInputValueUpdated(value: string) {
@@ -63,17 +64,7 @@ export default {
     <!-- end::Description of Card -->
     <!-- begin::Icon of Card (Bumbusly) -->
     <template v-slot:cardImage>
-      <img  v-if="store.getters.getTheme == true"
-            width="50"
-            height="55"
-            alt="bumbusly logo"
-            src="./../../assets/media/images/Logo/Bumbusly.svg"/>
-
-      <img  v-if="store.getters.getTheme == false"
-            width="50"
-            height="55"
-            alt="bumbusly logo"
-            src="./../../assets/media/images/Logo/Bumbusly-light.png"/>
+      <BumbuslyLogo></BumbuslyLogo>
     </template>
     <!-- end::Icon of Card (Bumbusly) -->
     <!-- begin::Body of Card -->

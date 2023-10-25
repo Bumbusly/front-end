@@ -4,6 +4,8 @@
 import CardItem from "@/components/UI/CardItem.vue";
 import YellowBackground from "@/components/UI/YellowBackground.vue";
 import BaseButton from "@/components/UI/BaseButton.vue";
+import BumbuslyLogo from "@/components/UI/BumbuslyLogo.vue";
+
 import {animate} from "motion";
 
 import {useStore} from "vuex";
@@ -36,7 +38,7 @@ export default {
       cPassword: '',
     }
   },
-  components: {BaseButton, YellowBackground, CardItem},
+  components: {BaseButton, YellowBackground, CardItem, BumbuslyLogo},
   emits: ['submit-button'],
   methods: {
     // Putting value of Phone text input to variable
@@ -89,17 +91,7 @@ export default {
     <!-- end::Description of Card -->
     <!-- begin::Icon of Card (Bumbusly) -->
     <template v-slot:cardImage>
-      <img  v-if="store.getters.getTheme == true"
-            width="50"
-            height="55"
-            alt="bumbusly logo"
-            src="./../../assets/media/images/Logo/Bumbusly.svg"/>
-
-      <img  v-if="store.getters.getTheme == false"
-            width="50"
-            height="55"
-            alt="bumbusly logo"
-            src="./../../assets/media/images/Logo/Bumbusly-light.png"/>
+      <BumbuslyLogo></BumbuslyLogo>
     </template>
     <!-- end::Icon of Card (Bumbusly) -->
     <!-- begin::Body of Card -->

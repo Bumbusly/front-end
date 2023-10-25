@@ -133,12 +133,12 @@ export default {
       <div class="flex gap-0">
         <div
             :class="setColor()"
-            class="combobox remove-right-border flex w-[130px] text-gray-800 ring-gray-500  placeholder:text-gray-500 shadow-sm ring-[1.5px] hover:ring-gray-900 dark:hover:ring-gray-50 rounded-l-lg justify-center align-center">
+            class="combobox remove-right-border flex w-[130px] text-gray-800 ring-gray-500 placeholder:text-gray-500 shadow-sm ring-[1.5px] hover:ring-gray-900 dark:hover:ring-gray-50 rounded-l-lg justify-center align-center">
           <div class="pl-3">
-            <img class="w-[40px] h-[20px] aspect-[3/4] rounded-md mb-1" :src="flagUrl">
+            <img class="w-[40px] h-[20px] aspect-[3/4] rounded-md" :src="flagUrl">
           </div>
           <input
-              class="customInput py-2 px-1"
+              class="customInput py-2 px-1 mt-[0.9px]"
               type="text"
               v-model="searchText"
               @click="toggleDropdown"
@@ -151,6 +151,7 @@ export default {
             v-model="inputValue"
             @input="updateInputValue"
             :class="setColor()"
+            @click="closeDrowpdown()"
             type="number"
             class="block w-full py-2 px-2 shadow-sm remove-left-border border-radius-right text-gray-800 ring-gray-500 placeholder:text-gray-500 ring-[1.5px] focus:ring-gray-900 dark:focus:ring-gray-50 rounded-r-lg dark:text-gray-50">
       </div>
@@ -162,9 +163,9 @@ export default {
             :key="index"
             @click="selectCountry(country)"
             @focusout="closeDrowpdown()"
-            class="country-option p-5 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-lg"
+            class="country-option p-5 h-[42px] hover:bg-gray-100 dark:hover:bg-gray-600 rounded-lg"
         >
-          <img :src="country.flag" :alt="country.commonName" class="w-[25px] h-[24px] mr-2 rounded-full"/>
+          <img :src="country.flag" :alt="country.commonName" class="w-[24px] h-[24px] mr-2 rounded-full"/>
           <div class="country-info flex gap-1 text-gray-500 dark:text-gray-400">
             <div class="country-name">{{ country.commonName }}</div>
             <div class="country-phone">{{ country.dialingCode }}</div>

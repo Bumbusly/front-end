@@ -24,6 +24,8 @@ const toast = useToast()
 
 // Import Router
 import router from './../../router'
+import ChangeThemeButton from "@/components/UI/ChangeThemeButton.vue";
+import BumbuslyLogo from "@/components/UI/BumbuslyLogo.vue";
 
 // Content Of View
 export default {
@@ -72,6 +74,8 @@ export default {
     }
   },
   components: {
+    BumbuslyLogo,
+    ChangeThemeButton,
     YellowBackground,
     CardItem,
     BeeLoader,
@@ -188,6 +192,11 @@ export default {
     <!-- begin::Background -->
     <YellowBackground></YellowBackground>
     <!-- end::Background -->
+
+    <!--begin::Change Theme Button-->
+    <ChangeThemeButton></ChangeThemeButton>
+    <!--end::Change Theme Button-->
+
     <!-- begin::Signup Card -->
     <!-- begin::Description of Card -->
     <CardItem :card-name="cardTitle" class="card mt-10 aspect-[3/4]">
@@ -197,18 +206,7 @@ export default {
       <!-- end::Description of Card -->
       <!-- begin::Icon of Card (Bumbusly) -->
       <template v-slot:cardImage>
-        <img v-if="store.getters.getTheme == true"
-             width="50"
-             height="55"
-             alt="bumbusly logo"
-             src="./../../assets/media/images/Logo/Bumbusly.svg"/>
-
-        <img v-if="store.getters.getTheme == false"
-             width="50"
-             height="55"
-             alt="bumbusly logo"
-             src="./../../assets/media/images/Logo/Bumbusly-light.png"/>
-
+        <BumbuslyLogo></BumbuslyLogo>
       </template>
       <!-- end::Icon of Card (Bumbusly) -->
       <!-- begin::Body of Card -->

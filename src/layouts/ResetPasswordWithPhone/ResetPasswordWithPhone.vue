@@ -10,6 +10,7 @@ import BaseButton from "@/components/UI/BaseButton.vue";
 import {animate} from "motion";
 import store from '../../store'
 import {useStore} from "vuex";
+import BumbuslyLogo from "@/components/UI/BumbuslyLogo.vue";
 
 export default {
   setup() {
@@ -56,7 +57,7 @@ export default {
       return this.seconds
     },
   },
-  components: {BaseButton, YellowBackground, CardItem, FourDigitValidation},
+  components: {BumbuslyLogo, BaseButton, YellowBackground, CardItem, FourDigitValidation},
   methods: {
     startTimer() {
       if (store.state.resetPasswordTimer > 0) {
@@ -89,17 +90,7 @@ export default {
     <!-- end::Description of Card -->
     <!-- begin::Icon of Card (Bumbusly) -->
     <template v-slot:cardImage>
-      <img v-if="store.getters.getTheme == true"
-           width="50"
-           height="55"
-           alt="bumbusly logo"
-           src="./../../assets/media/images/Logo/Bumbusly.svg"/>
-
-      <img v-if="store.getters.getTheme == false"
-           width="50"
-           height="55"
-           alt="bumbusly logo"
-           src="./../../assets/media/images/Logo/Bumbusly-light.png"/>
+      <BumbuslyLogo></BumbuslyLogo>
     </template>
     <!-- end::Icon of Card (Bumbusly) -->
     <!-- begin::Body of Card -->

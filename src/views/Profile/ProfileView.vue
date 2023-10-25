@@ -19,6 +19,7 @@ import AuthenticationFailed from "@/layouts/AuthenticationFailed/AuthenticationF
 import ProfileContactCard from "@/layouts/ProfileContactCard/ProfileContactCard.vue";
 
 import {useStore} from 'vuex'
+import ProfileSecurityCard from "@/layouts/ProfileSecurityCard/ProfileSecurityCard.vue";
 
 export default {
   computed: {},
@@ -34,6 +35,7 @@ export default {
     }
   },
   components: {
+    ProfileSecurityCard,
     ProfileContactCard,
     Sidebar,
     BaseButton,
@@ -156,6 +158,11 @@ export default {
               zip-code=""
           >
           </ProfileContactCard>
+          <ProfileSecurityCard
+              v-if="activeCard == 'ProfileSecurity'"
+              title="Security Info"
+          >
+          </ProfileSecurityCard>
         </div>
       </div>
       <!--end::Body Section-->

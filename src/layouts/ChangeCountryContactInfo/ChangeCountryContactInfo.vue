@@ -4,9 +4,10 @@ import {defineComponent} from "vue";
 import TickSvg from "@/components/svg/Icons/tick.vue";
 import BaseButton from "@/components/UI/BaseButton.vue";
 import CrossSvg from "@/components/svg/Icons/cross.vue";
+import CountryBox from "@/components/UI/CountryBox.vue";
 
 export default {
-  components: {CrossSvg, BaseButton, TickSvg},
+  components: {CrossSvg, BaseButton, TickSvg, CountryBox},
   data(){
     return{
       country:'',
@@ -30,16 +31,10 @@ export default {
 
 <template>
   <div class="flex justify-center align-center items-center gap-3 w-full">
-    <!-- begin::Country Text Input -->
-    <TextInput class="w-full"
-               id="country"
-               type="country"
-               :placeholder="countryPlaceholder"
-               required="true"
-               autocomplete="country"
-               @input-value-updated="handleCountryInputValueUpdated">
-    </TextInput>
-    <!-- end::Country Text Input -->
+    <!-- begin::CountryBox Select -->
+    <CountryBox>
+    </CountryBox>
+    <!-- end::CountryBox Select -->
 
     <div class="flex justify-center items-center align-center gap-2">
       <BaseButton text="Cancel"

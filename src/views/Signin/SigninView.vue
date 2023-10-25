@@ -9,6 +9,8 @@ import {animate} from 'motion'
 import YellowBackground from "@/components/UI/YellowBackground.vue"
 import CardItem from '@/components/UI/CardItem.vue'
 import BeeLoader from '@/components/UI/BeeLoader.vue'
+import ChangeThemeButton from "@/components/UI/ChangeThemeButton.vue";
+import BumbuslyLogo from "@/components/UI/BumbuslyLogo.vue";
 
 // Import axios API
 import axios from 'axios'
@@ -62,7 +64,9 @@ export default {
   components: {
     YellowBackground,
     CardItem,
-    BeeLoader
+    BeeLoader,
+    ChangeThemeButton,
+    BumbuslyLogo
   },
   methods: {
     // Validate Email Address
@@ -83,8 +87,8 @@ export default {
     // Validate Password
     validatePassword() {
       // Valid Password Regex
-/*      const expression: RegExp =
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i*/
+      /*      const expression: RegExp =
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i*/
       const password: string = this.password
       const result: boolean = (password.length > 0)
       // console.log('password is ' + this.password + ' ' + (result ? 'correct' : 'incorrect'))
@@ -129,7 +133,6 @@ export default {
     },
     // Signin Button Function
     signinClicked() {
-      this.store.commit('changeTheme')
       this.firstTryPhoneOrEmail = false
       this.fistTryPassword = false
       this.validateInputs()
@@ -210,6 +213,12 @@ export default {
   <form class="w-screen h-screen flex justify-center sm:align-center sm:items-center">
     <!-- begin::Background -->
     <YellowBackground></YellowBackground>
+
+    <!--begin::Change Theme Button-->
+    <ChangeThemeButton></ChangeThemeButton>
+    <!--end::Change Theme Button-->
+
+
     <!-- end::Background -->
     <!-- begin::Signin Card -->
     <!-- begin::Description of Card -->
@@ -222,22 +231,11 @@ export default {
       <!-- end::Description of Card -->
       <!-- begin::Icon of Card (Bumbusly) -->
       <template v-slot:cardImage>
-        <img  v-if="store.getters.getTheme == true"
-              width="50"
-              height="55"
-              alt="bumbusly logo"
-              src="./../../assets/media/images/Logo/Bumbusly.svg"/>
-
-        <img  v-if="store.getters.getTheme == false"
-              width="50"
-              height="55"
-              alt="bumbusly logo"
-              src="./../../assets/media/images/Logo/Bumbusly-light.png"/>
+        <BumbuslyLogo></BumbuslyLogo>
       </template>
       <!-- end::Icon of Card (Bumbusly) -->
       <!-- begin::Body of Card -->
       <template v-slot:cardBody>
-
 
         <!-- begin::Email Or Phone Component -->
         <div class="flex flex-col gap-2">
