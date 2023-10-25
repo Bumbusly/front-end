@@ -17,9 +17,10 @@ import AuthenticationWarning from "@/layouts/AutenticationWarning/Authentication
 import AuthenticationWaiting from "@/layouts/AuthenticationWaiting/AuthenticationWaiting.vue";
 import AuthenticationFailed from "@/layouts/AuthenticationFailed/AuthenticationFailed.vue";
 import ProfileContactCard from "@/layouts/ProfileContactCard/ProfileContactCard.vue";
+import ProfileSecurityCard from "@/layouts/ProfileSecurityCard/ProfileSecurityCard.vue";
+import SidebarSvg from "@/components/svg/Icons/sidebar.vue"
 
 import {useStore} from 'vuex'
-import ProfileSecurityCard from "@/layouts/ProfileSecurityCard/ProfileSecurityCard.vue";
 
 export default {
   computed: {},
@@ -53,7 +54,8 @@ export default {
     ProfilePersonalCard,
     AuthenticationWarning,
     AuthenticationWaiting,
-    AuthenticationFailed
+    AuthenticationFailed,
+    SidebarSvg,
   },
   methods: {
     logoutClicked() {
@@ -86,12 +88,13 @@ export default {
 <template>
   <div class="flex">
     <!--begin::Sidebar-->
-    <Sidebar class=""></Sidebar>
+    <Sidebar class="hidden lg:flex"></Sidebar>
     <!--begin::Right Section-->
-    <div class="w-5/6">
+    <div class="w-full lg:w-5/6">
       <!--begin::Header (Top Section)-->
-      <div class="flex justify-between shadow-md px-6 py-4 w-100 bg-[#FFFFFF] dark:bg-gray-900 sticky">
+      <div class="flex justify-between shadow-none lg:shadow-md lg:h-[80px] px-6 py-5 lg:px-6 lg:py-4 w-100 bg-gray-50 lg:bg-[#FFFFFF] dark:bg-gray-900 sticky">
         <BaseButton
+            classes="hidden lg:flex"
             ref="logoutButton"
             text="Logout"
             bgColor="red"
@@ -100,16 +103,18 @@ export default {
             @buttonClicked="logoutClicked()"
         >
         </BaseButton>
-        <div class="flex right-0 align-center items-center justify-center gap-4 text-gray-900 dark:text-gray-50">
-          <h2 class="text-[14px]">Devon Wills</h2>
-          <PersonSvg class="w-[46px] h-[46px] fill-gray-500 rounded-full" v-if="store.state.avatar == ''"></PersonSvg>
+        <div class="flex right-0 align-center items-center w-full my-2 mx-0 lg:w-auto justify-between lg:justify-center gap-4 text-gray-900 dark:text-gray-50">
+          <h2 class="text-[14px] hidden lg:flex">Devon Wills</h2>
+          <SidebarSvg class="fill-gray-600 lg:hidden"></SidebarSvg>
+          <h2 class="text-[16px] font-[600] lg:hidden">Profile</h2>
+          <PersonSvg class="w-[40px] h-[40px] lg:w-[46px] lg:h-[46px] fill-gray-500 rounded-full" v-if="store.state.avatar == ''"></PersonSvg>
           <!--<img class="w-[46px] h-[46px] rounded-full" src="@/assets/media/images/profile.png">-->
         </div>
       </div>
       <!--end::Header (Top Section)-->
       <!--begin::Body Section-->
-      <div class="flex h-screen bg-gray-50 dark:bg-gray-800">
-        <div class="w-[174px] flex flex-col m-5 text-gray-900 dark:text-gray-50 gap-2">
+      <div class="flex flex-col lg:flex-row h-screen bg-gray-50 dark:bg-gray-800">
+        <div class="w-screen lg:w-[174px] flex justify-center lg:flex-col m-1 lg:m-5 text-gray-900 dark:text-gray-50 gap-2 absolute">
           <MenuItem menu-title="Personal" :isLock="needAuthintication == true"
                     :isActive="activeCard == 'ProfilePersonal'" @buttonClicked="activeCard= 'ProfilePersonal'">
             <template v-slot:menu-icon>
@@ -131,38 +136,40 @@ export default {
             </template>
           </MenuItem>
         </div>
-        <div class="w-full pt-5 pl-5 overflow-y-auto">
+        <div class="w-full pt-5 pl-5 relative">
           <AuthenticationWarning v-if="activeCard == 'AuthenticationWarning'"></AuthenticationWarning>
           <AuthenticationWaiting v-if="activeCard == 'AuthenticationWaiting'"></AuthenticationWaiting>
           <AuthenticationFailed v-if="activeCard == 'AuthenticationFailed'"></AuthenticationFailed>
-          <ProfilePersonalCard
-              v-if="activeCard == 'ProfilePersonal'"
-              title="Personal Info"
-              :name="store.state.name"
-              midName=""
-              :lastName="store.state.lastName"
-              :gender="store.state.gender"
-              birthday=""
-              :isVerified="true">
-          </ProfilePersonalCard>
-          <ProfileContactCard
-              v-if="activeCard == 'ProfileCantact'"
-              title="Contact Info"
-              :phone="store.state.phone"
-              :email="store.state.email"
-              address=""
-              :country="store.state.country"
-              :city="store.state.city"
-              :state="store.state.state"
-              district=""
-              zip-code=""
-          >
-          </ProfileContactCard>
-          <ProfileSecurityCard
-              v-if="activeCard == 'ProfileSecurity'"
-              title="Security Info"
-          >
-          </ProfileSecurityCard>
+          <div class="lg:relative lg:left-48 absolute left-0 top-16 px-3 w-screen">
+            <ProfilePersonalCard
+                v-if="activeCard == 'ProfilePersonal'"
+                title="Personal Info"
+                :name="store.state.name"
+                midName=""
+                :lastName="store.state.lastName"
+                :gender="store.state.gender"
+                birthday=""
+                :isVerified="true">
+            </ProfilePersonalCard>
+            <ProfileContactCard
+                v-if="activeCard == 'ProfileCantact'"
+                title="Contact Info"
+                :phone="store.state.phone"
+                :email="store.state.email"
+                address=""
+                :country="store.state.country"
+                :city="store.state.city"
+                :state="store.state.state"
+                district=""
+                zip-code=""
+            >
+            </ProfileContactCard>
+            <ProfileSecurityCard
+                v-if="activeCard == 'ProfileSecurity'"
+                title="Security Info"
+            >
+            </ProfileSecurityCard>
+          </div>
         </div>
       </div>
       <!--end::Body Section-->

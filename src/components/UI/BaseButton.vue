@@ -44,6 +44,10 @@ export default {
       type: Number,
       default: 14
     },
+    classes: {
+      type: String,
+      default: ''
+    }
   },
   emits: ['buttonClicked'],
   methods: {
@@ -71,6 +75,9 @@ export default {
       if (this.isWaiting) {
         return `bg-${this.bgColor}-300 hover:bg-${this.bgColor}-300`
       }
+    },
+    setOtherClasses(){
+      return ' ' + this.classes
     }
   }
 }
@@ -78,13 +85,13 @@ export default {
 
 <template>
   <RouterLink v-if="link != null" :to="link">
-    <button :class="buttonClass() + setWidth() + setHeight() + setFontSize()" class="py-[10px] rounded-lg border-1">
+    <button :class="buttonClass() + setWidth() + setHeight() + setFontSize() + setOtherClasses()" class="py-[10px] rounded-lg border-1">
       {{ text }}
     </button>
   </RouterLink>
 
   <div v-if="link == null" class="flex px-2 rounded-lg border-1 justify-center items-center align-center gap-2"
-       :class="buttonClass() + setWidth() + setHeight() + setFontSize() + isWaitingClass()"
+       :class="buttonClass() + setWidth() + setHeight() + setFontSize() + setOtherClasses()"
        v-on:click.prevent="onClick()">
     <slot name="buttonIcon"></slot>
     <button>

@@ -29,14 +29,7 @@ export default {
       <ChangeableDataItem :isChange="editUsername" label="Username" :text="username"
                           @buttonClicked="editUsername = !editUsername">
         <template v-slot:container>
-          <ChangePhoneContactInfo v-if="changePhoneStage == 1"
-                                  @submitClicked="changePhoneStage = 2"
-                                  @cancelClicked="editPhone = !editPhone">
-          </ChangePhoneContactInfo>
-          <ConfirmChangePhoneContactInfo v-if="changePhoneStage == 2"
-                                         @submitClicked="changePhoneStage = 1; editPhone = !editPhone"
-                                         @cancelClicked="changePhoneStage = 1; editPhone = !editPhone">
-          </ConfirmChangePhoneContactInfo>
+
         </template>
       </ChangeableDataItem>
     </div>

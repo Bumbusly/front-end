@@ -44,15 +44,17 @@ export default {
 </script>
 
 <template>
-  <div class="relative shadow-md stroke-1 w-[564px] m-3 rounded-2xl p-6 flex flex-col gap-7 bg-[#FFFFFF] dark:bg-gray-900 text-gray-900 dark:text-gray-50">
-    <div class="absolute right-0 top-0 w-[120px] h-[120px] m-4 flex justify-center align-center items-center profile-image-container">
-      <img class="w-auto h-auto absolute rounded-full shadow-md profile-image"
-           src="@/assets/media/images/profile.png">
-      <PersonSvg class="w-auto h-auto absolute shadow-md profile-image fill-gray-500 rounded-full" v-if="store.state.avatar != ''"></PersonSvg>
-      <div v-if="isVerified" class="absolute h-[40px] w-[40px] rounded-full bg-yellow-500 right-0 bottom-0 flex justify-center align-cetner items-center">
-        <VerifiedSvg class="fill-gray-50"></VerifiedSvg>
+  <div class="relative shadow-md stroke-1 lg:w-[564px] overflow-y-scroll rounded-2xl p-6 flex flex-col gap-7 bg-[#FFFFFF] dark:bg-gray-900 text-gray-900 dark:text-gray-50">
+    <div class="relative w-full flex justify-center">
+      <div class="lg:absolute relative right-0 top-0 w-[120px] h-[120px] m-4 flex justify-center align-center items-center profile-image-container">
+        <img class="w-auto h-auto absolute rounded-full shadow-md profile-image"
+             src="@/assets/media/images/profile.png">
+        <PersonSvg class="w-auto h-auto absolute shadow-md profile-image fill-gray-500 rounded-full" v-if="store.state.avatar != ''"></PersonSvg>
+        <div v-if="isVerified" class="absolute h-[40px] w-[40px] rounded-full bg-yellow-500 right-0 bottom-0 flex justify-center align-cetner items-center">
+          <VerifiedSvg class="fill-gray-50"></VerifiedSvg>
+        </div>
+        <CameraSvg class="fill-gray-900"></CameraSvg>
       </div>
-      <CameraSvg class="fill-gray-900"></CameraSvg>
     </div>
     <h2 class="text-[18px] font-bold">{{title}}</h2>
     <DataItem label="Name" :text="name"></DataItem>
