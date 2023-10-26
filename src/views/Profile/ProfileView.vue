@@ -22,7 +22,16 @@ import SidebarSvg from "@/components/svg/Icons/sidebar.vue"
 
 import {useStore} from 'vuex'
 
+// Import axios API
+import axios from 'axios'
+
+import router from "@/router";
+
 export default {
+  mounted() {
+    console.log(this.store.getters.getUserID)
+    this.getProfile()
+  },
   computed: {},
   setup() {
     const store = useStore()
@@ -32,7 +41,8 @@ export default {
     return {
       isloading: false,
       activeCard: 'ProfilePersonal',
-      needAuthintication: false
+      needAuthintication: false,
+      isLoading: false
     }
   },
   components: {
@@ -80,7 +90,23 @@ export default {
     },
     clickMenuItem(this) {
       // console.log(this)
-    }
+    },
+    async getProfile() {
+      this.isLoading = true
+      try {
+        const url: string = 'https://bb.abansoft.ir/api/v1/user/' + this.store.getters.userID
+        axios.defaults.headers.common['Authorization'] = `Bearer ${this.store.getters.token}`;
+        const {data} = await axios.get(url)
+        console.log(data)
+        if (data.hasError === false) {
+          console.log("it's true")
+          this.isLoading = false
+        }
+      } catch (error) {
+        console.log(error)
+        this.isLoading = false
+      }
+    },
   }
 }
 </script>

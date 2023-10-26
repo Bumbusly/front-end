@@ -156,6 +156,7 @@ export default {
         console.log(data)
         if (data.hasError === false) {
           this.storeData(
+              data.content.userID,
               this.emailOrPhone,
               data.content.token,
               data.content.refereshToken,
@@ -183,7 +184,8 @@ export default {
         this.signinClicked()
       }
     },
-    storeData(username: string, token: string, refereshToken: string, isAuth: boolean, name: string, lastName: string, country: string, province: string, city: string) {
+    storeData(userID: string, username: string, token: string, refereshToken: string, isAuth: boolean, name: string, lastName: string, country: string, province: string, city: string) {
+      this.store.commit('setUserID', userID)
       this.store.commit('setUsername', username)
       this.store.commit('setToken', token)
       this.store.commit('setRefereshToken', refereshToken)

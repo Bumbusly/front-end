@@ -3,6 +3,7 @@ import createPersistedState from 'vuex-persistedstate'
 
 const store = createStore({
     state: {
+        userID: '',
         username: '',
         name: '',
         midName: '',
@@ -79,6 +80,9 @@ const store = createStore({
         setAvatar(state: any, avatar: string) {
             state.avatar = avatar
         },
+        setUserID(state: any, userID: string) {
+            state.userID = userID
+        },
         changeTheme(state: any) {
             state.isDark = !state.isDark
         }
@@ -137,6 +141,12 @@ const store = createStore({
         },
         getTheme(state: any) {
             return state.isDark
+        },
+        userID(state: any) {
+            return state.userID
+        },
+        token(state: any) {
+            return state.token
         }
     },
     plugins: [createPersistedState({})]

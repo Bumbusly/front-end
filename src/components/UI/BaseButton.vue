@@ -58,7 +58,7 @@ export default {
     },
     buttonClass() {
       if (this.isOutline == 'false')
-        return `text-${this.textColor}-50 bg-${this.bgColor}-500 border-${this.bgColor}-300 hover:text-${this.bgColor}-100 hover:bg-${this.bgColor}-400 hover:border-${this.bgColor}-500`
+        return `text-${this.textColor}-50 bg-${this.bgColor}-500 border-${this.bgColor}-300 hover:text-${this.bgColor}-100 hover:bg-${this.bgColor}-300 hover:border-${this.bgColor}-500`
       else
         return `text-${this.textColor}-500 border-${this.bgColor}-500 hover:text-${this.bgColor}-900 hover:bg-${this.bgColor}-100 hover:border-${this.bgColor}-400`
     },
@@ -73,7 +73,7 @@ export default {
     },
     isWaitingClass() {
       if (this.isWaiting) {
-        return `bg-${this.bgColor}-300 hover:bg-${this.bgColor}-300`
+        return `bg-${this.bgColor}-300 hover:bg-${this.bgColor}-300 `
       }
     },
     setOtherClasses(){
@@ -85,13 +85,13 @@ export default {
 
 <template>
   <RouterLink v-if="link != null" :to="link">
-    <button :class="buttonClass() + setWidth() + setHeight() + setFontSize() + setOtherClasses()" class="py-[10px] rounded-lg border-1">
+    <button :class="buttonClass() + setWidth() + setHeight() + setFontSize() + setOtherClasses() + isWaitingClass()" class="py-[10px] rounded-lg border-1">
       {{ text }}
     </button>
   </RouterLink>
 
   <div v-if="link == null" class="flex px-2 rounded-lg border-1 justify-center items-center align-center gap-2"
-       :class="buttonClass() + setWidth() + setHeight() + setFontSize() + setOtherClasses()"
+       :class="buttonClass() + setWidth() + setHeight() + setFontSize() + setOtherClasses() + isWaitingClass()"
        v-on:click.prevent="onClick()">
     <slot name="buttonIcon"></slot>
     <button>
