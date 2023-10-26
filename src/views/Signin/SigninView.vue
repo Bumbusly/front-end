@@ -153,19 +153,13 @@ export default {
           'Content-Type': 'application/json'
         }
         const {data} = await axios.post(url, body, headers)
-        console.log(data)
+        // console.log(data)
         if (data.hasError === false) {
           this.storeData(
               data.content.userID,
-              this.emailOrPhone,
               data.content.token,
               data.content.refereshToken,
-              true,
-              data.content.firstName,
-              data.content.lastName,
-              data.content.country,
-              data.content.province,
-              data.content.city
+              data.content.externalAuthStatus,
           )
           toast.success('You Logged Succesfully')
           router.push('/profile')
@@ -184,18 +178,11 @@ export default {
         this.signinClicked()
       }
     },
-    storeData(userID: string, username: string, token: string, refereshToken: string, isAuth: boolean, name: string, lastName: string, country: string, province: string, city: string) {
+    storeData(userID: string, token: string, refereshToken: string, authenticationStatus: string) {
       this.store.commit('setUserID', userID)
-      this.store.commit('setUsername', username)
       this.store.commit('setToken', token)
       this.store.commit('setRefereshToken', refereshToken)
-      this.store.commit('setIsAuthenticated', isAuth)
-      this.store.commit('setPhone', this.emailOrPhone)
-      this.store.commit('setName', name)
-      this.store.commit('setLastName', lastName)
-      this.store.commit('setCountry', country)
-      this.store.commit('setState', province)
-      this.store.commit('setCity', city)
+      this.store.commit('setAuthenticationStatus', authenticationStatus)
     }
   },
   // Set Title of Page

@@ -1,18 +1,4 @@
-<!-- Error Toast Component -->
-
-<template>
-  <div class="container">
-    <div class="flex flex-col gap-1">
-    <div class="flex align-center items-center gap-2">
-      <CrossCircleRed class="fill-red-500"></CrossCircleRed>
-        <h2 class="font-semibold text-[14px]">Accept Terms & Conditions</h2>
-    </div>
-      <div>
-        <h2>To register and work with the site, you must read and accept the rules and regulations of the site</h2>
-      </div>
-    </div>
-  </div>
-</template>
+<!-- Accept Policy Error Toast Component -->
 
 <script lang="ts">
 import CrossCircleRed from "@/components/svg/Icons/cross_circle_red.vue"
@@ -34,6 +20,22 @@ export default {
   }
 };
 </script>
+
+
+<template>
+  <div class="container m-2">
+    <div class="flex flex-col gap-0">
+    <div class="flex align-center items-center gap-2">
+      <CrossCircleRed class="fill-red-500"></CrossCircleRed>
+        <h2 class="font-semibold text-[14px]">Accept Terms & Conditions</h2>
+    </div>
+      <div>
+        <h2>To register and work with the site, you must read and accept the rules and regulations of the site</h2>
+      </div>
+    </div>
+  </div>
+</template>
+
 
 <style>
 .Vue-Toastification__toast--error {

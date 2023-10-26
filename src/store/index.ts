@@ -5,7 +5,7 @@ const store = createStore({
     state: {
         userID: '',
         username: '',
-        name: '',
+        firstName: '',
         midName: '',
         lastName: '',
         gender: '',
@@ -21,6 +21,7 @@ const store = createStore({
         avatar: '',
         token: '',
         refereshToken: '',
+        authenticationStatus: 'WAIT',
         isAuthenticated: false,
         resetPasswordTimer: 120,
         isDark: true,
@@ -29,8 +30,8 @@ const store = createStore({
         setUsername(state: any, username: string) {
             state.username = username
         },
-        setName(state: any, name: string) {
-            state.name = name
+        setFirstName(state: any, firstName: string) {
+            state.firstName = firstName
         },
         setMidName(state: any, midName: string) {
             state.midName = midName
@@ -71,8 +72,8 @@ const store = createStore({
         setRefereshToken(state: any, refereshToken: string) {
             state.refereshToken = refereshToken
         },
-        setIsAuthenticated(state: any, isAuthenticated: string) {
-            state.isAuthenticated = isAuthenticated
+        setAuthenticationStatus(state: any, authenticationStatus: string) {
+            state.authenticationStatus = authenticationStatus
         },
         setTimer(state: any, timer: number) {
             state.resetPasswordTimer = timer
@@ -85,10 +86,13 @@ const store = createStore({
         },
         changeTheme(state: any) {
             state.isDark = !state.isDark
+        },
+        setIsAuthenticated(state: any, isAuthenticated: boolean) {
+            state.isAuthenticated = isAuthenticated
         }
     },
     getters: {
-        isAuthenticated(state: any) {
+        authenticatedStatus(state: any) {
             return state.isAuthenticated
         },
         username(state: any) {
@@ -97,8 +101,8 @@ const store = createStore({
         resetPasswordTimer(state: any) {
             return state.resetPasswordTimer;
         },
-        name(state: any) {
-            return state.name
+        firstName(state: any) {
+            return state.firstName
         },
         midName(state: any) {
             return state.midName
@@ -147,6 +151,9 @@ const store = createStore({
         },
         token(state: any) {
             return state.token
+        },
+        isAuthenticated(state: any) {
+            return state.isAuthenticated
         }
     },
     plugins: [createPersistedState({})]

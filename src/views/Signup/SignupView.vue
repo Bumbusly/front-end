@@ -10,6 +10,10 @@ import YellowBackground from '@/components/UI/YellowBackground.vue'
 import CardItem from '@/components/UI/CardItem.vue'
 import BeeLoader from '@/components/UI/BeeLoader.vue'
 import MobileBox from '@/components/UI/MobileBox.vue'
+import ChangeThemeButton from "@/components/UI/ChangeThemeButton.vue";
+import BumbuslyLogo from "@/components/UI/BumbuslyLogo.vue";
+import ErrorAcceptPolicy from "@/components/UI/Toasts/Errors/ErrorAcceptPolicy.vue";
+import SuccessCreateUser from "@/components/UI/Toasts/Success/SuccessCreateUser.vue";
 
 import {useStore} from "vuex";
 import store from "@/store";
@@ -24,8 +28,6 @@ const toast = useToast()
 
 // Import Router
 import router from './../../router'
-import ChangeThemeButton from "@/components/UI/ChangeThemeButton.vue";
-import BumbuslyLogo from "@/components/UI/BumbuslyLogo.vue";
 
 // Content Of View
 export default {
@@ -80,6 +82,8 @@ export default {
     CardItem,
     BeeLoader,
     MobileBox,
+    ErrorAcceptPolicy,
+    SuccessCreateUser
   },
   computed: {},
   methods: {
@@ -104,7 +108,7 @@ export default {
     },
     // Putting value of Country text input to variable
     handleCountryInputValueUpdated(value: string) {
-      console.log(value)
+      // console.log(value)
       this.countryCode = value
     },
     // Putting value of Password text input to variable
@@ -142,6 +146,19 @@ export default {
         this.passwordValid = 'red'
       }
       if (!this.agreementValid) {
+        toast.error(ErrorAcceptPolicy, {
+          timeout: 5000,
+          closeOnClick: true,
+          pauseOnFocusLoss: true,
+          pauseOnHover: true,
+          draggable: true,
+          draggablePercent: 0.6,
+          showCloseButtonOnHover: false,
+          hideProgressBar: false,
+          closeButton: "button",
+          icon: false,
+          rtl: false
+        });
       }
       if (
           this.validatePhone() &&
@@ -158,6 +175,7 @@ export default {
         const url = 'https://bb.abansoft.ir/api/v1/account/s'
         const body = {
           username: this.countryCode + this.phone,
+          phoneNumber: this.countryCode + this.phone,
           password: this.password,
         }
         const headers: Object = {
@@ -165,7 +183,19 @@ export default {
         }
         const {data} = await axios.post(url, body, headers)
         if (data.content === true) {
-          toast.success('Your account has been successfully created, please sign in')
+          toast.success(SuccessCreateUser, {
+            timeout: 5000,
+            closeOnClick: true,
+            pauseOnFocusLoss: true,
+            pauseOnHover: true,
+            draggable: true,
+            draggablePercent: 0.6,
+            showCloseButtonOnHover: false,
+            hideProgressBar: false,
+            closeButton: "button",
+            icon: false,
+            rtl: false
+          });
           this.isLoading = false
           router.push('/signin')
         }

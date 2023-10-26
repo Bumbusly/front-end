@@ -6,7 +6,7 @@ import axios from 'axios'
 export default {
   mounted() {
     window.addEventListener('click', (e) => {
-      if (!this.$el.contains(e.target)){
+      if (!this.$el.contains(e.target)) {
         this.isOpen = false
       }
     })
@@ -57,11 +57,11 @@ export default {
       );
     },
 
- /*   filteredCountries() {
-     return this.countries.filter((country) =>
-         country.commonName.includes(this.searchText)
-     );
-   },*/
+    /*   filteredCountries() {
+        return this.countries.filter((country) =>
+            country.commonName.includes(this.searchText)
+        );
+      },*/
 
   },
   methods: {
@@ -110,6 +110,7 @@ export default {
       this.isOpen = !this.isOpen;
     },
     filterCountries() {
+      this.isOpen = true;
       this.$emit('input-country-updated', this.selectedPrefixPhone);
       // This method is called when the user types in the search box
       // Update the filteredCountries computed property.
@@ -157,7 +158,7 @@ export default {
       </div>
       <div
           class="dropdown h-[236px] overflow-y-scroll bg-[#FFFFFF] dark:bg-gray-700 border-gray-500 border mt-2 rounded-lg flex flex-col gap-3 p-4 shadow-md"
-          v-show="isOpen" >
+          v-show="isOpen">
         <div
             v-for="(country, index) in filteredCountries"
             :key="index"
@@ -243,11 +244,11 @@ input {
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
-.remove-left-border{
+.remove-left-border {
   clip-path: inset(-5px -5px -5px 0px);
 }
 
-.remove-right-border{
-  border-right:1px solid rgba(255, 255, 255, 0.58) !important;
+.remove-right-border {
+  border-right: 1px solid rgba(255, 255, 255, 0.58) !important;
 }
 </style>

@@ -25,7 +25,7 @@ export default {
 
 <template>
   <!--begin::Sidebar-->
-  <div class="flex flex-col w-[305px] h-screen shadow-md p-6 gap-6 lg:border-2 border-opacity-50 z-50 border-gray-200 bg-[#ffffff] dark:bg-gray-900 dark:border-gray-900 text-gray-900 dark:text-gray-50">
+  <div class="flex flex-col w-1/6 h-screen shadow-md p-6 gap-6 lg:border-2 border-opacity-50 z-50 border-gray-200 bg-[#ffffff] dark:bg-gray-900 dark:border-gray-900 text-gray-900 dark:text-gray-50">
     <!--begin::Logo-->
     <div class="flex align-center items-center">
       <BumbuslyLogo></BumbuslyLogo>

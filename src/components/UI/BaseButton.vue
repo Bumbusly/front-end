@@ -74,6 +74,8 @@ export default {
     isWaitingClass() {
       if (this.isWaiting) {
         return `bg-${this.bgColor}-300 hover:bg-${this.bgColor}-300 `
+      }else{
+        return ''
       }
     },
     setOtherClasses(){

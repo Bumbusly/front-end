@@ -56,3 +56,12 @@ body {
 .text-clickable {
   cursor: pointer;
 }
+
+@media only screen and (max-width: 600px){
+  .Vue-Toastification__container .Vue-Toastification__toast {
+    width: 95% !important;
+    margin-top: 5px !important;
+    margin: 0 auto;
+  }
+}
+
