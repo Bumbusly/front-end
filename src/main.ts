@@ -44,7 +44,7 @@ app.use(store)
 app.use(Toast, {
   newestOnTop: true,
   filterBeforeCreate: (toast: any, toasts: any) => {
-    if (toasts.filter((t: any) => t.type === toast.type).length > 1) {
+    if (toasts.filter((t: any) => t.type === toast.type).length > 0) {
       // Returning false discards the toast
       return false
     }

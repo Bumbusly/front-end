@@ -19,13 +19,21 @@ export default {
     const store = useStore()
     return {store}
   },
-  components: {HomeSvg, MenuItem, PersonSvg, MoveDownSvg, SyncSvg, PaymentsSvg, SavingSvg,SidebarItem, BumbuslyLogo}
+  emits: ['sidebarClicked'],
+  components: {HomeSvg, MenuItem, PersonSvg, MoveDownSvg, SyncSvg, PaymentsSvg, SavingSvg, SidebarItem, BumbuslyLogo},
+  methods: {
+    onClick() {
+      this.$emit('sidebarClicked')
+    }
+  }
 }
 </script>
 
 <template>
   <!--begin::Sidebar-->
-  <div class="flex flex-col w-1/6 h-screen shadow-md p-6 gap-6 lg:border-2 border-opacity-50 z-50 border-gray-200 bg-[#ffffff] dark:bg-gray-900 dark:border-gray-900 text-gray-900 dark:text-gray-50">
+  <div
+      class="flex flex-col h-screen shadow-md p-6 gap-6 lg:border-2 border-opacity-50 z-50 border-gray-200 bg-[#ffffff] dark:bg-gray-900 dark:border-gray-900 text-gray-900 dark:text-gray-50"
+  >
     <!--begin::Logo-->
     <div class="flex align-center items-center">
       <BumbuslyLogo></BumbuslyLogo>

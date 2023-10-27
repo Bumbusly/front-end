@@ -17,6 +17,10 @@ export default {
     // Putting value of Email text input to variable
     handleStateInputValueUpdated(value: string) {
       this.state = value
+      this.sendDataToParent()
+    },
+    sendDataToParent() {
+      this.$emit('input-data', this.state)
     },
     submitClick() {
       this.$emit('submitClicked')

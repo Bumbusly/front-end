@@ -15,7 +15,7 @@ export default {
 </script>
 
 <template>
-  <div class="w-full h-full flex left-0 justify-center align-center items-center pb-28 absolute lg:relative">
+  <div class="w-full h-full flex left-0 justify-center align-center items-center pb-28 fixed lg:relative">
     <div class="flex flex-col gap-6 justify-center align-center items-center m-10">
       <HourglassSvg class="fill-gray-500"></HourglassSvg>
       <div class="flex flex-col justify-center align-center items-center text-center">

@@ -25,6 +25,7 @@ const store = createStore({
         isAuthenticated: false,
         resetPasswordTimer: 120,
         isDark: true,
+        authUrl: ''
     },
     mutations: {
         setUsername(state: any, username: string) {
@@ -89,11 +90,14 @@ const store = createStore({
         },
         setIsAuthenticated(state: any, isAuthenticated: boolean) {
             state.isAuthenticated = isAuthenticated
+        },
+        setAuthUrl(state: any, url: string) {
+            state.authUrl = url
         }
     },
     getters: {
-        authenticatedStatus(state: any) {
-            return state.isAuthenticated
+        authenticationStatus(state: any) {
+            return state.authenticationStatus
         },
         username(state: any) {
             return state.username
@@ -154,6 +158,9 @@ const store = createStore({
         },
         isAuthenticated(state: any) {
             return state.isAuthenticated
+        },
+        authUrl(state: any) {
+            return state.authUrl
         }
     },
     plugins: [createPersistedState({})]

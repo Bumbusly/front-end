@@ -35,7 +35,7 @@ export default {
 
 <template>
   <div v-if="isActive == false && isLock== false" v-on:click.prevent="onClick()"
-       class="h-[40px] w-[106px] lg:w-[164px] bg-gray-500 bg-opacity-20 lg:bg-opacity-0 flex justify-left align-center items-center gap-2 px-2 py-1 hover:ring-1 rounded-lg hover:bg-yellow-300 hover:bg-opacity-10 ring-yellow-600 hover:ring-opacity-40 fill-yellow-600">
+       class="h-[40px] w-[106px] lg:w-[164px] bg-gray-500 bg-opacity-20 lg:bg-opacity-0 flex justify-left align-center items-center gap-2 px-2 py-1 hover:ring-1 rounded-lg hover:bg-yellow-300 hover:bg-opacity-10 ring-yellow-600 hover:ring-opacity-40 fill-gray-500 lg:fill-yellow-600">
     <slot name="menu-icon"></slot>
     <h2 class="text-[14px]">{{ menuTitle }}</h2>
   </div>

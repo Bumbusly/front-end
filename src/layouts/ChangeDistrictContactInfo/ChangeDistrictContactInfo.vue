@@ -17,6 +17,10 @@ export default {
     // Putting value of Email text input to variable
     handleDistrictInputValueUpdated(value: string) {
       this.district = value
+      this.sendDataToParent()
+    },
+    sendDataToParent() {
+      this.$emit('input-data', this.district)
     },
     submitClick() {
       this.$emit('submitClicked')

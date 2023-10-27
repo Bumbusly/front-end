@@ -153,14 +153,13 @@ export default {
           'Content-Type': 'application/json'
         }
         const {data} = await axios.post(url, body, headers)
-        // console.log(data)
         if (data.hasError === false) {
           this.storeData(
               data.content.userID,
               data.content.token,
               data.content.refereshToken,
               data.content.externalAuthStatus,
-          )
+              data.content.externalAuthUrl)
           toast.success('You Logged Succesfully')
           router.push('/profile')
           this.isLoading = false
@@ -173,16 +172,13 @@ export default {
         this.isLoading = false
       }
     },
-    keymonitor(event: any) {
-      if (event.key == 'Enter') {
-        this.signinClicked()
-      }
-    },
-    storeData(userID: string, token: string, refereshToken: string, authenticationStatus: string) {
+    storeData(userID: string, token: string, refereshToken: string, authenticationStatus: string, authUrl: string) {
       this.store.commit('setUserID', userID)
       this.store.commit('setToken', token)
       this.store.commit('setRefereshToken', refereshToken)
       this.store.commit('setAuthenticationStatus', authenticationStatus)
+      this.store.commit('setAuthUrl', authUrl)
+      this.store.commit('setIsAuthenticated', true)
     }
   },
   // Set Title of Page
@@ -266,9 +262,7 @@ export default {
               autocomplete="true"
               :color="passwordValid"
               hidden="true"
-              @input-value-updated="handlePasswordInputValueUpdated"
-              v-on:keyup="keymonitor"
-          >
+              @input-value-updated="handlePasswordInputValueUpdated">
             <template v-slot:helpText>
               <small
                   :class="passwordValid == 'red' ? '' : 'hidden'"

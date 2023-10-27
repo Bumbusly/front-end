@@ -65,3 +65,6 @@ body {
   }
 }
 
+.dir-rtl {
+  direction: rtl;
+}

@@ -18,6 +18,10 @@ export default {
     // Putting value of Email text input to variable
     handleCountryInputValueUpdated(value: string) {
       this.country = value
+      this.sendDataToParent()
+    },
+    sendDataToParent() {
+      this.$emit('input-data', this.country)
     },
     submitClick() {
       this.$emit('submitClicked')
@@ -32,7 +36,8 @@ export default {
 <template>
   <div class="flex justify-center align-center items-center gap-3 w-full">
     <!-- begin::CountryBox Select -->
-    <CountryBox>
+    <CountryBox
+        @input-value-updated="handleCountryInputValueUpdated">
     </CountryBox>
     <!-- end::CountryBox Select -->
 

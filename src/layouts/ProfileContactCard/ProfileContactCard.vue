@@ -85,17 +85,53 @@ export default {
     zipCode: {
       type: String,
       default: ''
+    },
+    isWaiting: {
+      type: Boolean,
+      default: false
+    }
+  },
+  methods: {
+    updatePhoneValue(value: string) {
+      this.$emit('input-phone-updated', value);
+    },
+    updateEmailValue(value: string) {
+      this.$emit('input-email-updated', value);
+    },
+    updateAddressValue(value: string) {
+      this.$emit('input-address-updated', value);
+    },
+    updateCountryValue(value: string) {
+      this.$emit('input-country-updated', value);
+    },
+    updateCityValue(value: string) {
+      this.$emit('input-city-updated', value);
+    },
+    updateStateValue(value: string) {
+      this.$emit('input-state-updated', value);
+    },
+    updateDistrictValue(value: string) {
+      this.$emit('input-district-updated', value);
+    },
+    updateZipcodeValue(value: string) {
+      this.$emit('input-zipCode-updated', value);
+    },
+    changeAddress(){
+      this.changeAddressStage = 1
+      this.editAddress = !this.editAddress
+      this.$emit('profile-updated');
     }
   }
 }
 </script>
 
 <template>
-  <div class="relative shadow-md stroke-1 w-[564px] rounded-2xl p-6 flex flex-col gap-6 bg-[#FFFFFF] dark:bg-gray-900 text-gray-900 dark:text-gray-50">
+  <div
+      class="relative shadow-md stroke-1 lg:w-[564px] rounded-2xl p-6 flex flex-col gap-6 bg-[#FFFFFF] dark:bg-gray-900 text-gray-900 dark:text-gray-50">
     <h2 class="text-[18px] font-bold">{{ title }}</h2>
     <div class="w-full flex flex-col gap-7">
       <ChangeableDataItem :isChange="editPhone" label="Phone" :text="phone"
-                          @buttonClicked="editPhone = !editPhone">
+                          @buttonClicked="editPhone = !editPhone" :isWaiting="isWaiting">
         <template v-slot:container>
           <ChangePhoneContactInfo v-if="changePhoneStage == 1"
                                   @submitClicked="changePhoneStage = 2"
@@ -108,12 +144,11 @@ export default {
         </template>
       </ChangeableDataItem>
 
-      <ChangeableDataItem :isChange="editEmail" label="Email" :text="email" @buttonClicked="editEmail = !editEmail">
+      <ChangeableDataItem :isChange="editEmail" label="Email" :text="email" @buttonClicked="editEmail = !editEmail" :isWaiting="isWaiting">
         <template v-slot:container>
           <ChangeEmailContactInfo v-if="changeEmailStage == 1"
                                   @submitClicked="changeEmailStage = 2"
                                   @cancelClicked="editEmail = !editEmail">
-
           </ChangeEmailContactInfo>
 
           <ConfirmChangeEmailContactInfo
@@ -125,63 +160,72 @@ export default {
       </ChangeableDataItem>
 
       <ChangeableDataItem :isChange="editAddress" label="Address" :text="address"
-                          @buttonClicked="editAddress = !editAddress">
+                          @buttonClicked="editAddress = !editAddress" :isWaiting="isWaiting">
         <template v-slot:container>
           <ChangeAddressContactInfo
               v-if="changeAddressStage == 1"
-              @submitClicked="changeAddressStage = 1; editAddress = !editAddress"
-              @cancelClicked="changeAddressStage = 1; editAddress = !editAddress">
+              @submitClicked="changeAddress()"
+              @cancelClicked="changeAddressStage = 1; editAddress = !editAddress"
+              @input-data="updateAddressValue">
           </ChangeAddressContactInfo>
         </template>
       </ChangeableDataItem>
 
       <ChangeableDataItem :isChange="editCountry" label="Country" :text="country"
-                          @buttonClicked="editCountry = !editCountry">
+                          @buttonClicked="editCountry = !editCountry" :isWaiting="isWaiting">
         <template v-slot:container>
           <ChangeCountryContactInfo
               v-if="changeCountryStage == 1"
               @submitClicked="changeCountryStage = 1; editCountry = !editCountry"
-              @cancelClicked="changeCountryStage = 1; editCountry = !editCountry">
+              @cancelClicked="changeCountryStage = 1; editCountry = !editCountry"
+              @input-data="updateCountryValue">
           </ChangeCountryContactInfo>
         </template>
       </ChangeableDataItem>
 
-      <ChangeableDataItem :isChange="editCity" label="City" :text="city" @buttonClicked="editCity = !editCity">
+      <ChangeableDataItem :isChange="editCity" label="City" :text="city" @buttonClicked="editCity = !editCity" :isWaiting="isWaiting">
         <template v-slot:container>
           <ChangeCityContactInfo
               v-if="changeCityStage == 1"
               @submitClicked="changeCityStage = 1; editCity = !editCity"
-              @cancelClicked="changeCityStage = 1; editCity = !editCity">
+              @cancelClicked="changeCityStage = 1; editCity = !editCity"
+              @input-data="updateCityValue">
           </ChangeCityContactInfo>
         </template>
       </ChangeableDataItem>
 
-      <ChangeableDataItem :isChange="editState" label="State" :text="state" @buttonClicked="editState = !editState">
+      <ChangeableDataItem :isChange="editState" label="State" :text="state" @buttonClicked="editState = !editState" :isWaiting="isWaiting">
         <template v-slot:container>
           <ChangeStateContactInfo
               v-if="changeStateStage == 1"
               @submitClicked="changeStateStage = 1; editState = !editState"
-              @cancelClicked="changeStateStage = 1; editState = !editState">
+              @cancelClicked="changeStateStage = 1; editState = !editState"
+              @input-data="updateStateValue">
           </ChangeStateContactInfo>
         </template>
       </ChangeableDataItem>
 
-      <ChangeableDataItem :isChange="editDistrict" label="District" :text="district" @buttonClicked="editDistrict = !editDistrict">
+      <ChangeableDataItem :isChange="editDistrict" label="District" :text="district"
+                          @buttonClicked="editDistrict = !editDistrict" :isWaiting="isWaiting">
         <template v-slot:container>
           <ChangeDistrictContactInfo
               v-if="changeDistrictStage == 1"
               @submitClicked="changeDistrictStage = 1; editDistrict = !editDistrict"
-              @cancelClicked="changeDistrictStage = 1; editDistrict = !editDistrict">
+              @cancelClicked="changeDistrictStage = 1; editDistrict = !editDistrict"
+              @input-data="updateDistrictValue">
           </ChangeDistrictContactInfo>
         </template>
       </ChangeableDataItem>
 
-      <ChangeableDataItem :isChange="editZipCode" label="ZipCode" :text="zipCode">
+      <ChangeableDataItem :isChange="editZipCode" label="ZipCode" :text="zipCode"
+                          @buttonClicked="editZipCode = !editZipCode" :isWaiting="isWaiting">
         <template v-slot:container>
           <ChangeZipCodeContactInfo
               v-if="changeZipCodeStage == 1"
               @submitClicked="changeZipCodeStage = 1; editZipCode = !editZipCode"
-              @cancelClicked="changeZipCodeStage = 1; editZipCode = !editZipCode">
+              @cancelClicked="changeZipCodeStage = 1; editZipCode = !editZipCode"
+              @input-data="updateZipcodeValue"
+          >
           </ChangeZipCodeContactInfo>
         </template>
       </ChangeableDataItem>

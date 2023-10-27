@@ -103,7 +103,7 @@ export default {
       return `ring-gray-500`;
     },
     updateInputValue() {
-      this.$emit('input-value-updated', this.inputValue);
+      this.$emit('input-value-updated', this.selectedCountry);
     },
     closeDrowpdown() {
       // console.log("close dropdown");
@@ -113,7 +113,7 @@ export default {
       this.isOpen = !this.isOpen;
     },
     filterCountries() {
-      this.$emit('input-country-updated', this.selectedCountry);
+      this.updateInputValue()
       // This method is called when the user types in the search box
       // Update the filteredCountries computed property.
     },
@@ -124,7 +124,7 @@ export default {
       this.searchText = country.commonName;
       this.selectedCountry = country.commonName;
       this.flagUrl = country.flag
-      this.$emit('input-country-updated', this.selectedCountry);
+      this.updateInputValue()
     },
   },
 };

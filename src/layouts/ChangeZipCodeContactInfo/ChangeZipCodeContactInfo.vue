@@ -17,6 +17,10 @@ export default {
     // Putting value of Email text input to variable
     handleZipCodeInputValueUpdated(value: string) {
       this.zipCode = value
+      this.sendDataToParent()
+    },
+    sendDataToParent() {
+      this.$emit('input-data', this.zipCode)
     },
     submitClick() {
       this.$emit('submitClicked')

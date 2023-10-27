@@ -29,7 +29,15 @@ import router from "@/router";
 
 export default {
   mounted() {
+    this.checkAthenticationStatus()
     this.getProfile()
+    if (window.innerWidth < 768) {
+      this.showSidebar = true;
+    }
+  },
+  unmounted() {
+    // Cleanup listeners
+    window.removeEventListener('resize', this.handleResize);
   },
   computed: {},
   setup() {
@@ -38,11 +46,11 @@ export default {
   },
   data() {
     return {
-      isloading: false,
+      isLoading: true,
       activeCard: 'AuthenticationWarning',
       needAuthintication: false,
-      isLoading: false,
       username: '',
+      password: '',
       firstName: '',
       midName: '',
       lastName: '',
@@ -54,7 +62,17 @@ export default {
       country: '',
       city: '',
       state: '',
+      district: '',
       zipCode: '',
+      showSidebar: false,
+      newUsername: '',
+      newPhone: '',
+      newEmail: '',
+      newAddress: '',
+      newCountry: '',
+      newCity: '',
+      newState: '',
+      newZipCode: '',
     }
   },
   components: {
@@ -80,6 +98,17 @@ export default {
     SidebarSvg,
   },
   methods: {
+    handleResize() {
+      if (window.innerWidth > 768) {
+        this.showSidebar = true;
+      } else {
+        this.showSidebar = false;
+      }
+      window.addEventListener('resize', this.handleResize);
+    },
+    toggleSidebar() {
+      this.showSidebar = !this.showSidebar;
+    },
     checkAthenticationStatus() {
       /*
       SUCCESS => 1
@@ -101,7 +130,6 @@ export default {
       FAILED => AuthenticationFailed
       OTHER => AuthenticationWaiting
       */
-
       if (this.store.getters.authenticationStatus == 'WAIT') {
         this.activeCard = 'AuthenticationWarning'
         this.needAuthintication = true
@@ -150,7 +178,6 @@ export default {
         axios.defaults.headers.common['Authorization'] = `Bearer ${this.store.getters.token}`;
         const {data} = await axios.get(url)
         if (data.hasError === false) {
-          console.log(data)
           this.username = data.content.username
           this.firstName = data.content.firstName
           this.midName = data.content.midName
@@ -167,23 +194,33 @@ export default {
           this.isLoading = false
         }
       } catch (error) {
+        this.logoutStore()
         console.log(error)
         this.isLoading = false
       }
     },
-    async setProfile(firstName: string, midName: string, lastName: string, phone: string, email: string, address: string, country: string, city: string, state: string, zipCode: string) {
+    async setProfile() {
       this.isLoading = true
       try {
         const url: string = 'https://bb.abansoft.ir/api/v1/user/'
         const body = {
+          id: this.store.getters.userID,
           username: this.username,
-          phoneNumber: phone,
-          firstName: firstName,
-          midName: midName,
-          lastName: lastName,
+          password: 'string',
+          firstName: this.store.getters.firstName,
+          lastName: this.store.getters.lastName,
+          avatar: null,
+          phoneNumber: '',
+          email: this.email,
+          countryID: this.country,
+          provinceID: this.state,
+          cityID: this.city,
+          address: this.address,
+          zipCode: this.zipCode,
+          role: "",
         }
         axios.defaults.headers.common['Authorization'] = `Bearer ${this.store.getters.token}`;
-        const {data} = await axios.post(url, body)
+        const {data} = await axios.put(url, body)
         if (data.hasError === false) {
 
         }
@@ -192,6 +229,38 @@ export default {
         this.isLoading = false
       }
     },
+    // Putting value of Phone text input to variable
+    handlePhoneInputValueUpdated(value: string) {
+      this.phone = value
+    },
+    // Putting value of Email text input to variable
+    handleEmailInputValueUpdated(value: string) {
+      this.email = value
+    },
+    // Putting value of Address text input to variable
+    handleAddressInputValueUpdated(value: string) {
+      this.address = value
+    },
+    // Putting value of Country text input to variable
+    handleCountryInputValueUpdated(value: string) {
+      this.country = value
+    },
+    // Putting value of City text input to variable
+    handleCityInputValueUpdated(value: string) {
+      this.city = value
+    },
+    // Putting value of State text input to variable
+    handleStateInputValueUpdated(value: string) {
+      this.state = value
+    },
+    // Putting value of District text input to variable
+    handleDistrictInputValueUpdated(value: string) {
+      this.district = value
+    },
+    // Putting value of ZipCode text input to variable
+    handleZipcodeInputValueUpdated(value: string) {
+      this.zipCode = value
+    },
   }
 }
 </script>
@@ -199,26 +268,18 @@ export default {
 <template>
   <div class="flex">
     <!--begin::Sidebar-->
-    <Sidebar class="hidden lg:flex"></Sidebar>
+    <Sidebar class="lg:flex lg:w-auto" :class="{ hidden: showSidebar }"></Sidebar>
     <!--begin::Right Section-->
-    <div class="w-full lg:w-5/6">
+    <div class="w-full">
       <!--begin::Header (Top Section)-->
       <div
-          class="flex justify-between shadow-none lg:shadow-md lg:h-[80px] px-6 py-5 lg:px-6 lg:py-4 w-100 bg-gray-50 lg:bg-[#FFFFFF] dark:bg-gray-900 sticky">
-        <BaseButton
-            classes="hidden lg:block"
-            ref="logoutButton"
-            text="Logout"
-            bgColor="red"
-            width="auto"
-            textColor="red"
-            @buttonClicked="logoutClicked()"
-        >
-        </BaseButton>
+          class="flex shadow-none lg:shadow-md lg:h-[80px] px-6 py-5 bg-gray-50 lg:bg-[#FFFFFF] dark:bg-gray-900">
         <div
             class="flex right-0 align-center items-center w-full my-2 mx-0 lg:w-auto justify-between lg:justify-center gap-4 text-gray-900 dark:text-gray-50">
           <h2 class="text-[14px] hidden lg:flex">Devon Wills</h2>
-          <SidebarSvg class="fill-gray-600 lg:hidden"></SidebarSvg>
+          <div class="pr-5" @click.prevent="toggleSidebar()">
+            <SidebarSvg class="fill-gray-600 lg:hidden"></SidebarSvg>
+          </div>
           <h2 class="text-[16px] font-[600] lg:hidden">Profile</h2>
           <PersonSvg class="w-[40px] h-[40px] lg:w-[46px] lg:h-[46px] fill-gray-500 rounded-full"
                      v-if="store.state.avatar == ''"></PersonSvg>
@@ -271,12 +332,22 @@ export default {
                 title="Contact Info"
                 :phone="phone"
                 :email="email"
-                address=""
+                :address="address"
                 :country="country"
                 :city="city"
                 :state="state"
                 district=""
-                zip-code=""
+                :zip-code="zipCode"
+                :isWaiting="isLoading"
+                @profile-updated="setProfile()"
+                @input-phone-updated="handlePhoneInputValueUpdated"
+                @input-email-updated="handleEmailInputValueUpdated"
+                @input-address-updated="handleAddressInputValueUpdated"
+                @input-country-updated="handleCountryInputValueUpdated"
+                @input-city-updated="handleCityInputValueUpdated"
+                @input-state-updated="handleStateInputValueUpdated"
+                @input-district-updated="handleDistrictInputValueUpdated"
+                @input-zipCode-updated="handleZipcodeInputValueUpdated"
             >
             </ProfileContactCard>
             <ProfileSecurityCard
