@@ -24,7 +24,7 @@ const toast = useToast()
 import {useStore} from 'vuex'
 
 // Import Router
-import router from './../../router'
+import router from '../../../router'
 
 // Content Of View
 export default {

@@ -19,6 +19,8 @@ import AuthenticationFailed from "@/layouts/AuthenticationFailed/AuthenticationF
 import ProfileContactCard from "@/layouts/ProfileContactCard/ProfileContactCard.vue";
 import ProfileSecurityCard from "@/layouts/ProfileSecurityCard/ProfileSecurityCard.vue";
 import SidebarSvg from "@/components/svg/Icons/sidebar.vue"
+import ProfileView from "@/layouts/Profile/ProfileView.vue"
+import WalletView from "@/layouts/wallet/WalletView.vue"
 
 import {useStore} from 'vuex'
 
@@ -46,34 +48,8 @@ export default {
   },
   data() {
     return {
-      isLoading: true,
-      activeCard: 'AuthenticationWarning',
-      needAuthintication: false,
-      username: '',
-      password: '',
-      firstName: '',
-      midName: '',
-      lastName: '',
-      gender: '',
-      birthday: '',
-      phone: '',
-      email: '',
-      address: '',
-      country: '',
-      city: '',
-      state: '',
-      district: '',
-      zipCode: '',
       showSidebar: false,
-      newUsername: '',
-      newPhone: '',
-      newEmail: '',
-      newAddress: '',
-      newCountry: '',
-      newCity: '',
-      newState: '',
-      newZipCode: '',
-      sidebarTemp: true,
+      selectTab: 'Wallet'
     }
   },
   components: {
@@ -97,6 +73,8 @@ export default {
     AuthenticationWaiting,
     AuthenticationFailed,
     SidebarSvg,
+    ProfileView,
+    WalletView
   },
   methods: {
     handleResize() {
@@ -128,6 +106,7 @@ export default {
       FAILED => AuthenticationFailed
       OTHER => AuthenticationWaiting
       */
+
       if (this.store.getters.authenticationStatus == 'WAIT') {
         this.activeCard = 'AuthenticationWarning'
         this.needAuthintication = true
@@ -143,9 +122,11 @@ export default {
       }
     },
     logoutClicked() {
-      // console.log(this.store.state)
       this.logoutStore()
       this.reloadPage()
+    },
+    reloadPage() {
+      window.location.reload()
     },
     storeData(username: string, firstName: string, lastName: string, country: string, province: string, city: string) {
       this.store.commit('setUsername', username)
@@ -155,19 +136,6 @@ export default {
       this.store.commit('setCountry', country)
       this.store.commit('setState', province)
       this.store.commit('setCity', city)
-    },
-    reloadPage() {
-      window.location.reload()
-    },
-    clickMenuItem(this) {
-      // console.log(this)
-    },
-    logoutStore() {
-      this.store.commit('setUserID', "")
-      this.store.commit('setToken', "")
-      this.store.commit('setRefereshToken', "")
-      this.store.commit('setIsAuthenticated', false)
-      this.store.commit('setAuthenticationStatus', 'WAIT')
     },
     async getProfile() {
       this.isLoading = true
@@ -197,75 +165,11 @@ export default {
         this.isLoading = false
       }
     },
-    async setProfile() {
-      this.isLoading = true
-      try {
-        const url: string = 'https://bb.abansoft.ir/api/v1/user/'
-        const body = {
-          id: this.store.getters.userID,
-          username: this.username,
-          password: 'string',
-          firstName: this.store.getters.firstName,
-          lastName: this.store.getters.lastName,
-          avatar: null,
-          phoneNumber: '',
-          email: this.email,
-          countryID: this.country,
-          provinceID: this.state,
-          cityID: this.city,
-          address: this.address,
-          zipCode: this.zipCode,
-          role: "",
-        }
-        axios.defaults.headers.common['Authorization'] = `Bearer ${this.store.getters.token}`;
-        const {data} = await axios.put(url, body)
-        if (data.hasError === false) {
-
-        }
-      } catch (error) {
-        console.log(error)
-        this.isLoading = false
-      }
-    },
-    // Putting value of Phone text input to variable
-    handlePhoneInputValueUpdated(value: string) {
-      this.phone = value
-    },
-    // Putting value of Email text input to variable
-    handleEmailInputValueUpdated(value: string) {
-      this.email = value
-    },
-    // Putting value of Address text input to variable
-    handleAddressInputValueUpdated(value: string) {
-      this.address = value
-    },
-    // Putting value of Country text input to variable
-    handleCountryInputValueUpdated(value: string) {
-      this.country = value
-    },
-    // Putting value of City text input to variable
-    handleCityInputValueUpdated(value: string) {
-      this.city = value
-    },
-    // Putting value of State text input to variable
-    handleStateInputValueUpdated(value: string) {
-      this.state = value
-    },
-    // Putting value of District text input to variable
-    handleDistrictInputValueUpdated(value: string) {
-      this.district = value
-    },
-    // Putting value of ZipCode text input to variable
-    handleZipcodeInputValueUpdated(value: string) {
-      this.zipCode = value
-    },
     openSidebar(event: Event) {
-      console.log('sidebar opened')
       event.stopPropagation()
       this.showSidebar = false
     },
     closeSidebar(event: Event) {
-      console.log('sidebar closed')
       event.stopPropagation()
       this.showSidebar = true
     }
@@ -288,7 +192,7 @@ export default {
           <div class="pr-5 z-10" @click="openSidebar">
             <SidebarSvg class="fill-gray-600 lg:hidden"></SidebarSvg>
           </div>
-          <h2 class="text-[16px] font-[600] lg:hidden">Profile</h2>
+          <h2 class="text-[16px] font-[600] lg:hidden">{{selectTab}}</h2>
           <PersonSvg class="w-[40px] h-[40px] lg:w-[46px] lg:h-[46px] fill-gray-500 rounded-full"
                      v-if="store.state.avatar == ''"></PersonSvg>
           <!--<img class="w-[46px] h-[46px] rounded-full" src="@/assets/media/images/profile.png">-->
@@ -296,77 +200,8 @@ export default {
       </div>
       <!--end::Header (Top Section)-->
       <!--begin::Body Section-->
-      <div class="flex flex-col lg:flex-row h-screen bg-gray-50 dark:bg-gray-800">
-        <div
-            class="w-screen lg:w-[174px] flex justify-center lg:flex-col m-1 lg:m-5 text-gray-900 dark:text-gray-50 gap-2 absolute z-10">
-          <MenuItem menu-title="Personal" :isLock="needAuthintication == true"
-                    :isActive="activeCard == 'ProfilePersonal'" @buttonClicked="activeCard= 'ProfilePersonal'">
-            <template v-slot:menu-icon>
-              <PersonSvg class="fill-inherit mb-1"></PersonSvg>
-            </template>
-          </MenuItem>
-
-          <MenuItem menu-title="Contact" :isLock="needAuthintication == true"
-                    :isActive="activeCard == 'ProfileCantact'" @buttonClicked="activeCard= 'ProfileCantact'">
-            <template v-slot:menu-icon>
-              <LocationSvg class="fill-inherit mb-1"></LocationSvg>
-            </template>
-          </MenuItem>
-
-          <MenuItem menu-title="Security" :isLock="needAuthintication == true"
-                    :isActive="activeCard == 'ProfileSecurity'" @buttonClicked="activeCard= 'ProfileSecurity'">
-            <template v-slot:menu-icon>
-              <LockSvg class="fill-inherit mb-1"></LockSvg>
-            </template>
-          </MenuItem>
-        </div>
-        <div class="w-full pt-5 relative">
-          <AuthenticationWarning v-if="activeCard == 'AuthenticationWarning'"></AuthenticationWarning>
-          <AuthenticationWaiting v-if="activeCard == 'AuthenticationWaiting'"></AuthenticationWaiting>
-          <AuthenticationFailed v-if="activeCard == 'AuthenticationFailed'"></AuthenticationFailed>
-          <div class="lg:relative lg:left-48 absolute left-0 top-16 lg:top-0 px-3 w-screen">
-            <ProfilePersonalCard
-                v-if="activeCard == 'ProfilePersonal'"
-                title="Personal Info"
-                :name="firstName"
-                :midName="midName"
-                :lastName="lastName"
-                :gender="gender"
-                birthday=""
-                :isVerified="true">
-            </ProfilePersonalCard>
-            <ProfileContactCard
-                v-if="activeCard == 'ProfileCantact'"
-                title="Contact Info"
-                :phone="phone"
-                :email="email"
-                :address="address"
-                :country="country"
-                :city="city"
-                :state="state"
-                district=""
-                :zip-code="zipCode"
-                :isWaiting="isLoading"
-                @profile-updated="setProfile()"
-                @input-phone-updated="handlePhoneInputValueUpdated"
-                @input-email-updated="handleEmailInputValueUpdated"
-                @input-address-updated="handleAddressInputValueUpdated"
-                @input-country-updated="handleCountryInputValueUpdated"
-                @input-city-updated="handleCityInputValueUpdated"
-                @input-state-updated="handleStateInputValueUpdated"
-                @input-district-updated="handleDistrictInputValueUpdated"
-                @input-zipCode-updated="handleZipcodeInputValueUpdated"
-            >
-            </ProfileContactCard>
-            <ProfileSecurityCard
-                v-if="activeCard == 'ProfileSecurity'"
-                title="Security Info"
-                :username="username"
-            >
-            </ProfileSecurityCard>
-          </div>
-        </div>
-      </div>
+      <ProfileView v-if="selectTab == 'Profile'"></ProfileView>
+      <WalletView v-if="selectTab == 'Wallet'"></WalletView>
       <!--end::Body Section-->
     </div>
     <!--end::Right Section-->

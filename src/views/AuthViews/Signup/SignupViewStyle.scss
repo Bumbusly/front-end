@@ -1,18 +1,18 @@
 .background {
-    background-image: url(../../assets/media/images/AuthorizeBackground/AuthorizeBackground.svg);
+    background-image: url(../../../assets/media/images/AuthorizeBackground/AuthorizeBackground.svg);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    z-index: -1;
+    z-index: 0;
 }
 
 @media only screen and (max-width: 640px) {
     .background {
-        background-image: url(../../assets/media/images/AuthorizeBackground/AuthorizeBackground.svg);
+        background-image: url(../../../assets/media/images/AuthorizeBackground/AuthorizeBackground.svg);
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: cover;
-        z-index: -1;
+        z-index: 0;
         transform: translateY(-75%);
     }
 }

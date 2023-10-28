@@ -10,7 +10,6 @@ export default {
         this.isOpen = false
       }
     })
-
     this.getCountries()
   },
   props: {

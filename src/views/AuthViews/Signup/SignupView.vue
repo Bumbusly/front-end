@@ -27,7 +27,7 @@ import {useToast} from 'vue-toastification'
 const toast = useToast()
 
 // Import Router
-import router from './../../router'
+import router from '../../../router'
 
 // Content Of View
 export default {
@@ -349,4 +349,4 @@ export default {
   <!-- end::Container (Signup Form) -->
 </template>
 
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+<style src="../../../../node_modules/vue-multiselect/dist/vue-multiselect.min.css"></style>

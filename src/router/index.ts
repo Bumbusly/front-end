@@ -1,8 +1,8 @@
 import {createRouter, createWebHistory} from 'vue-router'
-import SigninView from '@/views/Signin/SigninView.vue'
-import SignupView from '@/views/Signup/SignupView.vue'
-import ForgotPasswordView from '/src/views/ForgotPassword/ForgotPasswordView.vue';
-import ProfileView from '@/views/Profile/ProfileView.vue'
+import SigninView from '@/views/AuthViews/Signin/SigninView.vue'
+import SignupView from '@/views/AuthViews/Signup/SignupView.vue'
+import ForgotPasswordView from '/src/views/AuthViews/ForgotPassword/ForgotPasswordView.vue';
+import UserView from '@/views/UserView/UserView.vue'
 
 // Import Toast Library
 import {useToast} from 'vue-toastification'
@@ -53,9 +53,9 @@ const router = createRouter({
             }
         },
         {
-            path: '/profile',
-            name: 'profile',
-            component: ProfileView,
+            path: '/user',
+            name: 'user',
+            component: UserView,
             meta: {
                 requiresAuth: true
                 // public: true,
@@ -80,7 +80,7 @@ router.beforeEach((to, from, next) => {
     } else {
         if (store.getters.isAuthenticated && to.meta.disableIfLoggedIn) {
             next({
-                name: 'profile'
+                name: 'user'
             })
             toast.error(
                 'You have entered your account with ' +

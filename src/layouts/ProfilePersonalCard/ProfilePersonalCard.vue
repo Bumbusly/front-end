@@ -44,7 +44,7 @@ export default {
 </script>
 
 <template>
-  <div class="relative shadow-md stroke-1 lg:w-[564px] rounded-2xl p-6 flex flex-col gap-7 bg-[#FFFFFF] dark:bg-gray-900 text-gray-900 dark:text-gray-50">
+  <div class="relative shadow-md stroke-1 lg:w-[564px] h-[500px] lg:h-[500px] overflow-y-scroll rounded-2xl p-6 flex flex-col gap-7 bg-[#FFFFFF] dark:bg-gray-900 text-gray-900 dark:text-gray-50">
     <div class="relative w-full flex justify-center">
       <div class="lg:absolute relative right-0 top-0 w-[120px] h-[120px] m-4 flex justify-center align-center items-center profile-image-container">
         <img class="w-auto h-auto absolute rounded-full shadow-md profile-image"
