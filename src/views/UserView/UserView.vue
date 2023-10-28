@@ -73,6 +73,7 @@ export default {
       newCity: '',
       newState: '',
       newZipCode: '',
+      sidebarTemp: true,
     }
   },
   components: {
@@ -105,9 +106,6 @@ export default {
         this.showSidebar = false;
       }
       window.addEventListener('resize', this.handleResize);
-    },
-    toggleSidebar() {
-      this.showSidebar = !this.showSidebar;
     },
     checkAthenticationStatus() {
       /*
@@ -261,6 +259,16 @@ export default {
     handleZipcodeInputValueUpdated(value: string) {
       this.zipCode = value
     },
+    openSidebar(event: Event) {
+      console.log('sidebar opened')
+      event.stopPropagation()
+      this.showSidebar = false
+    },
+    closeSidebar(event: Event) {
+      console.log('sidebar closed')
+      event.stopPropagation()
+      this.showSidebar = true
+    }
   }
 }
 </script>
@@ -268,16 +276,16 @@ export default {
 <template>
   <div class="flex">
     <!--begin::Sidebar-->
-    <Sidebar class="lg:flex lg:w-auto" :class="{ hidden: showSidebar }"></Sidebar>
+    <Sidebar class="lg:flex lg:w-auto lg:relative absolute z-50" :class="{ hidden: showSidebar }"></Sidebar>
     <!--begin::Right Section-->
-    <div class="w-full">
+    <div class="w-full" :class="showSidebar == true ? 'brightness-100' : 'brightness-50'" @click="closeSidebar">
       <!--begin::Header (Top Section)-->
       <div
-          class="flex shadow-none lg:shadow-md lg:h-[80px] px-6 py-5 bg-gray-50 lg:bg-[#FFFFFF] dark:bg-gray-900">
+          class="flex shadow-none lg:shadow-md lg:h-[80px] px-6 py-5 bg-gray-50 lg:bg-[#FFFFFF] dark:bg-gray-800">
         <div
             class="flex right-0 align-center items-center w-full my-2 mx-0 lg:w-auto justify-between lg:justify-center gap-4 text-gray-900 dark:text-gray-50">
           <h2 class="text-[14px] hidden lg:flex">Devon Wills</h2>
-          <div class="pr-5" @click.prevent="toggleSidebar()">
+          <div class="pr-5 z-10" @click="openSidebar">
             <SidebarSvg class="fill-gray-600 lg:hidden"></SidebarSvg>
           </div>
           <h2 class="text-[16px] font-[600] lg:hidden">Profile</h2>
@@ -290,7 +298,7 @@ export default {
       <!--begin::Body Section-->
       <div class="flex flex-col lg:flex-row h-screen bg-gray-50 dark:bg-gray-800">
         <div
-            class="w-screen lg:w-[174px] flex justify-center lg:flex-col m-1 lg:m-5 text-gray-900 dark:text-gray-50 gap-2 absolute z-50">
+            class="w-screen lg:w-[174px] flex justify-center lg:flex-col m-1 lg:m-5 text-gray-900 dark:text-gray-50 gap-2 absolute z-10">
           <MenuItem menu-title="Personal" :isLock="needAuthintication == true"
                     :isActive="activeCard == 'ProfilePersonal'" @buttonClicked="activeCard= 'ProfilePersonal'">
             <template v-slot:menu-icon>
